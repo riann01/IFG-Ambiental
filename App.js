@@ -25,6 +25,11 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import {
+  Button,
+  Container,
+} from 'native-base';
+
 const App: () => React$Node = () => {
   return (
     <>
@@ -40,12 +45,20 @@ const App: () => React$Node = () => {
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
               <Text style={styles.textoCorpo}>
-                Entre com o Facebook
-              </Text>              
+                Fazer Login
+              </Text>
+              <Container style={{justifyContent: 'center'}}>
+                <Button success style={{width: 100, height: 50, left: 50, borderRadius: 5}}>
+                  <Text style={{textAlign: 'center', color: Colors.white, fontSize: 25}}>Botão</Text>
+                </Button>
+              </Container>              
             </View>
           </View>
+          
+          <View style={{flex: 1}}>
           <View style={styles.footer}>
             <Text style={styles.textoFooter}>Feito com ❤ em Formosa</Text>
+          </View>
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -94,6 +107,7 @@ const styles = StyleSheet.create({
     paddingRight: 12,
     textAlign: 'right',
     backgroundColor: '#000000',
+    bottom: 0,
   },
   textoFooter: {
     color: Colors.white,
