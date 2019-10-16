@@ -33,12 +33,19 @@ const App: () => React$Node = () => {
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
-
+          <View style={styles.header}>
+            <Image source={require('./img/logo-preta-01.png')} resizeMode="contain" style={{width: 300, height: 100, marginLeft: 50}}/>
+            <Text style={styles.sectionTitle}>Bem vindo ao IFG Ambiental</Text>
+          </View>
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
-              <Image source={{uri: '/img/logo-preta-01.png'}} style={{width: 260, height: 100}}/>
-              <Text style={styles.sectionTitle}>Bem vindo ao IFG Ambiental</Text>
+              <Text style={styles.textoCorpo}>
+                Entre com o Facebook
+              </Text>              
             </View>
+          </View>
+          <View style={styles.footer}>
+            <Text style={styles.textoFooter}>Feito com ❤ em Formosa</Text>
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -55,17 +62,20 @@ const styles = StyleSheet.create({
     right: 0,
   },
   body: {
-    backgroundColor: Colors.white,
+    backgroundColor: '#FFFFFF',
   },
   sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+    justifyContent: 'center',
+    marginTop: 20,
+    marginBottom: 20,
   },
   sectionTitle: {
     fontSize: 24,
     fontWeight: '600',
     color: Colors.black,
     textAlign: 'center',
+    marginTop: 20,
+    marginBottom: 20,
   },
   sectionDescription: {
     marginTop: 8,
@@ -77,13 +87,26 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   footer: {
-    color: Colors.dark,
+    color: Colors.white,
     fontSize: 12,
     fontWeight: '600',
     padding: 4,
     paddingRight: 12,
     textAlign: 'right',
+    backgroundColor: '#000000',
   },
+  textoFooter: {
+    color: Colors.white,
+    textAlign: 'center',
+  },
+  header: {
+    backgroundColor: '#FFFFFF',
+    justifyContent: 'center',
+  },
+  textoCorpo: {
+    textAlign: 'center',
+    fontSize: 16,
+  }
 });
 
 export default App;
