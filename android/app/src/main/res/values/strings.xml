@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">ifg_ambiental</string>
+    <string name="app_name">IFG Ambiental</string>
+    <string name="facebook_app_id">514994329344471</string>
 </resources>
