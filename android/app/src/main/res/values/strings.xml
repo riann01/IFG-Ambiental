@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">IFG Ambiental</string>
-    <string name="facebook_app_id">514994329344471</string>
+    <string name="facebook_app_id">477419526181330</string>
+    <string name="fb_login_protocol_scheme">fb477419526181330</string>
 </resources>

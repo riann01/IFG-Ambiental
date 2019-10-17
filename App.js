@@ -28,7 +28,10 @@ import {
 import {
   Button,
   Container,
+  Card,
 } from 'native-base';
+
+import { LoginButton } from 'react-native-fbsdk';
 
 const App: () => React$Node = () => {
   return (
@@ -45,13 +48,30 @@ const App: () => React$Node = () => {
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
               <Text style={styles.textoCorpo}>
-                Fazer Login
+                Fazer Login no App
               </Text>
-              <Container style={{justifyContent: 'center'}}>
-                <Button success style={{width: 100, height: 50, left: 50, borderRadius: 5}}>
-                  <Text style={{textAlign: 'center', color: Colors.white, fontSize: 25}}>Botão</Text>
-                </Button>
-              </Container>              
+              <View style={{height: 561, justifyContent: 'center'}}>
+                <LoginButton style={{width: '60%', height: '10%', textAlign: 'center', left: '20%'}}
+                    publishPermissions={['publish_actions']}
+                    readPermissions={['public_profile']}
+                    onLoginFinished={
+                      (error, result) => {
+                        if (error) {
+                          console.log('login has error: ', result.error)
+                        }
+                        else if (result.isCancelled) {
+                          console.log('login is cancelled.')
+                        }
+                        else {
+                          AccessToken.getCurrentAccessToken().then((data) => {
+                            const { accessToken } = data
+                            initUser(accessToken)
+                          })
+                        }
+                      }
+                    }
+                onLogoutFinished={() => alert("Usuário saiu.")}/>
+              </View>              
             </View>
           </View>
           
