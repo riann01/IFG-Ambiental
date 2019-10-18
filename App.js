@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React from 'react';
 import {
   SafeAreaView,
@@ -15,6 +7,7 @@ import {
   Text,
   StatusBar,
   Image,
+  Alert
 } from 'react-native';
 
 import {
@@ -31,7 +24,58 @@ import {
   Card,
 } from 'native-base';
 
-import { LoginButton } from 'react-native-fbsdk';
+import FBSDK, { LoginButton, LoginManager } from 'react-native-fbsdk';
+
+let userData = {
+  name: '',
+  photo: null,
+}
+
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+  statusCodes,
+} from '@react-native-community/google-signin';
+
+loginFacebook = async () => {
+  Alert.alert('Entrei nessa Bagaçaaaaaaaaaaaa')
+  /*try {
+    let result = await LoginManager.logInWithPermissions(['public_profile'])
+    if (result.isCancelled) {
+      Alert.alert('Login Cancelado.')
+    }
+    else {
+      Alert.alert('Login permitido com as permissões:' + result.grantedPermissions.toString())
+    }
+  }
+  catch(error) {
+    Alert.alert('Erro: ' + error)
+  }*/
+}
+
+GoogleSignin.configure();
+
+loginGoogle = async () => {
+  try {
+    await GoogleSignin.hasPlayServices();
+    const userInfo = await GoogleSignin.signIn();
+    this.setState({ userInfo });
+  } catch (error) {
+    if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+      // user cancelled the login flow
+      Alert.alert('Login Cancelado.')
+    } else if (error.code === statusCodes.IN_PROGRESS) {
+      // operation (e.g. sign in) is in progress already
+      Alert.alert('Login em progresso...')
+    } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+      // play services not available or outdated
+      Alert.alert('Google Play Services é necessário para usar Logar com Google.')
+    } else {
+      // some other error happened
+      Alert.alert('Erro Desconhecido')
+    }
+  }
+};
 
 const App: () => React$Node = () => {
   return (
@@ -42,7 +86,7 @@ const App: () => React$Node = () => {
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
           <View style={styles.header}>
-            <Image source={require('./img/logo-preta-01.png')} resizeMode="contain" style={{width: 300, height: 100, marginLeft: 50}}/>
+            <Image source={require('./img/logo-preta-01.png')} resizeMode="contain" style={{width: 300, height: 100, marginLeft: 50,}}/>
             <Text style={styles.sectionTitle}>Bem vindo ao IFG Ambiental</Text>
           </View>
           <View style={styles.body}>
@@ -50,27 +94,17 @@ const App: () => React$Node = () => {
               <Text style={styles.textoCorpo}>
                 Fazer Login no App
               </Text>
-              <View style={{height: 561, justifyContent: 'center'}}>
-                <LoginButton style={{width: '60%', height: '10%', textAlign: 'center', left: '20%'}}
-                    publishPermissions={['publish_actions']}
-                    readPermissions={['public_profile']}
-                    onLoginFinished={
-                      (error, result) => {
-                        if (error) {
-                          console.log('login has error: ', result.error)
-                        }
-                        else if (result.isCancelled) {
-                          console.log('login is cancelled.')
-                        }
-                        else {
-                          AccessToken.getCurrentAccessToken().then((data) => {
-                            const { accessToken } = data
-                            initUser(accessToken)
-                          })
-                        }
-                      }
-                    }
-                onLogoutFinished={() => alert("Usuário saiu.")}/>
+              <View style={{height: 507, justifyContent: 'center'}}>
+                <LoginButton style={{width: '60%', height: '10%', left: '20%', marginBottom:30, justifyContent: 'center'}}
+               />
+                <GoogleSigninButton
+                style={{ width: '60%', height: '10%', left: '20%', marginBottom:30}}
+                size={GoogleSigninButton.Size.Wide}
+                color={GoogleSigninButton.Color.Dark}
+                />
+                <Button danger style={{ width: '60%', height: '10%', left: '15%', justifyContent: 'center'}}>
+                  <Text style={{textAlign: 'center', color: '#FFFFFF', fontWeight: 'bold'}}> Entrar com Login </Text>
+                </Button>
               </View>              
             </View>
           </View>
@@ -95,7 +129,7 @@ const styles = StyleSheet.create({
     right: 0,
   },
   body: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#000000',
   },
   sectionContainer: {
     justifyContent: 'center',
@@ -139,7 +173,9 @@ const styles = StyleSheet.create({
   },
   textoCorpo: {
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: 30,
+    color: Colors.white,
+    marginTop: 35,
   }
 });
 
