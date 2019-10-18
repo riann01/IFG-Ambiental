@@ -37,6 +37,8 @@ target 'ifg_ambiental' do
 
 
 
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
   target 'ifg_ambientalTests' do
     inherit! :search_paths
     # Pods for testing

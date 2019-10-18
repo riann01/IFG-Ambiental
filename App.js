@@ -38,7 +38,6 @@ import {
 } from '@react-native-community/google-signin';
 
 loginFacebook = async () => {
-  Alert.alert('Entrei nessa Bagaçaaaaaaaaaaaa')
   /*try {
     let result = await LoginManager.logInWithPermissions(['public_profile'])
     if (result.isCancelled) {
@@ -93,7 +92,7 @@ const App = ({ navigation }) => (
               <Text style={styles.textoCorpo}>
                 Fazer Login no App
               </Text>
-              <View style={{height: 507, justifyContent: 'center'}}>
+              <View style={{height: 450, justifyContent: 'center'}}>
                 <LoginButton style={{width: '60%', height: '10%', left: '20%', marginBottom:30, justifyContent: 'center'}}
                />
                 <GoogleSigninButton
@@ -101,7 +100,7 @@ const App = ({ navigation }) => (
                 size={GoogleSigninButton.Size.Wide}
                 color={GoogleSigninButton.Color.Dark}
                 />
-                <Button danger style={{ width: '60%', height: '10%', left: '15%', justifyContent: 'center'}}onPress={() => navigation.navigate('MainScreen')}>
+                <Button danger style={{ width: '60%', height: '10%', left: '17%', justifyContent: 'center'}}onPress={() => navigation.navigate('MainScreen')}>
                   <Text style={{textAlign: 'center', color: '#FFFFFF', fontWeight: 'bold'}}> Entrar com Login </Text>
                 </Button>
               </View>              

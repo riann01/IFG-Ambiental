@@ -1,14 +1,22 @@
-import 'React' from 'react';
+import React from 'react';
 import {
     View,
     Text,
     SafeAreaView,
     ScrollView,
-} from 'react-native'
+    StyleSheet,
+} from 'react-native';
 
-import { Container, Input } from 'native-base'
+import {
+  Header,
+  LearnMoreLinks,
+  Colors,
+  DebugInstructions,
+  ReloadInstructions,
+} from 'react-native/Libraries/NewAppScreen';
 
-MainScreen.navigationOptions = {
+import { Container, Input, Button } from 'native-base';
+this.navigationOptions = {
   title: 'MainScreen',
 }
 
@@ -17,12 +25,12 @@ const MainScreen = ({ navigation }) => (
     <SafeAreaView>
         <ScrollView>
             <Input placeholder='Nome de usuário'/>
-            <Button success>
-                <Text>Enviar</Text>
+            <Button success style={styles.button} onPress={() => navigation.navigate('Threads')}>
+                <Text style={styles.textoCor}>Enviar</Text>
             </Button>
-            <Button danger onPress={() => navigation.navigate('App')}>
-                <Text>Retornar</Text>
-            <Button/>
+            <Button danger style={styles.button} onPress={() => navigation.navigate('App')}>
+                <Text style={styles.textoCor}>Retornar</Text>
+            </Button>
         </ScrollView>
     </SafeAreaView>
     </>
@@ -39,4 +47,17 @@ const styles = StyleSheet.create({
     body: {
         backgroundColor: '#000000',
     },
+    button: {
+        width: '50%',
+        marginTop: 10,
+        marginBottom: 10,
+        left: 90,
+        justifyContent: 'center',
+    },
+    textoCor: {
+        color: '#FFFFFF',
+        fontWeight: 'bold',
+    }
 });
+
+export default MainScreen
