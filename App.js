@@ -77,8 +77,7 @@ loginGoogle = async () => {
   }
 };
 
-const App: () => React$Node = () => {
-  return (
+const App = ({ navigation }) => (
     <>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
@@ -102,7 +101,7 @@ const App: () => React$Node = () => {
                 size={GoogleSigninButton.Size.Wide}
                 color={GoogleSigninButton.Color.Dark}
                 />
-                <Button danger style={{ width: '60%', height: '10%', left: '15%', justifyContent: 'center'}}>
+                <Button danger style={{ width: '60%', height: '10%', left: '15%', justifyContent: 'center'}}onPress={() => navigation.navigate('MainScreen')}>
                   <Text style={{textAlign: 'center', color: '#FFFFFF', fontWeight: 'bold'}}> Entrar com Login </Text>
                 </Button>
               </View>              
@@ -118,7 +117,7 @@ const App: () => React$Node = () => {
       </SafeAreaView>
     </>
   );
-};
+
 
 const styles = StyleSheet.create({
   scrollView: {
@@ -178,5 +177,9 @@ const styles = StyleSheet.create({
     marginTop: 35,
   }
 });
+
+App.navigationOptions = {
+  title: 'Login',
+}
 
 export default App;
