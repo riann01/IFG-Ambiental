@@ -1,4 +1,5 @@
 import App from './App';
+import CriarPost from './src/screens/CriarPost';
 import MainScreen from './src/screens/MainScreen';
 import Threads from './src/screens/Threads';
 import Posts from './src/screens/Posts';
@@ -13,6 +14,7 @@ AppRegistry.registerComponent(appName, () => Routes);
 const Routes = createAppContainer(
   createStackNavigator({
     HomeScreen: HomeScreen,
+    CriarPost: CriarPost,
     App: App,
     MainScreen: MainScreen,
     Threads: Threads,

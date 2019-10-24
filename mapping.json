@@ -1,0 +1,25 @@
+{
+    "components": {
+      "Input": {
+        "meta": {
+          "scope": "mobile",
+          "parameters": {},
+          "appearances": {},
+          "variantGroups": {},
+          "states": {}
+        },
+        "appearances": {
+          "default": {
+            "mapping": {},
+            "variantGroups": {
+              "size": {
+                "medium": {
+                  "minHeight": 128
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
