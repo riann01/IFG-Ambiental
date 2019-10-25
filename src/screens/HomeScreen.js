@@ -2,6 +2,9 @@ import React from 'react';
 import { StyleSheet, ImageBackground, Image } from 'react-native';
 import { mapping, dark as darkTheme } from '@eva-design/eva';
 import { ApplicationProvider, Layout, Text, Button } from 'react-native-ui-kitten';
+const Client = require('../etc/ConnectDB');
+
+client = new Client();
 
 const ApplicationContent = ({ navigation }) => (
   <React.Fragment>
@@ -17,7 +20,7 @@ const ApplicationContent = ({ navigation }) => (
       }}
       resizeMode="contain"/>
       <Text style={styles.text} category='h4'>Bem Vindo ao IFG Ambiental</Text>
-      <Button onPress={() => this.props.navigation.navigate('CriarPost')}
+      <Button onPress={() => client.userLogin()}
       style={{marginTop: '30%'}}>
       Quero postar logo!</Button>
     </Layout>
