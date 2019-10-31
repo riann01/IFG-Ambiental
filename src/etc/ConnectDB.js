@@ -1,4 +1,4 @@
-import Pool from 'pg';
+/*import Pool from 'pg';
 import { Alert } from 'react-native';
 
 const client = new Pool({
@@ -20,4 +20,4 @@ async function userLogin() {
     finally {
         client.end()
     }
-}
+}*/

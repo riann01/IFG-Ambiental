@@ -1,7 +1,9 @@
 import React from 'react';
-import { StyleSheet, ImageBackground, Image } from 'react-native';
+import { StyleSheet, ImageBackground, Image, View } from 'react-native';
 import { mapping, light as darkTheme } from '@eva-design/eva';
 import { ApplicationProvider, Layout, Text, Button, IconRegistry, Icon } from 'react-native-ui-kitten';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 //const Client = require('../etc/ConnectDB');
 
 //client = new Client();
@@ -18,10 +20,10 @@ const EmailIcon = (style) => (
   <Icon {...style} name='email'/>
 );
 const HostIcon = (style) => (
-  <Icon {...style} name='briefcase' style={{}}/>
+  <Icon {...style} name='briefcase'/>
 );
 
-const ApplicationContent = ({ navigation }) => (
+const ApplicationContent = () => (
   <React.Fragment>
     <ImageBackground
     source={require('../../img/IF-background.png')}
@@ -69,32 +71,41 @@ const ApplicationContent = ({ navigation }) => (
         }}
         icon={HostIcon}
         status='basic'
-        onPress={() => navigation.navigate('MainScreen')}>
+        onPress={() => this.props.navigation.navigate('CriarPost')}>
         Entrar como convidado 
       </Button>
+      <Layout style={styles.faixa}>
+        <Text style={{textAlign: 'center', marginLeft: '14%'}}>Feito com </Text>
+        <Icon name='heart' fill='red' height={20} width={20} style={{}}/>
+        <Text style={{textAlign: 'center'}}> em Formosa</Text>
+      </Layout>
     </Layout>
     </ImageBackground>
   </React.Fragment>
 ); 
 
-const HomeScreen = () => (
-  <React.Fragment>
-    <IconRegistry icons={EvaIconsPack}/>
-    <ApplicationProvider
-    mapping={mapping}
-    theme={darkTheme}>
-        <ApplicationContent/>
-    </ApplicationProvider>
-  </React.Fragment>
-);
+class HomeScreen extends React.Component {
+  render() {
+    return(
+      <React.Fragment>
+        <IconRegistry icons={EvaIconsPack}/>
+        <ApplicationProvider
+        mapping={mapping}
+        theme={darkTheme}>
+          <ApplicationContent/>
+        </ApplicationProvider>
+      </React.Fragment>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     textAlign:'center',
-    height: '53%',
+    height: '58%',
     width: '80%',
-    top: '23%',
+    top: '21%',
     textAlign: 'center',
     borderRadius: 10,
   },
@@ -105,16 +116,32 @@ const styles = StyleSheet.create({
   },
   imageBackground: {
     alignItems: 'center',
+    alignContent: 'center',
     width: '100%',
     height: '100%',
   },
+  faixa: {
+    height: '5%',
+    width: '80%',
+    backgroundColor: '#FFFFFF',
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    textAlign: 'center',
+    alignContent: 'center',
+    marginBottom: '4%'
+  }
 });
 
-HomeScreen.navigationOptions = ({ /*navigation*/ }) => {
-  return {
-      header: null
-  }
+HomeScreen.navigationOptions = {
+  header: null,
+  title: 'HomeScreen'
 }
 
+const AppNavigator = createStackNavigator({
+  Home: {
+    screen: HomeScreen,
+  },
+});
 
-export default HomeScreen;
+export default createAppContainer(AppNavigator);

@@ -22,6 +22,8 @@ target 'ifg_ambiental' do
   pod 'React-RCTVibration', :path => '../node_modules/react-native/Libraries/Vibration'
   pod 'React-Core/RCTWebSocket', :path => '../node_modules/react-native/'
 
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
+
   pod 'React-cxxreact', :path => '../node_modules/react-native/ReactCommon/cxxreact'
   pod 'React-jsi', :path => '../node_modules/react-native/ReactCommon/jsi'
   pod 'React-jsiexecutor', :path => '../node_modules/react-native/ReactCommon/jsiexecutor'
@@ -36,7 +38,6 @@ target 'ifg_ambiental' do
 
 
 
-
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
   target 'ifg_ambientalTests' do
@@ -44,7 +45,6 @@ target 'ifg_ambiental' do
     # Pods for testing
   end
 
-  use_native_modules!
 end
 
 target 'ifg_ambiental-tvOS' do

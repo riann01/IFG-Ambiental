@@ -21,19 +21,19 @@ this.navigationOptions = {
 }
 
 const PostIcon = (style) => (
-    <Icon {...style} name='checkmark-circle-2'/>
+  <Icon {...style} name='checkmark-circle-2'/>
 );
 
 const BackIcon = (style) => (
-    <Icon {...style} name='arrow-ios-back-outline' />
+  <Icon {...style} name='arrow-ios-back-outline' />
 );
 
 const ImageIcon = (style) => (
-    <Icon {...style} name='image-2'/>
+  <Icon {...style} name='image-2'/>
 );
 
 const BackAction = () => (
-    <TopNavigationAction icon={BackIcon}/>
+  <TopNavigationAction icon={BackIcon}/>
 );
 
 const ApplicationContent = () => (
@@ -108,11 +108,9 @@ const styles = StyleSheet.create({
   }
 });
 
-CriarPost.navigationOptions = ({ /*navigation*/ }) => {
-  return {
-    header: null,
-    title: 'CriarPost'
-  }
+CriarPost.navigationOptions = {
+  header: null,
+  title: 'CriarPost'
 }
 
 export default CriarPost;
