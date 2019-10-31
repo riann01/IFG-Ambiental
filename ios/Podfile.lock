@@ -252,7 +252,7 @@ DEPENDENCIES:
   - ReactCommon/jscallinvoker (from `../node_modules/react-native/ReactCommon`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
-  - RNSVG (from `../node_modules/react-native-svg`)
+  - RNSVG (from `../node_modules/react-native-svg/`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -311,7 +311,7 @@ EXTERNAL SOURCES:
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNSVG:
-    :path: "../node_modules/react-native-svg"
+    :path: "../node_modules/react-native-svg/"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -345,6 +345,6 @@ SPEC CHECKSUMS:
   RNSVG: c0ee15672ff52cdbd7bc8d1d8ba488601bd5db02
   Yoga: 14927e37bd25376d216b150ab2a561773d57911f
 
-PODFILE CHECKSUM: 222cd16638c58f75a585ff809b1ebcb09e9ede20
+PODFILE CHECKSUM: 393a90cf486ecd4f958954b8eb258a161957228c
 
 COCOAPODS: 1.8.4
