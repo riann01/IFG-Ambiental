@@ -103,9 +103,9 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     textAlign:'center',
-    height: '58%',
+    height: '65%',
     width: '80%',
-    top: '21%',
+    top: '18%',
     textAlign: 'center',
     borderRadius: 10,
   },

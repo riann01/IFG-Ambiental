@@ -1,96 +1,118 @@
 import React from 'react';
+import { StyleSheet, ImageBackground, Image } from 'react-native';
+import { mapping, light as darkTheme } from '@eva-design/eva';
 import {
-    View,
-    Text,
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    Alert,
-} from 'react-native';
+  ApplicationProvider,
+  Layout,
+  Text,
+  Button,
+  Input,
+  IconRegistry,
+  Icon,
+  TopNavigation,
+  TopNavigationAction,
+  ListItem
+} from 'react-native-ui-kitten';
+//const Client = require('../etc/ConnectDB');
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+//client = new Client();
 
-import {
-    Container,
-    Input,
-    Button,
-    Card,
-    CardItem,
-    Icon,
-    Right,
-} from 'native-base';
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
 
-this.navigationOptions = {
-  title: 'Threads',
+const BackIcon = (style) => (
+  <Icon {...style} name='arrow-ios-back-outline'/>
+);
+
+const BackAction = () => (
+  <TopNavigationAction icon={BackIcon}/>
+);
+
+const Gift = (style) => (
+    <Icon {...style} name='gift'/>
+);
+
+const Award = (style) => (
+    <Icon {...style} name='award'/>
+);
+
+const Earth = (style) => (
+    <Icon {...style} name='globe-2'/>
+);
+
+const Message = (style) => (
+    <Icon {...style} name='message-circle'/>
+);
+
+const ApplicationContent = ({ navigation }) => (
+  <React.Fragment>
+    <Layout style={styles.container}>
+        <Text style={styles.text} category='h4' style={styles.title}>Threads</Text>
+        <ListItem
+        title='Arrecadações'
+        description='Espaço destinado a postagens de arrecadação de material.'
+        icon={Gift}
+        />
+        <ListItem
+        title='Olha Só!'
+        description='Espaço destinado a postagens de boas ações ambientais.'
+        icon={Award}
+        />
+        <ListItem
+        title='Discussões diversas sobre o Meio Ambiente'
+        description='Espaço destinado a postagens sobre assuntos diversos relacionados ao Meio Ambiente.'
+        icon={Earth}
+        />
+        <ListItem
+        title='Off-Topic'
+        description='Espaço destinado a postagens sobre assuntos não listados aqui.'
+        icon={Message}
+        />
+    </Layout>
+  </React.Fragment>
+); 
+
+class Threads extends React.Component {
+  render() {
+    return(
+      <React.Fragment>
+        <ApplicationProvider
+        mapping={mapping}
+        theme={darkTheme}>
+          <IconRegistry icons={EvaIconsPack}/>
+          <TopNavigation
+            leftControl={BackAction()}/>
+          <ApplicationContent/>
+        </ApplicationProvider>
+      </React.Fragment>
+    );
+  }
 }
-
-func = () => {
-    Alert.alert('Você foi devidamente autenticado.')
-}
-
-const Threads = ({ navigation }) => (
-    <>
-    <SafeAreaView>
-        <ScrollView>
-            <Card>
-                <CardItem>
-                    <Icon active name="folder" onPress={() => navigation.navigate('Posts')}/>
-                    <Text onPress={() => navigation.navigate('Posts')}>Arrecadações</Text>
-                    <Right>
-                        <Icon name="arrow-forward" />
-                    </Right>
-                </CardItem>
-                <CardItem>
-                    <Icon active name="folder" />
-                    <Text>Denúncias</Text>
-                    <Right>
-                        <Icon name="arrow-forward" />
-                    </Right>
-                </CardItem>
-                <CardItem>
-                    <Icon active name="folder" />
-                    <Text>Olha só!</Text>
-                    <Right>
-                        <Icon name="arrow-forward" />
-                    </Right>
-                </CardItem>
-                <CardItem>
-                    <Icon active name="folder" />
-                    <Text>Discussões Diversas sobre o Meio Ambiente</Text>
-                    <Right>
-                        <Icon name="arrow-forward" />
-                    </Right>
-                </CardItem>
-                <CardItem>
-                    <Icon active name="folder" />
-                    <Text>Off-topic</Text>
-                    <Right>
-                        <Icon name="arrow-forward" />
-                    </Right>
-                </CardItem>
-            </Card>
-        </ScrollView>
-    </SafeAreaView>
-    </>
-  );
-
 const styles = StyleSheet.create({
-    scrollView: {
-        backgroundColor: Colors.lighter,
-    },
-    engine: {
-        position: 'absolute',
-        right: 0,
-    },
-    body: {
-        backgroundColor: '#000000',
-    },
+  container: {
+    alignItems: 'center',
+    textAlign:'center',
+  },
+  text: {
+    marginTop: 10,
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  title: {
+    marginVertical: '10%',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  component: {
+    width: '90%',
+    marginVertical: '3%',
+  }
 });
 
-export default Threads
+Threads.navigationOptions = ({ /*navigation*/ }) => {
+  return {
+      header: null
+  }
+}
+
+
+export default Threads;

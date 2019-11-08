@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { mapping, dark as lightTheme } from '@eva-design/eva';
+import { mapping, light as lightTheme } from '@eva-design/eva';
 import {
   ApplicationProvider,
   Layout,
@@ -16,9 +16,6 @@ import {
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { default as customMapping } from '../../mapping.json';
 
-this.navigationOptions = {
-  title: 'CriarPost',
-}
 
 const PostIcon = (style) => (
   <Icon {...style} name='checkmark-circle-2'/>
@@ -66,22 +63,22 @@ const ApplicationContent = () => (
   </Layout>
 ); 
 
-const CriarPost = ({ navigation }) => (
-  <React.Fragment>
-    <IconRegistry icons={EvaIconsPack}/>
-    <ApplicationProvider
-    mapping={mapping}
-    theme={lightTheme}
-    customMapping={customMapping}>
-      <TopNavigation
-      leftControl={BackAction()}
-      title='Postar no Fórum'
-      onPress={() => navigation.navigate('HomeScreen')}
-      />
-      <ApplicationContent/>
-    </ApplicationProvider>
-  </React.Fragment>
-);
+class CriarPost extends React.Component {
+  render() {
+    return(
+      <React.Fragment>
+        <IconRegistry icons={EvaIconsPack}/>
+        <ApplicationProvider
+        mapping={mapping}
+        theme={lightTheme}>
+          <TopNavigation
+        leftControl={BackAction()}/>
+          <ApplicationContent/>
+        </ApplicationProvider>
+      </React.Fragment>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {

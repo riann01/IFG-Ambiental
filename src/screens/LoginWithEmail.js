@@ -1,99 +1,108 @@
 import React from 'react';
 import { StyleSheet, ImageBackground, Image } from 'react-native';
 import { mapping, light as darkTheme } from '@eva-design/eva';
-import { ApplicationProvider, Layout, Text, Button, IconRegistry, Icon } from 'react-native-ui-kitten';
-const Client = require('../etc/ConnectDB');
+import {
+  ApplicationProvider,
+  Layout,
+  Text,
+  Button,
+  Input,
+  IconRegistry,
+  Icon,
+  TopNavigation,
+  TopNavigationAction, } from 'react-native-ui-kitten';
+//const Client = require('../etc/ConnectDB');
 
 //client = new Client();
 
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 
+const BackIcon = (style) => (
+  <Icon {...style} name='arrow-ios-back-outline'/>
+);
+
+const BackAction = () => (
+  <TopNavigationAction icon={BackIcon}/>
+);
+
 const ApplicationContent = ({ navigation }) => (
+  state = {
+    value: '',
+    secureTextEntry: true,
+  },
+  
+
+  
+  renderIcon = (style) => {
+    const iconName = this.state.secureTextEntry ? 'eye-off' : 'eye';
+    return (
+      <Icon {...style} name={iconName}/>
+    );
+  },
   <React.Fragment>
-    <ImageBackground
-    source={require('../../img/IF-background.png')}
-    style={styles.imageBackground}>
-    <Layout style={styles.container} level='1'>
-      <Image source={require('../../img/logo-ifg.png')}
-      style={{
-        width: '80%',
-        height: '20%',
-        marginTop: 0,
-      }}
-      resizeMode="contain"/>
-      <Text style={styles.text} category='h4'>Bem Vindo ao IFG Ambiental</Text>
-      <Button
-        style={{
-          marginTop: '10%',
-          width: '70%'
-        }}
-        icon={FaceIcon}>
-        Entrar com Facebook
-      </Button>
-      <Button
-        style={{
-          marginTop: '5%',
-          width: '70%'
-        }}
-        icon={GoogleIcon}
-        status='danger'>
-        Entrar com Google
-      </Button>
-      <Button
-        style={{
-          marginTop: '5%',
-          width: '70%'
-        }}
-        icon={EmailIcon}
-        status='success'>
-        Entrar com email
-      </Button>
-      <Button
-        style={{
-          marginTop: '5%',
-          marginBottom: '5%',
-          width: '70%'
-        }}
-        icon={HostIcon}
-        status='basic'>
-        Entrar como convidado 
-      </Button>
+    <Layout style={styles.container}>
+    <Text style={styles.text} category='h4' style={styles.title}>Entrar com Email</Text>
+    <Input placeholder='Email' style={styles.component}/>
+    <Input
+        value={this.state.value}
+        placeholder='Senha'
+        icon={this.renderIcon}
+        secureTextEntry={this.state.secureTextEntry}
+        onIconPress={this.onIconPress}
+        onChangeText={this.onChangeText}
+        style={styles.component}
+      />
+      <Button size='large' status='success' style={{marginTop: '5%', width: '90%',}}>Entrar</Button>
     </Layout>
-    </ImageBackground>
   </React.Fragment>
 ); 
 
-const HomeScreen = () => (
-  <React.Fragment>
-    <IconRegistry icons={EvaIconsPack}/>
-    <ApplicationProvider
-    mapping={mapping}
-    theme={darkTheme}>
-        <ApplicationContent/>
-    </ApplicationProvider>
-  </React.Fragment>
-);
+class LoginWithEmail extends React.Component {
+  onChangeText = (value) => {
+    this.setState({ value });
+  };
+  
+  onIconPress = () => {
+    const secureTextEntry = !this.state.secureTextEntry;
+    this.setState({ secureTextEntry });
+  };
+  render() {
+    return(
+      <React.Fragment>
 
+        <ApplicationProvider
+        mapping={mapping}
+        theme={darkTheme}>
+          <IconRegistry icons={EvaIconsPack}/>
+          <TopNavigation
+          leftControl={BackAction()}
+          title='Retornar para o início'/>
+        
+          <ApplicationContent/>
+        </ApplicationProvider>
+      </React.Fragment>
+    );
+  }
+}
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     textAlign:'center',
-    height: '53%',
-    width: '80%',
-    top: '23%',
-    textAlign: 'center',
-    borderRadius: 10,
   },
   text: {
     marginTop: 10,
     textAlign: 'center',
     fontWeight: 'bold',
   },
-  imageBackground: {
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
+  title: {
+    marginVertical: '10%',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
+  component: {
+    width: '90%',
+    marginVertical: '3%',
+  }
 });
 
 LoginWithEmail.navigationOptions = ({ /*navigation*/ }) => {
