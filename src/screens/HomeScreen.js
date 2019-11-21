@@ -2,8 +2,7 @@ import React from 'react';
 import { StyleSheet, ImageBackground, Image, View } from 'react-native';
 import { mapping, light as darkTheme } from '@eva-design/eva';
 import { ApplicationProvider, Layout, Text, Button, IconRegistry, Icon } from 'react-native-ui-kitten';
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import { StackActions, NavigationActions } from 'react-navigation';
 //const Client = require('../etc/ConnectDB');
 
 //client = new Client();
@@ -23,7 +22,7 @@ const HostIcon = (style) => (
   <Icon {...style} name='briefcase'/>
 );
 
-const ApplicationContent = () => (
+const ApplicationContent = ({ navigation }) => (
   <React.Fragment>
     <ImageBackground
     source={require('../../img/IF-background.png')}
@@ -71,8 +70,8 @@ const ApplicationContent = () => (
         }}
         icon={HostIcon}
         status='basic'
-        onPress={() => this.props.navigation.navigate('CriarPost')}>
-        Entrar como convidado 
+        onPress={() => { navigation.navigate({ routeName: 'Post' })}}>
+        Entrar como convidado
       </Button>
       <Layout style={styles.faixa}>
         <Text style={{textAlign: 'center', marginLeft: '14%'}}>Feito com </Text>
@@ -85,6 +84,10 @@ const ApplicationContent = () => (
 ); 
 
 class HomeScreen extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    const params = navigation.state.params || {};
+  }
+
   render() {
     return(
       <React.Fragment>
@@ -135,13 +138,7 @@ const styles = StyleSheet.create({
 
 HomeScreen.navigationOptions = {
   header: null,
-  title: 'HomeScreen'
+  title: 'Home'
 }
 
-const AppNavigator = createStackNavigator({
-  Home: {
-    screen: HomeScreen,
-  },
-});
-
-export default createAppContainer(AppNavigator);
+export default HomeScreen
