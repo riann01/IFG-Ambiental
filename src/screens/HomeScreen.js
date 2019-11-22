@@ -59,7 +59,8 @@ const ApplicationContent = ({ navigation }) => (
           width: '70%'
         }}
         icon={EmailIcon}
-        status='success'>
+        status='success'
+        onPress={() => {navigation.navigate('LoginEmail')}}>
         Entrar com email
       </Button>
       <Button
@@ -70,7 +71,7 @@ const ApplicationContent = ({ navigation }) => (
         }}
         icon={HostIcon}
         status='basic'
-        onPress={() => { navigation.navigate({ routeName: 'Post' })}}>
+        onPress={() => {navigation.navigate('Post')}}>
         Entrar como convidado
       </Button>
       <Layout style={styles.faixa}>
@@ -84,10 +85,6 @@ const ApplicationContent = ({ navigation }) => (
 ); 
 
 class HomeScreen extends React.Component {
-  static navigationOptions = ({ navigation }) => {
-    const params = navigation.state.params || {};
-  }
-
   render() {
     return(
       <React.Fragment>
@@ -95,7 +92,7 @@ class HomeScreen extends React.Component {
         <ApplicationProvider
         mapping={mapping}
         theme={darkTheme}>
-          <ApplicationContent/>
+          <ApplicationContent navigation={this.props.navigation}/>
         </ApplicationProvider>
       </React.Fragment>
     );

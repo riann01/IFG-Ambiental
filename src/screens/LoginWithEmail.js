@@ -10,11 +10,8 @@ import {
   IconRegistry,
   Icon,
   TopNavigation,
-  TopNavigationAction, } from 'react-native-ui-kitten';
-//const Client = require('../etc/ConnectDB');
-
-//client = new Client();
-
+  TopNavigationAction
+} from 'react-native-ui-kitten';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 
 const BackIcon = (style) => (
@@ -25,48 +22,50 @@ const BackAction = () => (
   <TopNavigationAction icon={BackIcon}/>
 );
 
-const ApplicationContent = ({ navigation }) => (
-  state = {
-    value: '',
-    secureTextEntry: true,
-  },
-  
+const ApplicationContent = ({ navigation, state }) => (
 
-  
   renderIcon = (style) => {
-    const iconName = this.state.secureTextEntry ? 'eye-off' : 'eye';
+    const iconName = state.secureTextEntry ? 'eye-off' : 'eye';
     return (
       <Icon {...style} name={iconName}/>
     );
+  },
+  onChangeText = (value) => {
+    state.value = value ;
+  },
+  
+  onIconPress = () => {
+    const secureTextEntry = !state.secureTextEntry;
+    state.secureTextEntry = secureTextEntry ;
   },
   <React.Fragment>
     <Layout style={styles.container}>
     <Text style={styles.text} category='h4' style={styles.title}>Entrar com Email</Text>
     <Input placeholder='Email' style={styles.component}/>
     <Input
-        value={this.state.value}
+        value={state.value}
         placeholder='Senha'
-        icon={this.renderIcon}
-        secureTextEntry={this.state.secureTextEntry}
-        onIconPress={this.onIconPress}
-        onChangeText={this.onChangeText}
+        icon={renderIcon}
+        secureTextEntry={state.secureTextEntry}
+        onIconPress={onIconPress}
+        onChangeText={onChangeText}
         style={styles.component}
       />
       <Button size='large' status='success' style={{marginTop: '5%', width: '90%',}}>Entrar</Button>
+      <Text style={{marginHorizontal: '1%'}}>Ainda não possui uma conta?</Text>
+      <Button size='large' status='basic' style={{marginTop: '5%', width: '90%',}}
+      onPress={() => navigation.navigate('CreateAccount')}>Criar uma Conta</Button>
     </Layout>
   </React.Fragment>
 ); 
 
 class LoginWithEmail extends React.Component {
-  onChangeText = (value) => {
-    this.setState({ value });
-  };
-  
-  onIconPress = () => {
-    const secureTextEntry = !this.state.secureTextEntry;
-    this.setState({ secureTextEntry });
-  };
   render() {
+    state = {
+      value: '',
+      secureTextEntry: true,
+    }
+
     return(
       <React.Fragment>
 
@@ -78,7 +77,7 @@ class LoginWithEmail extends React.Component {
           leftControl={BackAction()}
           title='Retornar para o início'/>
         
-          <ApplicationContent/>
+          <ApplicationContent navigation={this.props.navigation} state={state}/>
         </ApplicationProvider>
       </React.Fragment>
     );
@@ -107,7 +106,7 @@ const styles = StyleSheet.create({
 
 LoginWithEmail.navigationOptions = ({ /*navigation*/ }) => {
   return {
-      header: null
+    header: null
   }
 }
 
