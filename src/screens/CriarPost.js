@@ -14,8 +14,6 @@ import {
 } from 'react-native-ui-kitten';
 
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
-import { default as customMapping } from '../../mapping.json';
-
 
 const PostIcon = (style) => (
   <Icon {...style} name='checkmark-circle-2'/>

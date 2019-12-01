@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ImageBackground, Image } from 'react-native';
+import { StyleSheet, ImageBackground, Image, Alert } from 'react-native';
 import { mapping, light as darkTheme } from '@eva-design/eva';
 import {
   ApplicationProvider,
@@ -16,7 +16,7 @@ import {
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import firebase from 'firebase';
 import { StackRouter } from 'react-navigation';
-const firebaseConfig = require('../etc/ConnectDB')
+//const firebaseConfig = require('../etc/ConnectDB')
 
 const BackIcon = (style) => (
   <Icon {...style} name='arrow-ios-back-outline'/>
@@ -26,33 +26,29 @@ const BackAction = () => (
   <TopNavigationAction icon={BackIcon}/>
 );
 
-
-const ApplicationContent = ({ navigation }) => (
-  <React.Fragment>
-    
-  </React.Fragment>
-); 
-
 class CreateAccount extends React.Component {
+  state = {
+      email: '',
+      senha: ''
+   }
 
   render() {
-    state = {
-      email: '',
-      password: ''
-   }
-   handleEmail = (text) => {
-      this.setState({ email: text })
-   }
-   handlePassword = (text) => {
-      this.setState({ password: text })
-   }
    
    createUser = () => {
-       alert.alert(state.email + " // " + state.password)
+      firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.senha)
+      .catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        if (errorCode == 'auth/weak-password') {
+          Alert.alert('A senha é muito fraca. Revise seus dados');
+        } else {
+          Alert.alert(errorMessage);
+        }
+        console.log(error);
+      });
    }
    
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
     return(
       <React.Fragment>
 
@@ -64,8 +60,12 @@ class CreateAccount extends React.Component {
           leftControl={BackAction()}
           title='Retornar para o início'/>
           <Layout style={styles.container}>
-            <Input placeholder='Email' style={styles.component} onChangeText={handleEmail}/>
-            <Input placeholder='Senha' style={styles.component} onChangeText={handlePassword}/>
+            <Input placeholder='Email' style={styles.component}
+            onChangeText={(text) => this.setState({email: text})}
+            defaultValue={this.state.email}/>
+            <Input placeholder='Senha' style={styles.component}
+            onChangeText={(text) => this.setState({senha: text})}
+            defaultValue={this.state.senha}/>
             <Button size='large' status='success' style={{marginTop: '5%', width: '90%',}} onPress={() => createUser()}>Criar Conta</Button>
           </Layout>
         </ApplicationProvider>

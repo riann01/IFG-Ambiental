@@ -1,3 +1,4 @@
+Learn more or give us feedback
 import React from 'react';
 import { StyleSheet, ImageBackground, Image, View } from 'react-native';
 import { mapping, light as darkTheme } from '@eva-design/eva';

@@ -1,23 +1,11 @@
-/*import Pool from 'pg';
-import { Alert } from 'react-native';
 
-const client = new Pool({
-    user: 'postgres',
-    password: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    database: 'IFG-Ambiental'
-})
-
-async function userLogin() {
-    try {
-        var response = await client.query("SELECT * FROM user;")
-        Alert.alert(response.rows)
-    }
-    catch(error) {
-        Alert.alert('Hmm... Parece que você está sem conexão. Erro: ' + error)
-    }
-    finally {
-        client.end()
-    }
-}*/
+export const firebaseConfig = {
+    apiKey: "AIzaSyAfcElLpUI6C1BWJU3Dv7JJj6jO-ksKW-g",
+    authDomain: "ifg-ambiental-2da0d.firebaseapp.com",
+    databaseURL: "https://ifg-ambiental-2da0d.firebaseio.com",
+    projectId: "ifg-ambiental-2da0d",
+    storageBucket: "ifg-ambiental-2da0d.appspot.com",
+    messagingSenderId: "542075619056",
+    appId: "1:542075619056:web:4cb45c71b551e1aafb2435",
+    measurementId: "G-BW8RF4X8S1"
+};

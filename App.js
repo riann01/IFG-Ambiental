@@ -14,6 +14,7 @@ const RootStack = createStackNavigator({
   Post: CriarPost,
  });
 const AppContainer = createAppContainer(RootStack);
+firebase.initializeApp(firebaseConfig);
 
 // Now AppContainer is the main component for React to render
 export default AppContainer;
