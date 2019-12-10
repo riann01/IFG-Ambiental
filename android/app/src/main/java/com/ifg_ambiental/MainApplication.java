@@ -11,6 +11,12 @@ import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
+import io.invertase.firebase.auth.RNFirebaseAuthPackage;
+import io.invertase.firebase.firestore.RNFirebaseFirestorePackage;
+import io.invertase.firebase.database.RNFirebaseDatabasePackage;
+import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
+import io.invertase.firebase.storage.RNFirebaseStoragePackage;
+import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -28,6 +34,12 @@ public class MainApplication extends Application implements ReactApplication {
                     // Packages that cannot be autolinked yet can be added manually here, for example:
                     // packages.add(new MyReactNativePackage());
                     // packages.add(new FBSDKPackage());
+                    packages.add(new RNFirebaseNotificationsPackage());
+                    packages.add(new RNFirebaseStoragePackage());
+                    packages.add(new RNFirebaseMessagingPackage());
+                    packages.add(new RNFirebaseDatabasePackage());
+                    packages.add(new RNFirebaseFirestorePackage());
+                    packages.add(new RNFirebaseAuthPackage());
                     return packages;
                 }
 
