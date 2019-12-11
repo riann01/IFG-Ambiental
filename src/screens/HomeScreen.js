@@ -1,57 +1,133 @@
 
 import React from 'react';
-import { StyleSheet, ImageBackground, Image, View } from 'react-native';
+import { StyleSheet, ImageBackground, Image, View, TouchableOpacity } from 'react-native';
 import { mapping, light as darkTheme } from '@eva-design/eva';
-import { ApplicationProvider, 
-  Layout, 
-  Text, 
-  Button, 
-  IconRegistry, 
+import {
+  ApplicationProvider,
+  Layout,
+  Text,
+  Button,
+  IconRegistry,
   Icon,
   Input,
   TopNavigation,
-  TopNavigationAction } from 'react-native-ui-kitten';
+  TopNavigationAction
+} from 'react-native-ui-kitten';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import Dialog from "react-native-dialog"
+import { connect } from 'react-redux'
+import { Content, Container } from 'native-base';
+import { login, registrar, dismissErrorLogin, forgotPassword, deslogar } from '../store/actions/user';
 
 const FaceIcon = () => (
-  <Icon name='facebook' fill='white'/>
+  <Icon name='facebook' fill='white' />
 )
 const GoogleIcon = (style) => (
-  <Icon {...style} name='google'/>
+  <Icon {...style} name='google' />
 )
 const EmailIcon = (style) => (
-  <Icon {...style} name='email'/>
+  <Icon {...style} name='email' />
 )
 
 const BackIcon = (style) => (
-  <Icon {...style} name='arrow-ios-back-outline'/>
+  <Icon {...style} name='arrow-ios-back-outline' />
 )
 
-const BackAction = () => (
-  <TopNavigationAction icon={BackIcon}/>
-)
 
 class HomeScreen extends React.Component {
 
   state = {
     mode: 'inicial',
     secureTextEntry: true,
-    loginEmail:{
+    loginEmail: {
       senha: '',
       email: ''
     },
     novaConta: {
       email: '',
       senha: '',
-      rptSenha: ''
+      rptSenha: '',
+      nome: '',
+      titulo: '',
+      telefone: '',
+      instituicao: '',
+      dataNascimento: ''
+    },
+    dialogErroRegistro: false,
+    mensagemErroRegistro: '',
+    tituloErroRegistro: '',
+    visibleModal: null,
+    emailRelembrar: ''
+  }
+
+  backAction = () => (
+    <TopNavigationAction 
+    icon={BackIcon}
+    onPress={() => this.setState({mode: 'inicial'})}
+   />
+  )
+
+  componentDidUpdate = prevProps => {
+    if (prevProps.isAuthenticating && !this.props.isAuthenticating) {
+      if (!prevProps.isAuthenticated && this.props.isAuthenticated) {
+        this.props.navigation.navigate('Main')
+      }
+    }
+  }
+
+  loginEmail = () =>{
+    if(this.state.loginEmail.email.trim().length>0 && this.state.loginEmail.senha.trim().length>0){
+        this.props.onLogin({ ...this.state.user })
+    }
+  }
+
+  registrar = () => {
+
+    if (this.state.novaConta.senha.trim().length > 0 && this.state.novaConta.email.trim().length > 0) {
+
+      if (this.state.novaConta.senha === this.state.novaConta.rptSenha) {
+        if(this.state.novaConta.telefone.trim().length>=9){
+
+          if(this.state.novaConta.instituicao.trim().length>=1){  
+            
+            if(this.state.novaConta.titulo.trim().length>=1){  
+              if(this.state.novaConta.dataNascimento.trim().length>=1){  
+                if(this.state.novaConta.nome.trim().length>=6){  
+                  this.props.onRegistrar({ ...this.state.novaConta })
+                }else{
+                  this.setState({ dialogErroRegistro: true, mensagemErroRegistro: 'Atenção!', tituloErroRegistro: 'É necessário digitar seu nome.' })
+                }
+              }else{
+                this.setState({ dialogErroRegistro: true, mensagemErroRegistro: 'Atenção!', tituloErroRegistro: 'É necessário selecionar sua data de nascimento.' })
+              }
+            }else{
+              this.setState({ dialogErroRegistro: true, mensagemErroRegistro: 'Atenção!', tituloErroRegistro: 'É necessário selecionar um título.' })
+            }
+          }else{
+            this.setState({ dialogErroRegistro: true, mensagemErroRegistro: 'Atenção!', tituloErroRegistro: 'É necessário preencher o campo Instituição. Caso não possua, coloque "Nenhuma". ' })
+          }
+        }else{
+          this.setState({ dialogErroRegistro: true, mensagemErroRegistro: 'Atenção!', tituloErroRegistro: 'É necessário preencher o campo Telefone. Coloque seu DDD, juntamente com os 9 digitos.' })
+        }
+      } else {
+        this.setState({ dialogErroRegistro: true, mensagemErroRegistro: 'Atenção!', tituloErroRegistro: 'Os campos de senha e repetir senha devem ser idênticos!' })
+      }
+
+    }
+  }
+
+  relembraSenha = () => {
+    if (this.state.emailRelembrar.trim().length > 5) {
+      this.props.onEsqueciSenha(this.state.emailRelembrar)
+      this.setState({ visibleModal: null })
     }
   }
 
   renderIcon = (style) => {
     const iconName = this.state.secureTextEntry ? 'eye-off' : 'eye';
     return (
-      <Icon {...style} name={iconName}/>
-    );
+      <Icon {...style} name={iconName} />
+    )
   }
 
   onIconPress = () => {
@@ -59,122 +135,162 @@ class HomeScreen extends React.Component {
     this.setState({ secureTextEntry })
   }
 
+  componentDidMount = () => {
+    this.props.onDeslogar()
+  }
+
   renderMode = () => {
-    switch(this.state.mode){
+    switch (this.state.mode) {
       case 'inicial': {
-        return(
+        return (
           <View>
             <ImageBackground
-            source={require('../../img/IF-background.png')}
-            style={styles.imageBackground}>
-            <Layout style={styles.container} level='1'>
-              <Image source={require('../../img/logo-ifg.png')}
-              style={{
-                width: '80%',
-                height: '20%',
-                marginTop: 0,
-              }}
-              resizeMode="contain"/>
-              <Text style={styles.text} category='h4'>Bem-vindo ao IFG Ambiental</Text>
-              <Button
-                style={{
-                  marginTop: '10%',
-                  width: '70%',
-                }}
-                icon={FaceIcon}>
-                Entrar com Facebook
+              source={require('../../img/IF-background.png')}
+              style={styles.imageBackground}>
+              <Layout style={styles.containerInicial} level='1'>
+                <Image source={require('../../img/logo-ifg.png')}
+                  style={{
+                    width: '80%',
+                    height: '20%',
+                    marginTop: 0,
+                  }}
+                  resizeMode="contain" />
+                <Text style={styles.text} category='h4'>Bem-vindo ao IFG Ambiental</Text>
+                <Button
+                  style={{
+                    marginTop: '10%',
+                    width: '70%',
+                  }}
+                  icon={FaceIcon}>
+                  Entrar com Facebook
               </Button>
-              <Button
-                style={{
-                  marginTop: '5%',
-                  width: '70%'
-                }}
-                icon={GoogleIcon}
-                status='danger'>
-                Entrar com Google
+                <Button
+                  style={{
+                    marginTop: '5%',
+                    width: '70%'
+                  }}
+                  icon={GoogleIcon}
+                  status='danger'>
+                  Entrar com Google
               </Button>
-              <Button
-                style={{
-                  marginTop: '5%',
-                  width: '70%'
-                }}
-                icon={EmailIcon}
-                status='success'
-                onPress={() => { this.setState({mode: 'loginEmail'}) }}>
-                Entrar com email
+                <Button
+                  style={{
+                    marginTop: '5%',
+                    width: '70%'
+                  }}
+                  icon={EmailIcon}
+                  status='success'
+                  onPress={() => { this.setState({ mode: 'loginEmail' }) }}>
+                  Entrar com email
               </Button>
-              <Layout style={styles.faixa}>
-                <Text style={{textAlign: 'center', marginLeft: '14%'}}>Feito com </Text>
-                <Icon name='heart' fill='red' height={20} width={20} style={{}}/>
-                <Text style={{textAlign: 'center'}}> em Formosa</Text>
+                <Layout style={styles.faixa}>
+                  <Text style={{ textAlign: 'center', marginLeft: '14%' }}>Feito com </Text>
+                  <Icon name='heart' fill='red' height={20} width={20} style={{}} />
+                  <Text style={{ textAlign: 'center' }}> em Formosa</Text>
+                </Layout>
               </Layout>
-            </Layout>
             </ImageBackground>
           </View>
         )
       }
       case 'loginEmail': {
-        return(
+        return (
           <View>
             <TopNavigation
-              leftControl={BackAction()}
-              title='Retornar para o início'/>
+              leftControl={this.backAction()}
+              title='Retornar para o início' />
 
-            <Layout style={styles.container}>
-            <Text style={styles.text} category='h4' style={styles.title}>Entrar com Email</Text>
-            <Input 
+            <Layout>
+              <Text style={styles.text} category='h4' style={styles.title}>Entrar com Email</Text>
+              <Input
                 placeholder='Email'
-                value={this.state.loginEmail.email} 
+                value={this.state.loginEmail.email}
                 style={styles.component}
-                onChangeText={(text) => this.setState({loginEmail: {...this.state.loginEmail, email: text}})}/>
-            <Input
+                onChangeText={(text) => this.setState({ loginEmail: { ...this.state.loginEmail, email: text } })} />
+              <Input
                 value={this.state.loginEmail.senha}
                 placeholder='Senha'
                 icon={this.renderIcon}
                 secureTextEntry={this.state.secureTextEntry}
                 onIconPress={this.onIconPress}
-                onChangeText={(text) => this.setState({ loginEmail: {...this.state.loginEmail, senha: text}})}
+                onChangeText={(text) => this.setState({ loginEmail: { ...this.state.loginEmail, senha: text } })}
                 style={styles.component}
               />
-              <Button size='large' status='success' style={{marginTop: '5%', width: '90%',}}>Entrar</Button>
-              <Text style={{marginHorizontal: '1%'}}>Ainda não possui uma conta?</Text>
-              <Button size='large' status='basic' style={{marginTop: '5%', width: '90%',}}
-              onPress={() => this.setState({mode: 'registrar'})}>Criar uma Conta</Button>
+              <TouchableOpacity onPress={() => this.setState({ mode: 'esqueciSenha' })}>
+                <Text style={{ marginHorizontal: '1%' }}>Esqueci minha senha</Text>
+              </TouchableOpacity>
+              <Button size='large' status='success' onPress={() => this.loginEmail()} style={{ marginTop: '5%', width: '90%', }}>Entrar</Button>
+              <Text style={{ marginHorizontal: '1%' }}>Ainda não possui uma conta?</Text>
+              <Button size='large' status='basic' style={{ marginTop: '5%', width: '90%', }}
+                onPress={() => this.setState({ mode: 'registrar' })}>Criar uma Conta</Button>
             </Layout>
           </View>
         )
       }
       case 'loginFacebook': {
-        return(
+        return (
           <View>
 
           </View>
         )
       }
-      case 'registrar':{
-        return(
+      case 'registrar': {
+        return (
           <View>
-            <IconRegistry icons={EvaIconsPack}/>
             <TopNavigation
-            leftControl={BackAction()}
-            title='Retornar para o início'/>
-            <Layout style={styles.container}>
+              leftControl={this.backAction()}
+              title='Retornar para o início' />
+            
+              <Layout>
               <Input placeholder='Email' style={styles.component}
-              onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, email: text}})}
-              defaultValue={this.state.novaConta.email}/>
+                onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, email: text } })}
+                value={this.state.novaConta.email} />
               <Input placeholder='Senha' style={styles.component}
-              onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, senha: text}})}
-              defaultValue={this.state.novaConta.senha}/>
-               <Input placeholder='Repita a senha' style={styles.component}
-              onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, rptSenha: text}})}
-              defaultValue={this.state.novaConta.rptSenha}/>
-              <Button size='large' status='success' style={{marginTop: '5%', width: '90%',}} onPress={() => { alert("considere a conta como criada bjs")}}>Criar Conta</Button>
+                onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, senha: text } })}
+                secureTextEntry={true}
+                value={this.state.novaConta.senha} />
+              <Input placeholder='Repita a senha' style={styles.component}
+                onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, rptSenha: text } })}
+                secureTextEntry={true}
+                value={this.state.novaConta.rptSenha} />
+                <Input placeholder='Nome' style={styles.component}
+                onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, nome: text } })}
+                value={this.state.novaConta.nome} />
+                <Input placeholder='Instituição' style={styles.component}
+                onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, instituicao: text } })}
+                value={this.state.novaConta.instituicao} />
+                <Input placeholder='Telefone' style={styles.component}
+                onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, telefone: text } })}
+                value={this.state.novaConta.telefone} />
+              <Button size='large' status='success' style={{ marginTop: '5%', width: '90%', }} onPress={() => { this.registrar() }}>Criar Conta</Button>
+              
+              </Layout>
+          </View>
+        )
+      }
+      case 'esqueciSenha': {
+        return (
+          <View>
+            <TopNavigation
+              leftControl={this.backAction()}
+              title='Retornar para o início' />
+
+            <Layout>
+              <Text style={styles.text} category='h4' style={styles.title}>Relembrar minha senha</Text>
+              <Input
+                placeholder='Email'
+                value={this.state.emailRelembrar}
+                style={styles.component}
+                onChangeText={(text) => this.setState({ emailRelembrar: text })} />
+
+              <Button size='large' status='success' onPress={() => this.relembraSenha()} style={{ marginTop: '5%', width: '90%', }}>Enviar</Button>
+
             </Layout>
           </View>
         )
       }
       default: {
-        return(
+        return (
           <View>
 
           </View>
@@ -184,16 +300,38 @@ class HomeScreen extends React.Component {
     }
   }
 
-
-
   render() {
-    return(
+    return (
       <React.Fragment>
-        <IconRegistry icons={EvaIconsPack}/>
+        <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider
-        mapping={mapping}
-        theme={darkTheme}>
+          mapping={mapping}
+          theme={darkTheme}>
+          <Dialog.Container
+            headerStyle={{ backgroundColor: 'ghostwhite' }}
+            contentStyle={{ backgroundColor: 'ghostwhite' }}
+            footerStyle={{ backgroundColor: 'ghostwhite' }}
+            visible={this.props.erroLogin}>
+            <Dialog.Title style={{ ...styles.informacoesText, fontSize: 20, textAlign: 'center' }}>{this.props.tituloErroLogin}</Dialog.Title>
+            <Dialog.Description style={{ ...styles.informacoesText, fontSize: 18, textAlign: 'justify' }}>
+              {this.props.mensagemErroLogin}
+            </Dialog.Description>
+            <Dialog.Button color={'green'} bold={true} label="OK" onPress={() => { this.props.onDismissError(); this.setState({ user: { ...this.state.user, email: '', senha: '' } }) }} />
+          </Dialog.Container>
+          <Dialog.Container
+            headerStyle={{ backgroundColor: 'ghostwhite' }}
+            contentStyle={{ backgroundColor: 'ghostwhite' }}
+            footerStyle={{ backgroundColor: 'ghostwhite' }}
+            visible={this.state.dialogErroRegistro}>
+            <Dialog.Title style={{ fontSize: 20, textAlign: 'center' }}>{this.state.tituloErroRegistro}</Dialog.Title>
+            <Dialog.Description style={{ fontSize: 18, textAlign: 'justify' }}>
+              {this.state.mensagemErroRegistro}
+            </Dialog.Description>
+            <Dialog.Button color={'green'} bold={true} label="OK" onPress={() => { this.setState({dialogErroRegistro: false})  } } />
+          </Dialog.Container>
+          <Container>
           {this.renderMode()}
+          </Container>
         </ApplicationProvider>
       </React.Fragment>
     );
@@ -201,14 +339,15 @@ class HomeScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  
+  containerInicial: {
     alignItems: 'center',
-    textAlign:'center',
+    textAlign: 'center',
     height: '65%',
     width: '80%',
     top: '18%',
     textAlign: 'center',
-    borderRadius: 10,
+    borderRadius: 10
   },
   text: {
     marginTop: 10,
@@ -232,11 +371,28 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     marginBottom: '4%'
   }
-});
+})
 
-HomeScreen.navigationOptions = {
-  header: null,
-  title: 'Home'
+const mapStateToProps = ({ user }) => {
+  return {
+    isAuthenticated: user.isAuthenticated,
+    isAuthenticating: user.isAuthenticating,
+    erroLogin: user.erroLogin,
+    mensagemErroLogin: user.mensagemErroLogin,
+    tituloErroLogin: user.tituloErroLogin,
+    primeiroAcesso: user.primeiroAcesso,
+    status: user.status
+  }
 }
 
-export default HomeScreen
+const mapDispatchToProps = dispatch => {
+  return {
+    onLogin: (user) => dispatch(login(user)),
+    onRegistrar: (novoUser) => dispatch(registrar(novoUser)),
+    onDismissError: () => dispatch(dismissErrorLogin()),
+    onEsqueciSenha: (email) => dispatch(forgotPassword(email)),
+    onDeslogar: () => dispatch(deslogar())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)

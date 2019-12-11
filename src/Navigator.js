@@ -4,6 +4,7 @@ import { createDrawerNavigator, createSwitchNavigator, createStackNavigator, cre
 import Icon from 'react-native-vector-icons/FontAwesome5'
 //Screens
 import HomeScreen from './screens/HomeScreen'
+import MainScreen from './screens/MainScreen'
 import Menu from './components/Menu';
 
 // Class Hidden
@@ -19,7 +20,7 @@ class Hidden extends Component {
 const MenuRoutes = {
     Home:{
         name:'Home',
-        screen: HomeScreen,
+        screen: MainScreen,
         navigationOptions: {
             title: 'Início',
             drawerIcon: () => (
@@ -31,27 +32,14 @@ const MenuRoutes = {
 
 const MenuConfig = {
     initialRouteName: 'Home',
-    contentComponent: Menu,
-    contentOptions:{
-        labelStyle:{
-            fontSize: 21,
-            fontFamily: 'Jura Bold',
-            fontWeight: 'normal',
-            color: '#003266'
-        },
-        activeLabelStyle:{
-            color:'#003266',
-            fontSize: 22
-        },
-        activeBackgroundColor: '#DFE2E5'
-    }
+    contentComponent: Menu
 }
 
 const MenuNavigator = createDrawerNavigator(MenuRoutes, MenuConfig)
 
 const authSwitch = createSwitchNavigator({    
-    //Auth: Login
-    Auth: MenuNavigator
+    Main: MenuNavigator,
+    Auth: HomeScreen
 }, {
     initialRouteName: 'Auth'
 })
