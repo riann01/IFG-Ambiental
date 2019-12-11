@@ -4,6 +4,7 @@ import { createDrawerNavigator, createSwitchNavigator, createStackNavigator, cre
 import Icon from 'react-native-vector-icons/FontAwesome5'
 //Screens
 import HomeScreen from './screens/HomeScreen'
+import Menu from './components/Menu';
 
 // Class Hidden
 
