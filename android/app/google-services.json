@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "542075619056",
+    "firebase_url": "https://ifg-ambiental-2da0d.firebaseio.com",
+    "project_id": "ifg-ambiental-2da0d",
+    "storage_bucket": "ifg-ambiental-2da0d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542075619056:android:e6acd67411a3562bfb2435",
+        "android_client_info": {
+          "package_name": "com.ifg_ambiental"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "542075619056-0h4cr6aqlk5uturrit91prma52r5hf2t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ifg_ambiental",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "542075619056-6sgfu9676tumcii852csdk6t2gnhpnih.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCG8VE0VBA9OdGPb510zAnDqCD1f2gJ4lg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "542075619056-6sgfu9676tumcii852csdk6t2gnhpnih.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

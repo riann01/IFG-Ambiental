@@ -21,7 +21,7 @@
     "react-native-gesture-handler": "^1.4.1",
     "react-native-modal": "^11.4.0",
     "react-native-svg": "^9.13.2",
-    "react-native-ui-kitten": "^4.2.0",    
+    "react-native-ui-kitten": "^4.2.0",
     "react-navigation": "^3.11.0",
     "react-redux": "^7.1.0",
     "redux": "^4.0.1",
