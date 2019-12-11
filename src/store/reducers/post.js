@@ -6,7 +6,7 @@ import {
 } from '../actions/actionTypes'
 
 const initialState = {
-   postagens = [],
+   postagens: [],
    postKey: null,
    isLoadingPost: false
 }

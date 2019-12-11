@@ -6,7 +6,7 @@ import {
 
 const initialState = {
     nome: '',
-    posts = [],
+    posts: [],
     isLoadingTopico: false
 }
 

@@ -4,7 +4,7 @@ import {
     SET_TOPICOS } from '../actions/actionTypes'
 
 const initialState = {
-   topicos = [],
+   topicos: [],
    isLoadingForum: false
 }
 
