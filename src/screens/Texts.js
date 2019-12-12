@@ -22,10 +22,6 @@ const BackIcon = (style) => (
   <Icon {...style} name='arrow-ios-back-outline' />
 )
 
-let selectedItem
-
-let visible = false
-
 class Texts extends React.Component {
 
   state = {
@@ -50,21 +46,9 @@ class Texts extends React.Component {
       //////////////////////////
       ////////////////////////////// AQUI DENTRO DO RETURN VC COLOCA O CÓDIGO DA PÁGINA
       const data = this.props.textos
-      /*this.props.textos.forEach(element => {
-        console.log(element.titulo)
-      })*/
-
-      function list() {
-        console.log(selectedItem.titulo)
-      }
-
-      function setSelectedItem(item) {
-        selectedItem = item
-        console.log(selectedItem.titulo)
-      }
 
       const renderItem = ({ item, index }) => (
-        <ListItem title={`${item.titulo}`} accessory={renderAccessory} onPress={() => { setSelectedItem(item); toggleModal() }} />)
+        <ListItem title={`${item.titulo}`} accessory={renderAccessory} onPress={() => { this.props.navigation.navigate('TextIn', {texto: item}) }} />)
 
       const renderAccessory = (style, index) => (
         <Icon
@@ -81,13 +65,6 @@ class Texts extends React.Component {
             renderItem={renderItem}
           />
         <View style={{ flex: 1 }}>
-        <Button title="Show modal" onPress={this.toggleModal} />
-        <Modal isVisible={this.state.isModalVisible}>
-          <View style={{ flex: 1 }}>
-            <Text>Hello!</Text>
-            <Button title="Hide modal" onPress={this.toggleModal} />
-          </View>
-        </Modal>
       </View>
         </Layout>
       )

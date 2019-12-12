@@ -10,6 +10,8 @@ import ContatosUteis from './screens/ContatosUteis'
 import Texts from './screens/Texts'
 import Profile from './screens/Profile'
 import Threads from './screens/Threads'
+import TextIndividual from './screens/TextIndividual'
+
 
 // Class Hidden
 
@@ -114,7 +116,6 @@ const MenuNavigator = createDrawerNavigator(MenuRoutes, MenuConfig)
 const authSwitch = createSwitchNavigator({    
     Main: MenuNavigator,
     Auth: HomeScreen,
-
 }, {
     initialRouteName: 'Auth'
 })

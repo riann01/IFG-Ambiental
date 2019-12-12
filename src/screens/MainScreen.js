@@ -88,61 +88,7 @@ class MainScreen extends React.Component {
           theme={darkTheme}>
           <IconRegistry icons={EvaIconsPack} />
           <Container style={{ flex: 1 }}>
-            <Text style={styles.text} category='h4' style={styles.title}>Bem-vindo!</Text>
-            {/*<Layout style={{ alignItems: 'center', marginTop: '5%', height: '40%' }}>
-              <Layout style={{ width: '90%', elevation: 7, borderRadius: 20, height: '50%' }}>
-                <Layout style={{
-                  height: '35%',
-                  width: '100%',
-                  backgroundColor: '#0686DF',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  alignContent: 'center',
-                  textAlign: 'center',
-                  borderTopLeftRadius: 20,
-                  borderTopRightRadius: 20,
-                  elevation: 7
-                }}>
-                  <Layout style={styles.icon}>
-                    <Icon name='file-add' width={25} height={25} fill='#FFF' />
-                  </Layout>
-                  <Text category='h6' style={{ color: '#FFFFFF' }}>Postagem Curta</Text>
-                </Layout>
-                <Layout style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  alignContent: 'center',
-                  borderTopLeftRadius: 20,
-                  borderTopRightRadius: 20,
-                  height: '80%'
-                }}>
-                  <Input placeholder='Conteúdo do Post'
-                    style={styles.inputPostBody}
-                    multiline={true}
-                    maxLength={140}
-                    height={70}
-                  />
-                  <Layout style={{ flexDirection: 'row' }}>
-                    <Picker
-                      selectedValue={this.state.topicoValue}
-                      style={{ height: 50, width: 100 }}
-                      onValueChange={(itemValue, itemIndex) =>
-                        this.setState({ topicoValue: itemValue, topicoNome: this.props.topicos[itemIndex].titulo })
-                      }>
-                      <Picker.Item label="Arrecadações" value="-Lvru02V9do5bGMYSS4O" />
-                      <Picker.Item label="Discussões diversas sobre o Meio Ambiente" value="-Lvruax5h4WL6LtoZ5F3" />
-                      <Picker.Item label="Off-Topic" value="-Lvruk_s7PpDyynuX4LT" />
-                      <Picker.Item label="Olha Só!" value="-LvruPhnYGckTUlc4KFh" />
-                    </Picker>
-                    <Button
-                      size='medium'
-                      style={styles.button}>
-                        Postar
-                    </Button>
-                  </Layout>
-                </Layout>
-              </Layout>
-            </Layout>*/}
+            <Text style={styles.text} category='h4' style={styles.title}>Bem-vindo, {}!</Text>
             <Card
               title="Clima"
               iconName="ios-sunny"
@@ -157,7 +103,7 @@ class MainScreen extends React.Component {
               title="Educação Ambiental"
               iconName="book-open-page-variant"
               iconType="MaterialCommunityIcons"
-              onPress={() => {this.props.navigation.navigate('Texts')}}
+              onPress={() => { this.props.navigation.navigate('Texts') }}
               content="Veja conteúdo informativo sobre educação ambiental :)"
               iconBackgroundColor="#1FAFBF"
             />
@@ -165,7 +111,7 @@ class MainScreen extends React.Component {
               title="Contatos Úteis"
               iconName="perm-contact-calendar"
               iconType="MaterialIcons"
-              onPress={() => {this.props.navigation.navigate('TelUteis')}}
+              onPress={() => { this.props.navigation.navigate('TelUteis') }}
               content="Veja nesta seção contatos úteis"
               iconBackgroundColor="#05D580"
             />
@@ -173,7 +119,7 @@ class MainScreen extends React.Component {
               title="Perfil"
               iconName="user-circle-o"
               iconType="FontAwesome"
-              onPress={() => {this.props.navigation.navigate('Profile')}}
+              onPress={() => { this.props.navigation.navigate('Profile') }}
               content="Visualize e altere seus dados"
               iconBackgroundColor="#14CC25"
             />
