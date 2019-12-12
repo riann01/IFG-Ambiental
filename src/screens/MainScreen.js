@@ -12,6 +12,9 @@ import {
   TopNavigation,
   TopNavigationAction,
 } from 'react-native-ui-kitten';
+import { getLocation, getData } from 'react-native-weather-api';
+import { Card } from "@paraboly/react-native-card"
+import { Container } from 'native-base';
 
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 
