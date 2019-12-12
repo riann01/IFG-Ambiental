@@ -78,3 +78,22 @@ export const fetchDadosPost = (topicoKey, postagemKey) => {
 
     }
 }
+
+export const addRespostaPost = (novoPost, topicoKey, postKey, autor, autorKey) => {
+    return dispatch => {
+
+        let novoPost2 = {
+            ...novoPost,
+            autor: autor,
+            autorKey: autorKey
+        }
+
+        firebase.database().ref(`${topicoKey}/posts/${postKey}`).push(novoPost2).
+        then(() => {
+                
+        })
+        .catch((err) => {
+            alert(err)
+        })
+    }
+}

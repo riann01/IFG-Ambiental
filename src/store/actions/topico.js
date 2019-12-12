@@ -100,7 +100,7 @@ export const addPostTopico = (novoPost, topicoKey, autor, autorKey) => {
             autorKey: autorKey
         }
 
-        firebase.database().ref(`/${topicoKey}/posts`).push(novoPost2).
+        firebase.database().ref(`${topicoKey}/posts`).push(novoPost2).
             then(() => {
                 
             })
