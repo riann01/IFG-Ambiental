@@ -89,3 +89,17 @@ export const fetchTopico = (topicoKey) => {
 
     }
 }
+
+
+export const addPostTopico = (novoPost, topicoKey) => {
+    return dispatch => {
+
+        firebase.database().ref(`/${topicoKey}/posts`).push(novoPost).
+            then(() => {
+                
+            })
+            .catch((err) => {
+                alert(err)
+            })
+    }
+}
