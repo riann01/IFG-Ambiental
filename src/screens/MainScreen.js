@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, FlatList } from 'react-native';
+import { StyleSheet, FlatList, Picker } from 'react-native';
 import { mapping, light as darkTheme } from '@eva-design/eva';
 import {
   ApplicationProvider,
@@ -12,6 +12,7 @@ import {
 } from 'react-native-ui-kitten';
 import { getLocation, getData } from 'react-native-weather-api';
 import { Card } from "@paraboly/react-native-card"
+import { connect } from 'react-redux'
 import { Container } from 'native-base';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { addPostTopico } from '../store/actions/post';
@@ -28,7 +29,12 @@ class MainScreen extends React.Component {
     temperature: '',
     cityName: '',
     topicoValue: null,
-    topicoNome: ''
+    topicoNome: '',
+    topicos: []
+  }
+
+  componentDidMount() {
+    this.setState({ topicos: Object.assign([], this.props.topicos)})
   }
 
   async requestLocation() {
@@ -45,7 +51,7 @@ class MainScreen extends React.Component {
         },
       );
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        getLocation();
+        getLocation()
         setTimeout(function () {
           let data = new getData()
           this.setState({cityName: data.city, temperature: data.tempC, windSpeed: data.windKph})
@@ -123,16 +129,13 @@ class MainScreen extends React.Component {
                       onValueChange={(itemValue, itemIndex) =>
                         this.setState({ topicoValue: itemValue, topicoNome: this.props.topicos[itemIndex].titulo})
                       }>
-                      <FlatList
-                            data={this.props.topicos}
-                            keyExtractor={item => `${item.key}`}
-                            renderItem={({ item }) =>
-                              <Picker.Item label={item.titulo} value={item.key} />
-                            }
-                      />
+                      <Picker.Item label="Arrecadações" value="-Lvru02V9do5bGMYSS4O" />
+                      <Picker.Item label="Discussões diversas sobre o Meio Ambiente" value="-Lvruax5h4WL6LtoZ5F3" />
+                      <Picker.Item label="Off-Topic" value="-Lvruk_s7PpDyynuX4LT" />
+                      <Picker.Item label="Olha Só!" value="-LvruPhnYGckTUlc4KFh" />
                     </Picker>
                     <Button
-                      icon={PostIcon}
+                      //icon={PostIcon}
                       size='medium'
                       style={styles.button}>
                     </Button>
@@ -145,9 +148,9 @@ class MainScreen extends React.Component {
               iconName="ios-sunny"
               iconType="Ionicons"
               onPress={() => { }}
-              topRightText={temperature}
-              bottomRightText={windSpeed}
-              content={cityName}
+              topRightText={this.state.temperature}
+              bottomRightText={this.state.windSpeed}
+              content={this.state.cityName}
               iconBackgroundColor="#F2B441"
             />
             <Card

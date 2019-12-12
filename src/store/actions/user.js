@@ -11,6 +11,8 @@ import {
     USER_AUTHENTICATED,
     CHANGING_PASSWORD
 } from './actionTypes';
+import { fetchTopicos } from './forum';
+import { fetchTextos } from './textos';
 
 // LOGIN - DADOS USUÁRIO - REGISTRAR
 /////////////////
@@ -70,6 +72,8 @@ export const login = (user) => {
         dispatch(isAuthenticating())
         firebase.auth().signInWithEmailAndPassword(user.email, user.senha)
             .then((res) => {
+                dispatch(fetchTopicos())
+                dispatch(fetchTextos())
                 firebase.firestore().collection('usuarios').doc(`${res.user.uid}`).get()
                     .then((res2) => {
                         if (res2.exists) {
@@ -129,11 +133,14 @@ export const registrar = (novoUsuario) => {
                     email: novoUsuario.email,
                     instituicao: novoUsuario.instituicao,
                     titulo: novoUsuario.titulo,
-                    telefone: novoUsaruio.telefone,
+                    telefone: novoUsuario.telefone,
                     dataNascimento: novoUsuario.dataNascimento
                 }
                 firebase.firestore().collection('usuarios').doc(`${res.user.uid}`).set(novoUsuarioDados)
                 .then(() => {
+
+                    dispatch(fetchTopicos())
+                    dispatch(fetchTextos())
                     dispatch(userLogged({ ...novoUsuarioDados, key: res.user.uid }))
                     dispatch(userAuthenticated())
                 })
@@ -156,7 +163,7 @@ export const registrar = (novoUsuario) => {
                         break
                     }
                     default: {
-                        dispatch(errorAuthentication({titulo: 'Erro', mensagem: 'Ocorreu um erro ao tentar realizar seu cadastro! Tente novamente!'}));
+                        dispatch(errorAuthentication({titulo: 'Erro', mensagem: 'Ocorreu um erro ao tentar realizar seu cadastro! Tente novamente!'+err}));
                         break
                     }
                 }

@@ -77,7 +77,7 @@ class HomeScreen extends React.Component {
 
   loginEmail = () =>{
     if(this.state.loginEmail.email.trim().length>0 && this.state.loginEmail.senha.trim().length>0){
-        this.props.onLogin({ ...this.state.user })
+        this.props.onLogin({ ...this.state.loginEmail })
     }
   }
 
@@ -90,8 +90,8 @@ class HomeScreen extends React.Component {
 
           if(this.state.novaConta.instituicao.trim().length>=1){  
             
-            if(this.state.novaConta.titulo.trim().length>=1){  
-              if(this.state.novaConta.dataNascimento.trim().length>=1){  
+            if(this.state.novaConta.titulo.trim().length>=0){  
+              if(this.state.novaConta.dataNascimento.trim().length>=0){  
                 if(this.state.novaConta.nome.trim().length>=6){  
                   this.props.onRegistrar({ ...this.state.novaConta })
                 }else{
@@ -380,9 +380,7 @@ const mapStateToProps = ({ user }) => {
     isAuthenticating: user.isAuthenticating,
     erroLogin: user.erroLogin,
     mensagemErroLogin: user.mensagemErroLogin,
-    tituloErroLogin: user.tituloErroLogin,
-    primeiroAcesso: user.primeiroAcesso,
-    status: user.status
+    tituloErroLogin: user.tituloErroLogin
   }
 }
 
