@@ -1,6 +1,6 @@
 //Padrão
 import React, { Component } from 'react'
-import { createDrawerNavigator, createSwitchNavigator, createStackNavigator, createAppContainer } from 'react-navigation'
+import { createDrawerNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 //Screens
 import HomeScreen from './screens/HomeScreen'
