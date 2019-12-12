@@ -24,7 +24,7 @@ export const POSTS_LOADED = 'POSTS_LOADED'
 export const SET_POSTS = 'SET_POSTS'
 export const ADD_NOVO_POST = 'ADD_NOVO_POST' // (?) Ainda não sei se necessário
 // POST
-export const SET_KEY_POSTAGEM = 'SET_KEY_POSTAGEM'
+export const SET_DADOS_POST = 'SET_DADOS_POST'
 export const LOADING_POSTAGEM = 'LOADING_POSTAGEM'
 export const POSTAGEM_LOADED = 'POSTAGEM_LOADED'
 export const SET_POSTAGEM = 'SET_POSTAGEM'

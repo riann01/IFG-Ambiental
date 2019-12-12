@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, FlatList, Picker, PermissionsAndroid, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, FlatList, Picker, PermissionsAndroid } from 'react-native';
 import { mapping, light as darkTheme } from '@eva-design/eva';
 import {
   ApplicationProvider,
@@ -15,7 +15,7 @@ import { Card } from "@paraboly/react-native-card"
 import { connect } from 'react-redux'
 import { Container } from 'native-base';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
-import { addPostTopico } from '../store/actions/post';
+import { addPostTopico } from '../store/actions/topico';
 
 
 class MainScreen extends React.Component {
@@ -225,7 +225,7 @@ const mapStateToProps = ({ user, forum }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddPost: (post, topicoKey) => dispatch(addPostTopico(post, topicoKey))
+    onAddPost: (post, topicoKey, autor, autorKey) => dispatch(addPostTopico(post, topicoKey, autor, autorKey)) 
   }
 }
 

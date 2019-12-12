@@ -1,13 +1,15 @@
 import { 
     LOADING_POSTAGEM, 
     POSTAGEM_LOADED, 
-    SET_POSTAGEM, 
-    SET_KEY_POSTAGEM
+    SET_POSTAGEM,
+    SET_DADOS_POST
 } from '../actions/actionTypes'
 
 const initialState = {
    postagens: [],
    titulo: '',
+   autor: '',
+   autorKey: null,
    postKey: null,
    topicoKey: null,
    isLoadingPost: false
@@ -34,10 +36,14 @@ const reducer = (state=initialState, action) => {
                postagens: action.payload
            }
        }
-       case SET_KEY_POSTAGEM: {
-           return {
+       case SET_DADOS_POST: {
+           return{
                ...state,
-               postKey: action.payload
+               postKey: action.payload.key,
+               topicoKey: action.payload.topicoKey,
+               titulo: action.payload.titulo,
+               autor: action.payload.autor,
+               autorKey: action.payload.autorKey
            }
        }
        default: {            

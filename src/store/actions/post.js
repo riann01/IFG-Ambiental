@@ -1,9 +1,9 @@
 import firebase from 'react-native-firebase';
-import { LOADING_POSTAGEM, POSTAGEM_LOADED, SET_POSTAGEM } from './actionTypes';
+import { LOADING_POSTAGEM, POSTAGEM_LOADED, SET_POSTAGEM, SET_DADOS_POST } from './actionTypes';
 
 
 export const loadingPostagem = () => {
-    return{
+    return {
         type: LOADING_POSTAGEM
     }
 }
@@ -21,43 +21,79 @@ export const setPostagem = (postagem) => {
     }
 }
 
+export const setDadosPost = (post) => {
+    return {
+        type: SET_DADOS_POST,
+        payload: post
+    }
+}
+
 
 export const fetchPostagem = (topicoKey, postagemKey) => {
 
     return dispatch => {
-        
+
+        dispatch(loadingPostagem())
         firebase.database().ref(`${topicoKey}/posts/${postagemKey}/postagens`)
-        .on('value', (snapshot) => {
+            .on('value', (snapshot) => {
 
-            setTimeout(() => {
-                
-                let postagens = []
+                setTimeout(() => {
 
-                snapshot.forEach((doc) => {
-                    let postagem = {
-                        key: doc.key,
-                        ...doc.val()
-                    }
-                    postagens.push(postagem)
-                })
+                    let postagens = []
 
-                dispatch(setPostagem(postagem))
+                    snapshot.forEach((doc) => {
+                        let postagem = {
+                            key: doc.key,
+                            ...doc.val()
+                        }
+                        postagens.push(postagem)
+                    })
 
-            }, 0)
+                    dispatch(setPostagem(postagem))
+                    dispatch(postagemLoaded())
+                }, 0)
 
-        })
+            })
 
     }
 }
 
-export const addPostTopico = (novoPost, topicoKey) => {
-    return dispatch => (
-        firebase.database().ref(`/${topicoKey}/posts`).push(novoPost).
-        then(() => {
 
+export const fetchDadosPost = (topicoKey, postagemKey) => {
+
+    return dispatch => {
+
+        firebase.database().ref(`${topicoKey}/posts/${postagemKey}`)
+            .once('value', (snapshot) => {
+
+                let postagem = {
+                    key: postagemKey,
+                    topicoKey: topicoKey,
+                    ...snapshot.val()
+                }
+
+                dispatch(setDadosPost(postagem))
+
+            })
+
+    }
+}
+
+export const addRespostaPost = (novoPost, topicoKey, postKey, autor, autorKey) => {
+    return dispatch => {
+
+        let novoPost2 = {
+            ...novoPost,
+            autor: autor,
+            autorKey: autorKey
+        }
+
+        firebase.database().ref(`${topicoKey}/posts/${postKey}`).push(novoPost2).
+        then(() => {
+                
         })
         .catch((err) => {
             alert(err)
         })
-    )
+    }
 }
