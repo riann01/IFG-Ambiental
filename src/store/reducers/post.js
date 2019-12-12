@@ -8,6 +8,8 @@ import {
 const initialState = {
    postagens: [],
    titulo: '',
+   autor: '',
+   autorKey: null,
    postKey: null,
    topicoKey: null,
    isLoadingPost: false
@@ -39,7 +41,9 @@ const reducer = (state=initialState, action) => {
                ...state,
                postKey: action.payload.key,
                topicoKey: action.payload.topicoKey,
-               titulo: action.payload.titulo
+               titulo: action.payload.titulo,
+               autor: action.payload.autor,
+               autorKey: action.payload.autorKey
            }
        }
        default: {            

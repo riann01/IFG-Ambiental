@@ -225,7 +225,7 @@ const mapStateToProps = ({ user, forum }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddPost: (post, topicoKey) => dispatch(addPostTopico(post, topicoKey)) 
+    onAddPost: (post, topicoKey, autor, autorKey) => dispatch(addPostTopico(post, topicoKey, autor, autorKey)) 
   }
 }
 

@@ -91,10 +91,16 @@ export const fetchTopico = (topicoKey) => {
 }
 
 
-export const addPostTopico = (novoPost, topicoKey) => {
+export const addPostTopico = (novoPost, topicoKey, autor, autorKey) => {
     return dispatch => {
 
-        firebase.database().ref(`/${topicoKey}/posts`).push(novoPost).
+        let novoPost2 = {
+            ...novoPost,
+            autor: autor,
+            autorKey: autorKey
+        }
+
+        firebase.database().ref(`/${topicoKey}/posts`).push(novoPost2).
             then(() => {
                 
             })
