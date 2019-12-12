@@ -44,7 +44,6 @@ const MenuNavigator = createDrawerNavigator(MenuRoutes, MenuConfig)
 const authSwitch = createSwitchNavigator({    
     Main: MenuNavigator,
     Auth: HomeScreen,
-    Profile: Profile,
 }, {
     initialRouteName: 'Auth'
 })
