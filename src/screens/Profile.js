@@ -47,13 +47,17 @@ class Profile extends React.Component {
         return (
           <View>
             <TopNavigation
-            leftControl={this.backAction()} />
+            leftControl={this.backAction()} title='Retornar' />
             <Layout style={styles.container}>
               <Text style={styles.text} category='h4' style={styles.title}>Perfil</Text>
-              <Text style={styles.text} category='h5' style={styles.title}>Ana Clara</Text>
-              <Button icon={Pencil} onPress={() => this.setState({mode: 'alteraDados'})}>Editar Informações</Button>
-              <Button icon={Pencil} onPress={() => this.setState({mode: 'alteraSenha'})}>Alterar Senha</Button>
-              <Button icon={Pencil} onPress={() => this.setState({mode: 'alteraEmail'})}>Alterar Email</Button>
+              <Avatar size='giant'/>
+              <Text style={styles.text} category='h5' style={styles.title}>Usuário</Text>
+              <Button icon={Pencil} onPress={() => this.setState({mode: 'alteraDados'})}
+              size='large' style={{width: '90%', marginBottom: '5%'}}>Editar Informações</Button>
+              <Button icon={Pencil} onPress={() => this.setState({mode: 'alteraSenha'})}
+              size='large' style={{width: '90%', marginBottom: '5%'}}>Alterar Senha</Button>
+              <Button icon={Pencil} onPress={() => this.setState({mode: 'alteraEmail'})}
+              size='large' style={{width: '90%'}}>Alterar Email</Button>
             </Layout>
           </View>
         )
@@ -99,8 +103,9 @@ class Profile extends React.Component {
           <IconRegistry icons={EvaIconsPack} />
           <Container>
 
-          </Container>
+          
           {this.renderMode()}
+          </Container>
         </ApplicationProvider>
       </React.Fragment>
     );
@@ -119,7 +124,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   title: {
-    marginVertical: '10%',
+    marginVertical: '5%',
     fontWeight: 'bold',
     textAlign: 'center',
   },
