@@ -10,7 +10,9 @@ import {
   IconRegistry,
   Icon,
   Input,
+  Datepicker,
   TopNavigation,
+  Select,
   TopNavigationAction
 } from 'react-native-ui-kitten';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
@@ -61,10 +63,10 @@ class HomeScreen extends React.Component {
   }
 
   backAction = () => (
-    <TopNavigationAction 
-    icon={BackIcon}
-    onPress={() => this.setState({mode: 'inicial'})}
-   />
+    <TopNavigationAction
+      icon={BackIcon}
+      onPress={() => this.setState({ mode: 'inicial' })}
+    />
   )
 
   componentDidUpdate = prevProps => {
@@ -75,9 +77,9 @@ class HomeScreen extends React.Component {
     }
   }
 
-  loginEmail = () =>{
-    if(this.state.loginEmail.email.trim().length>0 && this.state.loginEmail.senha.trim().length>0){
-        this.props.onLogin({ ...this.state.loginEmail })
+  loginEmail = () => {
+    if (this.state.loginEmail.email.trim().length > 0 && this.state.loginEmail.senha.trim().length > 0) {
+      this.props.onLogin({ ...this.state.loginEmail })
     }
   }
 
@@ -86,27 +88,27 @@ class HomeScreen extends React.Component {
     if (this.state.novaConta.senha.trim().length > 0 && this.state.novaConta.email.trim().length > 0) {
 
       if (this.state.novaConta.senha === this.state.novaConta.rptSenha) {
-        if(this.state.novaConta.telefone.trim().length>=9){
+        if (this.state.novaConta.telefone.trim().length >= 9) {
 
-          if(this.state.novaConta.instituicao.trim().length>=1){  
-            
-            if(this.state.novaConta.titulo.trim().length>=0){  
-              if(this.state.novaConta.dataNascimento.trim().length>=0){  
-                if(this.state.novaConta.nome.trim().length>=6){  
+          if (this.state.novaConta.instituicao.trim().length >= 1) {
+
+            if (this.state.novaConta.titulo.trim().length >= 0) {
+              if (this.state.novaConta.dataNascimento.trim().length >= 0) {
+                if (this.state.novaConta.nome.trim().length >= 6) {
                   this.props.onRegistrar({ ...this.state.novaConta })
-                }else{
+                } else {
                   this.setState({ dialogErroRegistro: true, mensagemErroRegistro: 'Atenção!', tituloErroRegistro: 'É necessário digitar seu nome.' })
                 }
-              }else{
+              } else {
                 this.setState({ dialogErroRegistro: true, mensagemErroRegistro: 'Atenção!', tituloErroRegistro: 'É necessário selecionar sua data de nascimento.' })
               }
-            }else{
+            } else {
               this.setState({ dialogErroRegistro: true, mensagemErroRegistro: 'Atenção!', tituloErroRegistro: 'É necessário selecionar um título.' })
             }
-          }else{
+          } else {
             this.setState({ dialogErroRegistro: true, mensagemErroRegistro: 'Atenção!', tituloErroRegistro: 'É necessário preencher o campo Instituição. Caso não possua, coloque "Nenhuma". ' })
           }
-        }else{
+        } else {
           this.setState({ dialogErroRegistro: true, mensagemErroRegistro: 'Atenção!', tituloErroRegistro: 'É necessário preencher o campo Telefone. Coloque seu DDD, juntamente com os 9 digitos.' })
         }
       } else {
@@ -170,7 +172,7 @@ class HomeScreen extends React.Component {
                     width: '70%'
                   }}
                   icon={GoogleIcon}
-                  onPress={() => {}}
+                  onPress={() => { }}
                   status='danger'>
                   Entrar com Google
               </Button>
@@ -201,12 +203,12 @@ class HomeScreen extends React.Component {
               leftControl={this.backAction()}
               title='Retornar para o início' />
 
-            <Layout>
-              <Text style={styles.text} category='h4' style={styles.title}>Entrar com Email</Text>
+            <Layout style={{ alignContent: 'center', justifyContent: 'center', alignItems: 'center' }}>
+              <Text style={styles.text} category='h4'>Entrar com Email</Text>
               <Input
                 placeholder='Email'
                 value={this.state.loginEmail.email}
-                style={styles.component}
+                style={{ width: '80%' }}
                 onChangeText={(text) => this.setState({ loginEmail: { ...this.state.loginEmail, email: text } })} />
               <Input
                 value={this.state.loginEmail.senha}
@@ -215,7 +217,7 @@ class HomeScreen extends React.Component {
                 secureTextEntry={this.state.secureTextEntry}
                 onIconPress={this.onIconPress}
                 onChangeText={(text) => this.setState({ loginEmail: { ...this.state.loginEmail, senha: text } })}
-                style={styles.component}
+                style={{ width: '80%' }}
               />
               <TouchableOpacity onPress={() => this.setState({ mode: 'esqueciSenha' })}>
                 <Text style={{ marginHorizontal: '1%' }}>Esqueci minha senha</Text>
@@ -236,36 +238,61 @@ class HomeScreen extends React.Component {
         )
       }
       case 'registrar': {
+        const CalendarIcon = (style) => (
+          <Icon {...style} name='calendar' />
+        );
+        const PLACEMENTS = [
+          { text: 'Aluno' },
+          { text: 'Professor' },
+          { text: 'Mestre' },
+          { text: 'Doutor' },
+          { text: 'Sem Título' },
+        ];
         return (
           <View>
             <TopNavigation
               leftControl={this.backAction()}
               title='Retornar para o início' />
-            
-              <Layout>
+
+            <Layout style={{ alignContent: 'center', justifyContent: 'center', alignItems: 'center' }}>
               <Input placeholder='Email' style={styles.component}
                 onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, email: text } })}
-                value={this.state.novaConta.email} />
+                value={this.state.novaConta.email}
+                style={{width: '80%'}} />
               <Input placeholder='Senha' style={styles.component}
                 onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, senha: text } })}
                 secureTextEntry={true}
-                value={this.state.novaConta.senha} />
+                value={this.state.novaConta.senha}
+                style={{width: '80%'}} />
               <Input placeholder='Repita a senha' style={styles.component}
                 onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, rptSenha: text } })}
                 secureTextEntry={true}
-                value={this.state.novaConta.rptSenha} />
-                <Input placeholder='Nome' style={styles.component}
+                value={this.state.novaConta.rptSenha} 
+                style={{width: '80%'}}/>
+              <Input placeholder='Nome' style={styles.component}
                 onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, nome: text } })}
-                value={this.state.novaConta.nome} />
-                <Input placeholder='Instituição' style={styles.component}
+                value={this.state.novaConta.nome} 
+                style={{width: '80%'}}/>
+              <Input placeholder='Data de Nascimento' size='large' icon={CalendarIcon} style={styles.component}
+                onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, dataNascimento: text } })}
+                value={this.state.novaConta.dataNascimento}
+                style={{width: '80%'}}/>
+              <Input placeholder='Instituição' style={styles.component}
                 onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, instituicao: text } })}
-                value={this.state.novaConta.instituicao} />
-                <Input placeholder='Telefone' style={styles.component}
+                value={this.state.novaConta.instituicao}
+                style={{width: '80%'}}/>
+              <Input placeholder='Título Ex.: Aluno'
+                selectedOption={this.state.novaConta.titulo}
+                onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, titulo: text } })}
+                value={this.state.novaConta.titulo}
+                style={{width: '80%'}}/>
+              <Input placeholder='Telefone' style={styles.component}
                 onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, telefone: text } })}
-                value={this.state.novaConta.telefone} />
+                value={this.state.novaConta.telefone}
+                style={{width: '80%'}}/>
               <Button size='large' status='success' style={{ marginTop: '5%', width: '90%', }} onPress={() => { this.registrar() }}>Criar Conta</Button>
-              
-              </Layout>
+
+            </Layout>
           </View>
         )
       }
@@ -276,12 +303,12 @@ class HomeScreen extends React.Component {
               leftControl={this.backAction()}
               title='Retornar para o início' />
 
-            <Layout>
-              <Text style={styles.text} category='h4' style={styles.title}>Relembrar minha senha</Text>
+            <Layout style={{ alignContent: 'center', justifyContent: 'center', alignItems: 'center' }}>
+              <Text style={styles.text} category='h4'>Relembrar minha senha</Text>
               <Input
                 placeholder='Email'
                 value={this.state.emailRelembrar}
-                style={styles.component}
+                style={{width: '80%'}}
                 onChangeText={(text) => this.setState({ emailRelembrar: text })} />
 
               <Button size='large' status='success' onPress={() => this.relembraSenha()} style={{ marginTop: '5%', width: '90%', }}>Enviar</Button>
@@ -328,10 +355,10 @@ class HomeScreen extends React.Component {
             <Dialog.Description style={{ fontSize: 18, textAlign: 'justify' }}>
               {this.state.mensagemErroRegistro}
             </Dialog.Description>
-            <Dialog.Button color={'green'} bold={true} label="OK" onPress={() => { this.setState({dialogErroRegistro: false})  } } />
+            <Dialog.Button color={'green'} bold={true} label="OK" onPress={() => { this.setState({ dialogErroRegistro: false }) }} />
           </Dialog.Container>
           <Container>
-          {this.renderMode()}
+            {this.renderMode()}
           </Container>
         </ApplicationProvider>
       </React.Fragment>
@@ -340,7 +367,7 @@ class HomeScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  
+
   containerInicial: {
     alignItems: 'center',
     textAlign: 'center',
@@ -352,6 +379,7 @@ const styles = StyleSheet.create({
   },
   text: {
     marginTop: 10,
+    marginBottom: 10,
     textAlign: 'center',
     fontWeight: 'bold',
   },
@@ -390,7 +418,7 @@ const mapDispatchToProps = dispatch => {
     onRegistrar: (novoUser) => dispatch(registrar(novoUser)),
     onDismissError: () => dispatch(dismissErrorLogin()),
     onEsqueciSenha: (email) => dispatch(forgotPassword(email)),
-    onDeslogar: () => dispatch(deslogar())  
+    onDeslogar: () => dispatch(deslogar())
   }
 }
 

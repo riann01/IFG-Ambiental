@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, FlatList, Picker } from 'react-native';
+import { StyleSheet, FlatList, Picker, PermissionsAndroid, KeyboardAvoidingView } from 'react-native';
 import { mapping, light as darkTheme } from '@eva-design/eva';
 import {
   ApplicationProvider,
@@ -21,7 +21,7 @@ import { addPostTopico } from '../store/actions/post';
 class MainScreen extends React.Component {
 
 
-  state = {    
+  state = {
     hora: new Date().getHours(),
     minutos: new Date().getMinutes(),
     tratamento: '',
@@ -34,7 +34,7 @@ class MainScreen extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ topicos: Object.assign([], this.props.topicos)})
+    this.setState({ topicos: Object.assign([], this.props.topicos) })
   }
 
   async requestLocation() {
@@ -54,11 +54,11 @@ class MainScreen extends React.Component {
         getLocation()
         setTimeout(function () {
           let data = new getData()
-          this.setState({cityName: data.city, temperature: data.tempC, windSpeed: data.windKph})
-          
+          this.setState({ cityName: data.city, temperature: data.tempC, windSpeed: data.windKph })
+
         }, 2000);
       } else {
-        this.setState({cityName: 'Permissão de acesso à localização negada.'})
+        this.setState({ cityName: 'Serviço indisponível no momento.' })
       }
     } catch (err) {
       console.warn(err);
@@ -70,15 +70,15 @@ class MainScreen extends React.Component {
   }
 
   render() {
-    
+
     if ((this.state.hora >= 6 || (this.hora <= 11 && this.minutos <= 59))) {
-      this.setState({tratamento: "Bom dia, "+this.props.nome})
+      this.setState({ tratamento: "Bom dia, " + this.props.nome })
     }
     if ((this.hora >= 12 || (this.hora <= 17 && this.minutos <= 59))) {
-      this.setState({tratamento: "Boa tarde, "+this.props.nome})
+      this.setState({ tratamento: "Boa tarde, " + this.props.nome })
     }
     if ((this.hora >= 18 || (this.hora <= 5 && this.minutos <= 59))) {
-      this.setState({tratamento: "Boa noite, "+this.props.nome})
+      this.setState({ tratamento: "Boa noite, " + this.props.nome })
     }
 
     return (
@@ -89,7 +89,7 @@ class MainScreen extends React.Component {
           <IconRegistry icons={EvaIconsPack} />
           <Container style={{ flex: 1 }}>
             <Text style={styles.text} category='h4' style={styles.title}>{this.tratamento}{this.userName}!</Text>
-            <Layout style={{ alignItems: 'center', marginTop: '5%', height: '60%' }}>
+            <Layout style={{ alignItems: 'center', marginTop: '5%', height: '40%' }}>
               <Layout style={{ width: '90%', elevation: 7, borderRadius: 20, height: '50%' }}>
                 <Layout style={{
                   height: '35%',
@@ -127,7 +127,7 @@ class MainScreen extends React.Component {
                       selectedValue={this.state.topicoValue}
                       style={{ height: 50, width: 100 }}
                       onValueChange={(itemValue, itemIndex) =>
-                        this.setState({ topicoValue: itemValue, topicoNome: this.props.topicos[itemIndex].titulo})
+                        this.setState({ topicoValue: itemValue, topicoNome: this.props.topicos[itemIndex].titulo })
                       }>
                       <Picker.Item label="Arrecadações" value="-Lvru02V9do5bGMYSS4O" />
                       <Picker.Item label="Discussões diversas sobre o Meio Ambiente" value="-Lvruax5h4WL6LtoZ5F3" />
@@ -135,9 +135,9 @@ class MainScreen extends React.Component {
                       <Picker.Item label="Olha Só!" value="-LvruPhnYGckTUlc4KFh" />
                     </Picker>
                     <Button
-                      //icon={PostIcon}
                       size='medium'
                       style={styles.button}>
+                        Postar
                     </Button>
                   </Layout>
                 </Layout>
@@ -225,7 +225,7 @@ const mapStateToProps = ({ user, forum }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddPost: (post, topicoKey) => dispatch(addPostTopico(post, topicoKey)) 
+    onAddPost: (post, topicoKey) => dispatch(addPostTopico(post, topicoKey))
   }
 }
 
