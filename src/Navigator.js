@@ -8,6 +8,7 @@ import MainScreen from './screens/MainScreen'
 import Menu from './components/Menu';
 import ContatosUteis from './screens/ContatosUteis'
 import Texts from './screens/Texts'
+import Profile from './screens/Profile'
 
 // Class Hidden
 
@@ -42,6 +43,7 @@ const MenuNavigator = createDrawerNavigator(MenuRoutes, MenuConfig)
 const authSwitch = createSwitchNavigator({    
     Main: MenuNavigator,
     Auth: HomeScreen,
+    Profile: Profile,
     TelUteis: ContatosUteis,
     Texts: Texts,
 }, {

@@ -169,6 +169,14 @@ class MainScreen extends React.Component {
               content="Veja nesta seção contatos úteis"
               iconBackgroundColor="#05D580"
             />
+            <Card
+              title="Perfil"
+              iconName="user-circle-o"
+              iconType="FontAwesome"
+              onPress={() => {this.props.navigation.navigate('Profile')}}
+              content="Visualize e altere seus dados"
+              iconBackgroundColor="#14CC25"
+            />
           </Container>
         </ApplicationProvider>
       </React.Fragment >

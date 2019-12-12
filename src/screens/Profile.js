@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, ImageBackground, Image } from 'react-native';
+import { StyleSheet, ImageBackground, Image, View } from 'react-native';
+import { connect } from 'react-redux'
 import { mapping, light as darkTheme } from '@eva-design/eva';
 import {
   ApplicationProvider,
@@ -29,9 +30,6 @@ const Pencil = (style) => (
   <Icon {...style} name='edit' />
 );
 
-
-
-
 class Profile extends React.Component {
 
   state = {
@@ -52,13 +50,7 @@ class Profile extends React.Component {
             leftControl={this.backAction()} />
             <Layout style={styles.container}>
               <Text style={styles.text} category='h4' style={styles.title}>Perfil</Text>
-              <Avatar
-                style={styles.item}
-                size='giant'
-                source={{ uri: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330' }}
-              />
               <Text style={styles.text} category='h5' style={styles.title}>Ana Clara</Text>
-              <Text style={styles.title}>Formosa - Goiás</Text>
               <Button icon={Pencil} onPress={() => this.setState({mode: 'alteraDados'})}>Editar Informações</Button>
               <Button icon={Pencil} onPress={() => this.setState({mode: 'alteraSenha'})}>Alterar Senha</Button>
               <Button icon={Pencil} onPress={() => this.setState({mode: 'alteraEmail'})}>Alterar Email</Button>
