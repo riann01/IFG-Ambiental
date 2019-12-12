@@ -20,54 +20,106 @@ import {
 
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { prependToMemberExpression } from '@babel/types';
+import { Container } from 'native-base';
 
 const BackIcon = (style) => (
-    <Icon {...style} name='arrow-ios-back-outline'/>
+  <Icon {...style} name='arrow-ios-back-outline' />
 );
 const Pencil = (style) => (
-    <Icon {...style} name='edit'/>
+  <Icon {...style} name='edit' />
 );
 
-const BackAction = () => (
-  <TopNavigationAction icon={BackIcon}/>
-);
 
-const ApplicationContent = ({ navigation }) => (
-  <React.Fragment>
-    <Layout style={styles.container}>
-        <Text style={styles.text} category='h4' style={styles.title}>Perfil</Text>
-        <Avatar
-            style={styles.item}
-            size='giant'
-            source={{ uri: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330' }}
-        />
-        <Text style={styles.text} category='h5' style={styles.title}>Ana Clara</Text>
-        <Text style={styles.title}>Formosa - Goiás</Text>
-        <Button icon={Pencil}>Editar Informações</Button>
-    </Layout>
-  </React.Fragment>
-); 
+
 
 class Profile extends React.Component {
+
+  state = {
+    mode: 'inicial'
+  }
+
+  backAction = () => (
+    <TopNavigationAction icon={BackIcon} 
+    onPress={() => this.setState('inicial')}/>
+  );
+
+  renderMode = () => {
+    switch (this.state.mode) {
+      case 'inicial': {
+        return (
+          <View>
+            <TopNavigation
+            leftControl={this.backAction()} />
+            <Layout style={styles.container}>
+              <Text style={styles.text} category='h4' style={styles.title}>Perfil</Text>
+              <Avatar
+                style={styles.item}
+                size='giant'
+                source={{ uri: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330' }}
+              />
+              <Text style={styles.text} category='h5' style={styles.title}>Ana Clara</Text>
+              <Text style={styles.title}>Formosa - Goiás</Text>
+              <Button icon={Pencil} onPress={() => this.setState({mode: 'alteraDados'})}>Editar Informações</Button>
+              <Button icon={Pencil} onPress={() => this.setState({mode: 'alteraSenha'})}>Alterar Senha</Button>
+              <Button icon={Pencil} onPress={() => this.setState({mode: 'alteraEmail'})}>Alterar Email</Button>
+            </Layout>
+          </View>
+        )
+      }
+      case 'alteraSenha': {
+        return (
+          <View>
+            <TopNavigation
+            leftControl={this.backAction()} />
+            <Text>Altera senha</Text>
+          </View>
+        )
+      }
+      case 'alteraDados': {
+        return(
+          <View>
+            <TopNavigation
+            leftControl={this.backAction()} />
+            <Text>Altera dados</Text>
+          </View>
+        )
+      }
+      case 'alteraEmail': {
+        return(
+          <View>
+            <TopNavigation
+            leftControl={this.backAction()} />
+            <Text>Altera email</Text>
+          </View>
+        )
+      }
+    }
+  }
+
+
   render() {
-    return(
+
+    return (
       <React.Fragment>
         <ApplicationProvider
-        mapping={mapping}
-        theme={darkTheme}>
-          <IconRegistry icons={EvaIconsPack}/>
-          <TopNavigation
-            leftControl={BackAction()}/>
-          <ApplicationContent/>
+          mapping={mapping}
+          theme={darkTheme}>
+          <IconRegistry icons={EvaIconsPack} />
+          <Container>
+
+          </Container>
+          {this.renderMode()}
         </ApplicationProvider>
       </React.Fragment>
     );
   }
+
 }
+
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    textAlign:'center',
+    textAlign: 'center',
   },
   text: {
     marginTop: 10,
@@ -86,13 +138,19 @@ const styles = StyleSheet.create({
   item: {
 
   },
-});
+})
 
-Profile.navigationOptions = ({ /*navigation*/ }) => {
+
+
+const mapStateToProps = ({ user }) => {
   return {
-      header: null
+    nome: user.nome,
+    dataNascimento: user.dataNascimento,
+    titulo: user.titulo,
+    instituicao: user.instituicao,
+    email: user.email,
+    telefone: user.telefone
   }
 }
 
-
-export default Profile;
+export default connect(mapStateToProps)(Profile)

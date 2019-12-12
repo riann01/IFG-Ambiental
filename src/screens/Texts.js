@@ -1,33 +1,70 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, ImageBackground, Image, View } from 'react-native';
+import { mapping, light as darkTheme } from '@eva-design/eva';
 import {
-  List,
-  ListItem,
+  ApplicationProvider,
+  Layout,
+  Text,
+  IconRegistry
 } from 'react-native-ui-kitten';
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import { connect } from 'react-redux'
+import { Container } from 'native-base';
 
-const SAMPLE_DATA = {
-  title: 'O Nome do Texto Vai Aqui.',
-};
+class Texts extends React.Component {
 
-export const Texts = (props) => {
 
-  const data = new Array(8).fill(SAMPLE_DATA);
+  loadingOuRender = () => {
+    /////////////////////// AQUI COLOCA O SPINNER
+    //////////////////////////////////////////
+    if(this.props.isLoadingTextos){
+      return(
+        <View>
 
-  const renderItem = ({ item, index }) => (
-    <ListItem title={`${item.title} ${index + 1}`} />
-  );
+        </View>
+      )
 
-  return (
-    <List
-      style={styles.list}
-      data={data}
-      renderItem={renderItem}
-    />
-  );
-};
+    }else{
+      //////////////////////////
+      ////////////////////////////// AQUI DENTRO DO RETURN VC COLOCA O CÓDIGO DA PÁGINA
+      return(
+        <Layout>
+            <Text style={styles.text}>Textos</Text>
+        </Layout>
+      )
+    }
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        <IconRegistry icons={EvaIconsPack} />
+        <ApplicationProvider
+          mapping={mapping}
+          theme={darkTheme}>          
+          <Container>
+            {this.loadingOuRender()}
+          </Container>
+        </ApplicationProvider>
+      </React.Fragment>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
-  list: {
-    height: 150,
-  },
-});
+  
+  text: {
+    marginTop: 10,
+    textAlign: 'center',
+    fontWeight: 'bold',
+  }
+})
+
+const mapStateToProps = ({ textos }) => {
+  return {
+    textos: textos.textos,
+    isLoadingTextos: textos.isLoadingTextos
+  }
+}
+
+export default connect(mapStateToProps)(Texts)
