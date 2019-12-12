@@ -1,5 +1,4 @@
-import { 
-    } from '../actions/actionTypes'
+import { LOADING_TEXTOS, TEXTOS_LOADED, SET_TEXTOS } from '../actions/actionTypes'
 
 const initialState = {
    textos: [],
@@ -10,22 +9,22 @@ const reducer = (state=initialState, action) => {
 
    switch(action.type){
 
-        case LOADING_TOPICOS: {
+        case LOADING_TEXTOS: {
             return {
                 ...state,
-                isLoadingForum: true
+                isLoadingTextos: true
             }
         }
-        case TOPICOS_LOADED: {
+        case TEXTOS_LOADED: {
             return {
                 ...state,
-                isLoadingForum: false
+                isLoadingTextos: false
             }
         }
-        case SET_TOPICOS: {
+        case SET_TEXTOS: {
             return{
                 ...state,
-                topicos: action.payload
+                textos: action.payload
             }
         }
         default: {            

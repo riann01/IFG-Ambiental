@@ -20,7 +20,6 @@ export const setTextos = (textos) => {
     }
 }
 
-
 export const fetchTextos = () => {
     return dispatch => {
         dispatch(loadingTextos())
