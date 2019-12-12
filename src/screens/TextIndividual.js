@@ -22,7 +22,22 @@ const BackIcon = (style) => (
 )
 
 class TextIndividual extends React.Component {
-    reder() {
+
+    state = {
+        texto: {
+            corpo: '',
+            titulo: ''
+        }
+    }
+
+
+    componentDidMount(){
+        const textoParam = this.props.navigation.getParam('texto', 'null')
+        this.setState({ texto: {...this.state.texto, ...textoParam }})
+    }   
+
+
+    render() {
         return (
             <React.Fragment>
                 <IconRegistry icons={EvaIconsPack} />

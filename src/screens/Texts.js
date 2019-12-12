@@ -48,7 +48,7 @@ class Texts extends React.Component {
       const data = this.props.textos
 
       const renderItem = ({ item, index }) => (
-        <ListItem title={`${item.titulo}`} accessory={renderAccessory} onPress={() => { this.props.navigation.navigate('TextIn', {texto: item}) }} />)
+        <ListItem title={`${item.titulo}`} accessory={renderAccessory} onPress={() => { this.props.navigation.navigate('TextIndividual', {texto: item}) }} />)
 
       const renderAccessory = (style, index) => (
         <Icon
