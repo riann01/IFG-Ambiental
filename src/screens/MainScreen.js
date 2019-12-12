@@ -67,6 +67,15 @@ class MainScreen extends React.Component {
 
   componentDidMount = () => {
     this.requestLocation()
+    if ((this.state.hora >= 6 || (this.state.hora <= 11 && this.state.minutos <= 59))) {
+      this.setState({ tratamento: "Bom dia, " + this.props.nome })
+    }
+    if ((this.state.hora >= 12 || (this.state.hora <= 17 && this.state.minutos <= 59))) {
+      this.setState({ tratamento: "Boa tarde, " + this.props.nome })
+    }
+    if ((this.state.hora >= 18 || (this.state.hora <= 5 && this.state.minutos <= 59))) {
+      this.setState({ tratamento: "Boa noite, " + this.props.nome })
+    }
   }
 
   render() {
@@ -88,7 +97,7 @@ class MainScreen extends React.Component {
           theme={darkTheme}>
           <IconRegistry icons={EvaIconsPack} />
           <Container style={{ flex: 1 }}>
-            <Text style={styles.text} category='h4' style={styles.title}>Bem-vindo, {}!</Text>
+            <Text style={styles.text} category='h4' style={styles.title}>{this.state.tratamento}!</Text>
             <Card
               title="Clima"
               iconName="ios-sunny"
@@ -103,7 +112,7 @@ class MainScreen extends React.Component {
               title="Educação Ambiental"
               iconName="book-open-page-variant"
               iconType="MaterialCommunityIcons"
-              onPress={() => { this.props.navigation.navigate('Texts') }}
+              onPress={() => { this.props.navigation.navigate('Textos') }}
               content="Veja conteúdo informativo sobre educação ambiental :)"
               iconBackgroundColor="#1FAFBF"
             />
@@ -111,16 +120,16 @@ class MainScreen extends React.Component {
               title="Contatos Úteis"
               iconName="perm-contact-calendar"
               iconType="MaterialIcons"
-              onPress={() => { this.props.navigation.navigate('TelUteis') }}
+              onPress={() => { this.props.navigation.navigate('Telefones') }}
               content="Veja nesta seção contatos úteis"
               iconBackgroundColor="#05D580"
             />
             <Card
-              title="Perfil"
+              title="Calendário"
               iconName="user-circle-o"
               iconType="FontAwesome"
-              onPress={() => { this.props.navigation.navigate('Profile') }}
-              content="Visualize e altere seus dados"
+              onPress={() => { this.props.navigation.navigate('Calendario') }}
+              content="Visualize o calendário ambiental."
               iconBackgroundColor="#14CC25"
             />
           </Container>

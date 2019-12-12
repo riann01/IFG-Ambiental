@@ -19,7 +19,7 @@ export default ({ navigation }) => {
         theme={darkTheme}
         mapping={mapping}>
             <SafeAreaView style={{ flex: 1, backgroundColor: 'ghostwhite'}}>
-                <Drawer data={[{ title: 'Início' }, { title: 'Fórum' }, { title: 'Perfil' }, { title: 'Textos' }, { title: 'Telefones' }, { title: 'Informações' }, { title: 'Calendário' }, { title: 'Sobre' }, { title: 'Sair' }]} onSelect={onSelect}/>
+                <Drawer data={[{ title: 'Início' }, { title: 'Fórum' }, { title: 'Perfil' }, { title: 'Sobre' }, { title: 'Sair' }]} onSelect={onSelect}/>
             </SafeAreaView>
         </ApplicationProvider>
     )

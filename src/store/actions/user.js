@@ -84,7 +84,7 @@ export const login = (user) => {
                                 key: res.user.uid,
                                 ...user
                             }
-                            
+
                             dispatch(userLogged(userFinal))
                             dispatch(userAuthenticated())
 

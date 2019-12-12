@@ -1,6 +1,6 @@
 //Padrão
 import React, { Component } from 'react'
-import { createDrawerNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation'
+import { createDrawerNavigator, createSwitchNavigator, createAppContainer, createStackNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 //Screens
 import HomeScreen from './screens/HomeScreen'
@@ -20,6 +20,16 @@ class Hidden extends Component {
         return null;
     }
 }
+
+
+const textStack = createStackNavigator({
+    Textos: Texts,
+    TextIndividual: TextIndividual
+}, 
+{
+    initialRouteName: 'Textos',
+    headerMode: 'none'
+})
 
 //Config Menu
 
@@ -54,46 +64,6 @@ const MenuRoutes = {
             )          
         }
     },
-    Textos:{
-        name:'Textos',
-        screen: Texts,
-        navigationOptions: {
-            title: 'Textos',
-            drawerIcon: () => (
-                <Icon name="home" size={20} color={'#003266'} />
-            )          
-        }
-    },
-    Telefones:{
-        name:'Telefones',
-        screen: ContatosUteis,
-        navigationOptions: {
-            title: 'Telefones',
-            drawerIcon: () => (
-                <Icon name="home" size={20} color={'#003266'} />
-            )          
-        }
-    },
-    Informacoes:{
-        name:'Informacoes',
-        screen: MainScreen,
-        navigationOptions: {
-            title: 'Informações',
-            drawerIcon: () => (
-                <Icon name="home" size={20} color={'#003266'} />
-            )          
-        }
-    },
-    Calendario:{
-        name:'Calendario',
-        screen: MainScreen,
-        navigationOptions: {
-            title: 'Calendario',
-            drawerIcon: () => (
-                <Icon name="home" size={20} color={'#003266'} />
-            )          
-        }
-    },
     Sobre:{
         name:'Sobre',
         screen: MainScreen,
@@ -104,6 +74,31 @@ const MenuRoutes = {
             )          
         }
     },
+    Sair: {
+        Name: 'Sair',
+        screen: HomeScreen
+    },
+    Textos:{
+        name:'Textos',
+        screen: textStack,
+        navigationOptions: {
+            drawerLabel: <Hidden />           
+        }
+    },
+    Telefones:{
+        name:'Telefones',
+        screen: ContatosUteis,
+        navigationOptions: {
+            drawerLabel: <Hidden />           
+        }
+    },
+    Calendario:{
+        name:'Calendario',
+        screen: MainScreen,
+        navigationOptions: {
+            drawerLabel: <Hidden />           
+        }
+    }
 }
 
 const MenuConfig = {
