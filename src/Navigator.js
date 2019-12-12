@@ -6,6 +6,8 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 import HomeScreen from './screens/HomeScreen'
 import MainScreen from './screens/MainScreen'
 import Menu from './components/Menu';
+import ContatosUteis from './screens/ContatosUteis'
+import Texts from './screens/Texts'
 
 // Class Hidden
 
@@ -39,7 +41,9 @@ const MenuNavigator = createDrawerNavigator(MenuRoutes, MenuConfig)
 
 const authSwitch = createSwitchNavigator({    
     Main: MenuNavigator,
-    Auth: HomeScreen
+    Auth: HomeScreen,
+    TelUteis: ContatosUteis,
+    Texts: Texts,
 }, {
     initialRouteName: 'Auth'
 })

@@ -70,7 +70,7 @@ class MainScreen extends React.Component {
   }
 
   render() {
-
+    /*this.requestLocation()
     if ((this.state.hora >= 6 || (this.hora <= 11 && this.minutos <= 59))) {
       this.setState({ tratamento: "Bom dia, " + this.props.nome })
     }
@@ -79,7 +79,7 @@ class MainScreen extends React.Component {
     }
     if ((this.hora >= 18 || (this.hora <= 5 && this.minutos <= 59))) {
       this.setState({ tratamento: "Boa noite, " + this.props.nome })
-    }
+    }*/
 
     return (
       <React.Fragment>
@@ -88,8 +88,8 @@ class MainScreen extends React.Component {
           theme={darkTheme}>
           <IconRegistry icons={EvaIconsPack} />
           <Container style={{ flex: 1 }}>
-            <Text style={styles.text} category='h4' style={styles.title}>{this.tratamento}{this.userName}!</Text>
-            <Layout style={{ alignItems: 'center', marginTop: '5%', height: '40%' }}>
+            <Text style={styles.text} category='h4' style={styles.title}>Bem-vindo!</Text>
+            {/*<Layout style={{ alignItems: 'center', marginTop: '5%', height: '40%' }}>
               <Layout style={{ width: '90%', elevation: 7, borderRadius: 20, height: '50%' }}>
                 <Layout style={{
                   height: '35%',
@@ -142,7 +142,7 @@ class MainScreen extends React.Component {
                   </Layout>
                 </Layout>
               </Layout>
-            </Layout>
+            </Layout>*/}
             <Card
               title="Clima"
               iconName="ios-sunny"
@@ -157,7 +157,7 @@ class MainScreen extends React.Component {
               title="Educação Ambiental"
               iconName="book-open-page-variant"
               iconType="MaterialCommunityIcons"
-              onPress={() => { }}
+              onPress={() => {this.props.navigation.navigate('Texts')}}
               content="Veja conteúdo informativo sobre educação ambiental :)"
               iconBackgroundColor="#1FAFBF"
             />
@@ -165,7 +165,7 @@ class MainScreen extends React.Component {
               title="Contatos Úteis"
               iconName="perm-contact-calendar"
               iconType="MaterialIcons"
-              onPress={() => { }}
+              onPress={() => {this.props.navigation.navigate('TelUteis')}}
               content="Veja nesta seção contatos úteis"
               iconBackgroundColor="#05D580"
             />
@@ -225,7 +225,7 @@ const mapStateToProps = ({ user, forum }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddPost: (post, topicoKey, autor, autorKey) => dispatch(addPostTopico(post, topicoKey, autor, autorKey)) 
+    onAddPost: (post, topicoKey, autor, autorKey) => dispatch(addPostTopico(post, topicoKey, autor, autorKey))
   }
 }
 

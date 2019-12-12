@@ -1,47 +1,66 @@
 import React from 'react';
-import { StyleSheet, ImageBackground, Image, View } from 'react-native';
+import { StyleSheet, Spinner, View } from 'react-native';
 import { mapping, light as darkTheme } from '@eva-design/eva';
 import {
   ApplicationProvider,
   Layout,
   Text,
-  IconRegistry
+  IconRegistry,
+  Icon, TopNavigationAction, TopNavigation, ListItem, List
 } from 'react-native-ui-kitten';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { connect } from 'react-redux'
 import { Container } from 'native-base';
 
-class Texts extends React.Component {
+const BackIcon = (style) => (
+  <Icon {...style} name='arrow-ios-back-outline' />
+)
 
+
+
+class Texts extends React.Component {
 
   loadingOuRender = () => {
     /////////////////////// AQUI COLOCA O SPINNER
     //////////////////////////////////////////
-    if(this.props.isLoadingTextos){
-      return(
+    if (this.props.isLoadingTextos) {
+      return (
         <View>
-
+          <Spinner />
         </View>
       )
 
-    }else{
+    } else {
       //////////////////////////
       ////////////////////////////// AQUI DENTRO DO RETURN VC COLOCA O CÓDIGO DA PÁGINA
-      return(
+      return (
+
         <Layout>
-            <Text style={styles.text}>Textos</Text>
+          <Text style={styles.text} category='h4'>Textos</Text>
+          array.forEach(element => {
+            
+          });
+          <Text>{this.props.texto}</Text>
         </Layout>
       )
     }
   }
-
+  backAction = () => (
+    <TopNavigationAction
+      icon={BackIcon}
+      onPress={() => this.props.navigation.navigate('Home')}
+    />
+  )
   render() {
     return (
       <React.Fragment>
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider
           mapping={mapping}
-          theme={darkTheme}>          
+          theme={darkTheme}>
+          <TopNavigation
+            leftControl={this.backAction()}
+            title='Retornar' />
           <Container>
             {this.loadingOuRender()}
           </Container>
@@ -52,9 +71,10 @@ class Texts extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  
+
   text: {
     marginTop: 10,
+    marginBottom: 10,
     textAlign: 'center',
     fontWeight: 'bold',
   }
