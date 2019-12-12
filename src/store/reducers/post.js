@@ -7,7 +7,9 @@ import {
 
 const initialState = {
    postagens: [],
+   titulo: '',
    postKey: null,
+   topicoKey: null,
    isLoadingPost: false
 }
 

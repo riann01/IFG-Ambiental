@@ -1,12 +1,17 @@
 import { 
-    SET_NOME_TOPICO, 
     SET_POSTS, 
     POSTS_LOADED, 
-    LOADING_POSTS } from '../actions/actionTypes'
+    LOADING_POSTS, 
+    LOADING_TOPICO,
+    TOPICO_LOADED,
+    SET_TOPICO} from '../actions/actionTypes'
 
 const initialState = {
-    nome: '',
+    titulo: '',
+    description: '',
+    key: '',
     posts: [],
+    isLoadingPosts: false,
     isLoadingTopico: false
 }
 
@@ -17,13 +22,13 @@ const reducer = (state=initialState, action) => {
             case LOADING_POSTS: {
                 return{
                     ...state,
-                    isLoadingTopico: true
+                    isLoadingPosts: true
                 }
             }
             case POSTS_LOADED: {
                 return{
                     ...state,
-                    isLoadingTopico: false
+                    isLoadingPosts: false
                 }
             }
             case SET_POSTS: {
@@ -32,12 +37,27 @@ const reducer = (state=initialState, action) => {
                     posts: action.payload
                 }
             }
-            case SET_NOME_TOPICO: {
+            case LOADING_TOPICO: {
                 return {
                     ...state,
-                    nome: action.payload
+                    isLoadingTopico: true
                 }
             }
+            case TOPICO_LOADED: {
+                return {
+                    ...state,
+                    isLoadingTopico: false
+                }
+            }
+            case SET_TOPICO: {
+                return {
+                    ...state,
+                    titulo: action.payload.titulo,
+                    description: action.payload.description,
+                    key: action.payload.key
+                }
+            }
+
             default: {            
                 return state 
             }  

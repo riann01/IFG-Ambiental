@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ImageBackground, Image } from 'react-native';
+import { StyleSheet, FlatList } from 'react-native';
 import { mapping, light as darkTheme } from '@eva-design/eva';
 import {
   ApplicationProvider,
@@ -8,135 +8,72 @@ import {
   Button,
   Input,
   IconRegistry,
-  Icon,
-  TopNavigation,
-  TopNavigationAction,
+  Icon
 } from 'react-native-ui-kitten';
 import { getLocation, getData } from 'react-native-weather-api';
 import { Card } from "@paraboly/react-native-card"
 import { Container } from 'native-base';
-
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import { addPostTopico } from '../store/actions/post';
 
-const BackIcon = (style) => (
-  <Icon {...style} name='arrow-ios-back-outline' />
-);
-
-const BackAction = () => (
-  <TopNavigationAction icon={BackIcon} />
-);
-
-const ApplicationContent = ({ navigation }) => (
-  state = {
-    value: '',
-    secureTextEntry: true,
-  },
-
-  renderIcon = (style) => {
-    const iconName = this.state.secureTextEntry ? 'eye-off' : 'eye';
-    return (
-      <Icon {...style} name={iconName} />
-    );
-  },
-  <React.Fragment>
-    <Layout style={styles.container}>
-      <Text style={styles.text} category='h4' style={styles.title}>Entrar com Email</Text>
-      <Input placeholder='Email' style={styles.component} />
-      <Input
-        value={this.state.value}
-        placeholder='Senha'
-        icon={this.renderIcon}
-        secureTextEntry={this.state.secureTextEntry}
-        onIconPress={this.onIconPress}
-        onChangeText={this.onChangeText}
-        style={styles.component}
-      />
-      <Button size='large' status='success' style={{ marginTop: '5%', width: '90%', }}>Entrar</Button>
-    </Layout>
-  </React.Fragment>
-);
-
-class LoginWithEmail extends React.Component {
-  onChangeText = (value) => {
-    this.setState({ value });
-  };
-
-  onIconPress = () => {
-    const secureTextEntry = !this.state.secureTextEntry;
-    this.setState({ secureTextEntry });
-  };
-  render() {
-    return (
-      <React.Fragment>
-
-        <ApplicationProvider
-          mapping={mapping}
-          theme={darkTheme}>
-          <IconRegistry icons={EvaIconsPack} />
-          <TopNavigation
-            leftControl={BackAction()}
-            title='Retornar para o início' />
-
-          <ApplicationContent />
-        </ApplicationProvider>
-      </React.Fragment>
-    );
-  }
-}
 
 class MainScreen extends React.Component {
-  userName = "User"
-  hora = new Date().getHours()
-  minutos = new Date().getMinutes()
-  render() {
-    let cityName = "";
-    let temperature = "";
-    let windSpeed = "";
-    let tratamento = "";
-    async function requestLocation() {
-      try {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-          {
-            title: 'Permissão Necessária',
-            message:
-              'Deseja conceder permissão para acessar sua ' +
-              'localização ao IFG Ambiental?',
-            buttonNegative: 'Negar',
-            buttonPositive: 'Permitir',
-          },
-        );
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          getLocation();
-          setTimeout(function () {
-            let data = new getData()
-            cityName = data.city;
-            temperature = data.tempC;
-            windSpeed = data.windKph;
-          }, 2000);
-        } else {
-          cityName = 'Permissão de acesso à localização negada.'
-        }
-      } catch (err) {
-        console.warn(err);
-      }
-    }
 
-    requestLocation()
-    if ((this.hora >= 6 || (this.hora <= 11 && this.minutos <= 59))) {
-      this.tratamento = "Bom dia, "
+
+  state = {    
+    hora: new Date().getHours(),
+    minutos: new Date().getMinutes(),
+    tratamento: '',
+    windSpeed: '',
+    temperature: '',
+    cityName: '',
+    topicoValue: null,
+    topicoNome: ''
+  }
+
+  async requestLocation() {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: 'Permissão Necessária',
+          message:
+            'Deseja conceder permissão para acessar sua ' +
+            'localização ao IFG Ambiental?',
+          buttonNegative: 'Negar',
+          buttonPositive: 'Permitir',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        getLocation();
+        setTimeout(function () {
+          let data = new getData()
+          this.setState({cityName: data.city, temperature: data.tempC, windSpeed: data.windKph})
+          
+        }, 2000);
+      } else {
+        this.setState({cityName: 'Permissão de acesso à localização negada.'})
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  }
+
+  componentDidMount = () => {
+    this.requestLocation()
+  }
+
+  render() {
+    
+    if ((this.state.hora >= 6 || (this.hora <= 11 && this.minutos <= 59))) {
+      this.setState({tratamento: "Bom dia, "+this.props.nome})
     }
     if ((this.hora >= 12 || (this.hora <= 17 && this.minutos <= 59))) {
-      this.tratamento = "Boa tarde, "
+      this.setState({tratamento: "Boa tarde, "+this.props.nome})
     }
     if ((this.hora >= 18 || (this.hora <= 5 && this.minutos <= 59))) {
-      this.tratamento = "Boa noite, "
+      this.setState({tratamento: "Boa noite, "+this.props.nome})
     }
-    const data = [
-      { text: 'Option 1' },
-      { text: 'Option 2' },
-      { text: 'Option 3' },
-    ];
 
     return (
       <React.Fragment>
@@ -181,13 +118,18 @@ class MainScreen extends React.Component {
                   />
                   <Layout style={{ flexDirection: 'row' }}>
                     <Picker
-                      selectedValue={state.language}
+                      selectedValue={this.state.topicoValue}
                       style={{ height: 50, width: 100 }}
                       onValueChange={(itemValue, itemIndex) =>
-                        this.setState({ language: itemValue })
+                        this.setState({ topicoValue: itemValue, topicoNome: this.props.topicos[itemIndex].titulo})
                       }>
-                      <Picker.Item label="Java" value="java" />
-                      <Picker.Item label="JavaScript" value="js" />
+                      <FlatList
+                            data={this.props.topicos}
+                            keyExtractor={item => `${item.key}`}
+                            renderItem={({ item }) =>
+                              <Picker.Item label={item.titulo} value={item.key} />
+                            }
+                      />
                     </Picker>
                     <Button
                       icon={PostIcon}
@@ -269,11 +211,19 @@ const styles = StyleSheet.create({
   }
 });
 
-LoginWithEmail.navigationOptions = ({ /*navigation*/ }) => {
+
+const mapStateToProps = ({ user, forum }) => {
   return {
-    header: null
+    nome: user.nome,
+    key: user.key,
+    topicos: forum.topicos
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddPost: (post, topicoKey) => dispatch(addPostTopico(post, topicoKey)) 
+  }
+}
 
-export default LoginWithEmail;
+export default connect(mapStateToProps, mapDispatchToProps)(MainScreen)

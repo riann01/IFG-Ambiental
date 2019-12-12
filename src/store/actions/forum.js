@@ -30,7 +30,10 @@ export const fetchTopicos = () => {
                 let topicos = []
                 
                 snapshot.forEach((doc) => {
-                    let topico = doc.val().titulo
+                    let topico = {
+                        key: doc.key,
+                        ...doc.val()
+                    }
                     topicos.push(topico)
                 })
                 
@@ -40,11 +43,5 @@ export const fetchTopicos = () => {
             }, 0)
 
         })
-    }
-}
-
-export const addTopico = () => {
-    return dispatch => {
-        firebase.database().ref().push({titulo: 'Arrecadações', posts: []})
     }
 }

@@ -18,7 +18,6 @@ import Dialog from "react-native-dialog"
 import { connect } from 'react-redux'
 import { Content, Container } from 'native-base';
 import { login, registrar, dismissErrorLogin, forgotPassword, deslogar } from '../store/actions/user';
-import { addTopico } from '../store/actions/forum';
 
 const FaceIcon = () => (
   <Icon name='facebook' fill='white' />
@@ -171,7 +170,7 @@ class HomeScreen extends React.Component {
                     width: '70%'
                   }}
                   icon={GoogleIcon}
-                  onPress={() => this.props.onAdd()}
+                  onPress={() => {}}
                   status='danger'>
                   Entrar com Google
               </Button>
@@ -393,9 +392,7 @@ const mapDispatchToProps = dispatch => {
     onRegistrar: (novoUser) => dispatch(registrar(novoUser)),
     onDismissError: () => dispatch(dismissErrorLogin()),
     onEsqueciSenha: (email) => dispatch(forgotPassword(email)),
-    onDeslogar: () => dispatch(deslogar()),
-    
-    onAdd: () => dispatch(addTopico())
+    onDeslogar: () => dispatch(deslogar())  
   }
 }
 
