@@ -6,11 +6,17 @@ import {
   Layout,
   Text,
   IconRegistry,
-  Icon, TopNavigationAction, TopNavigation, ListItem, List, Modal, Button
+  Icon,
+  TopNavigationAction,
+  TopNavigation,
+  ListItem,
+  List,
+  Button
 } from 'react-native-ui-kitten';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { connect } from 'react-redux'
 import { Container } from 'native-base';
+import Modal from "react-native-modal";
 
 const BackIcon = (style) => (
   <Icon {...style} name='arrow-ios-back-outline' />
@@ -21,6 +27,14 @@ let selectedItem
 let visible = false
 
 class Texts extends React.Component {
+
+  state = {
+    isModalVisible: false
+  };
+
+  toggleModal = () => {
+    this.setState({ isModalVisible: !this.state.isModalVisible });
+  };
 
   loadingOuRender = () => {
     /////////////////////// AQUI COLOCA O SPINNER
@@ -57,21 +71,7 @@ class Texts extends React.Component {
           name='arrow-right' width={32} height={32} fill='#828282'
         />
       );
-      
-
-      const toggleModal = () => {
-        visible = !visible;
-      };
-
-      const renderModalElement = () => (
-        <Layout
-          level='3'
-          style={styles.modalContainer}>
-          <Text>Hi! This is modal.</Text>
-          <Button onPress={() => { toggleModal }}>Close</Button>
-        </Layout>
-      );
-      
+            
       return (
 
         <Layout>
@@ -80,13 +80,15 @@ class Texts extends React.Component {
             data={data}
             renderItem={renderItem}
           />
-          <Modal
-            allowBackdrop={true}
-            backdropStyle={styles.backdrop}
-            onBackdropPress={toggleModal}
-            visible={visible}>
-            {renderModalElement()}
-          </Modal>
+        <View style={{ flex: 1 }}>
+        <Button title="Show modal" onPress={this.toggleModal} />
+        <Modal isVisible={this.state.isModalVisible}>
+          <View style={{ flex: 1 }}>
+            <Text>Hello!</Text>
+            <Button title="Hide modal" onPress={this.toggleModal} />
+          </View>
+        </Modal>
+      </View>
         </Layout>
       )
     }

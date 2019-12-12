@@ -43,12 +43,14 @@ const MenuNavigator = createDrawerNavigator(MenuRoutes, MenuConfig)
 const authSwitch = createSwitchNavigator({    
     Main: MenuNavigator,
     Auth: HomeScreen,
-    Profile: Profile,
-    TelUteis: ContatosUteis,
-    Texts: Texts,
+
 }, {
     initialRouteName: 'Auth'
 })
+
+/*    Profile: Profile,
+    TelUteis: ContatosUteis,
+    Texts: Texts, */
 
 const AppContainer = createAppContainer(authSwitch)
 

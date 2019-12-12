@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { StyleSheet, ImageBackground, Image, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, ImageBackground, Image, View, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import { mapping, light as darkTheme } from '@eva-design/eva';
 import {
   ApplicationProvider,
@@ -13,7 +13,8 @@ import {
   Datepicker,
   TopNavigation,
   Select,
-  TopNavigationAction
+  TopNavigationAction,
+  Tooltip
 } from 'react-native-ui-kitten';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import Dialog from "react-native-dialog"
@@ -59,7 +60,8 @@ class HomeScreen extends React.Component {
     mensagemErroRegistro: '',
     tituloErroRegistro: '',
     visibleModal: null,
-    emailRelembrar: ''
+    emailRelembrar: '',
+    popVisible: false
   }
 
   backAction = () => (
@@ -208,7 +210,7 @@ class HomeScreen extends React.Component {
               <Input
                 placeholder='Email'
                 value={this.state.loginEmail.email}
-                style={{ width: '80%' }}
+                style={{ width: '90%' }}
                 onChangeText={(text) => this.setState({ loginEmail: { ...this.state.loginEmail, email: text } })} />
               <Input
                 value={this.state.loginEmail.senha}
@@ -217,13 +219,13 @@ class HomeScreen extends React.Component {
                 secureTextEntry={this.state.secureTextEntry}
                 onIconPress={this.onIconPress}
                 onChangeText={(text) => this.setState({ loginEmail: { ...this.state.loginEmail, senha: text } })}
-                style={{ width: '80%' }}
+                style={{ width: '90%', marginTop: '5%' }}
               />
-              <TouchableOpacity onPress={() => this.setState({ mode: 'esqueciSenha' })}>
+              <TouchableOpacity style={{ marginTop: '5%' }} onPress={() => this.setState({ mode: 'esqueciSenha' })}>
                 <Text style={{ marginHorizontal: '1%' }}>Esqueci minha senha</Text>
               </TouchableOpacity>
               <Button size='large' status='success' onPress={() => this.loginEmail()} style={{ marginTop: '5%', width: '90%', }}>Entrar</Button>
-              <Text style={{ marginHorizontal: '1%' }}>Ainda não possui uma conta?</Text>
+              <Text style={{ marginTop: '5%' }}>Ainda não possui uma conta?</Text>
               <Button size='large' status='basic' style={{ marginTop: '5%', width: '90%', }}
                 onPress={() => this.setState({ mode: 'registrar' })}>Criar uma Conta</Button>
             </Layout>
@@ -253,46 +255,58 @@ class HomeScreen extends React.Component {
             <TopNavigation
               leftControl={this.backAction()}
               title='Retornar para o início' />
+            <Text style={styles.text} category='h4'>Criar uma Conta</Text>
+            <View>
+              <ScrollView style={{ height: '100%' }}>
 
-            <Layout style={{ alignContent: 'center', justifyContent: 'center', alignItems: 'center' }}>
-              <Input placeholder='Email' style={styles.component}
-                onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, email: text } })}
-                value={this.state.novaConta.email}
-                style={{width: '80%'}} />
-              <Input placeholder='Senha' style={styles.component}
-                onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, senha: text } })}
-                secureTextEntry={true}
-                value={this.state.novaConta.senha}
-                style={{width: '80%'}} />
-              <Input placeholder='Repita a senha' style={styles.component}
-                onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, rptSenha: text } })}
-                secureTextEntry={true}
-                value={this.state.novaConta.rptSenha} 
-                style={{width: '80%'}}/>
-              <Input placeholder='Nome' style={styles.component}
-                onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, nome: text } })}
-                value={this.state.novaConta.nome} 
-                style={{width: '80%'}}/>
-              <Input placeholder='Data de Nascimento' size='large' icon={CalendarIcon} style={styles.component}
-                onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, dataNascimento: text } })}
-                value={this.state.novaConta.dataNascimento}
-                style={{width: '80%'}}/>
-              <Input placeholder='Instituição' style={styles.component}
-                onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, instituicao: text } })}
-                value={this.state.novaConta.instituicao}
-                style={{width: '80%'}}/>
-              <Input placeholder='Título Ex.: Aluno'
-                selectedOption={this.state.novaConta.titulo}
-                onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, titulo: text } })}
-                value={this.state.novaConta.titulo}
-                style={{width: '80%'}}/>
-              <Input placeholder='Telefone' style={styles.component}
-                onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, telefone: text } })}
-                value={this.state.novaConta.telefone}
-                style={{width: '80%'}}/>
-              <Button size='large' status='success' style={{ marginTop: '5%', width: '90%', }} onPress={() => { this.registrar() }}>Criar Conta</Button>
+                <Layout style={{ alignContent: 'center', justifyContent: 'center', alignItems: 'center' }}>
+                  <Input placeholder='Email'
+                    onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, email: text } })}
+                    value={this.state.novaConta.email}
+                    style={{ width: '90%', marginBottom: '1%' }} />
+                  <Input placeholder='Senha'
+                    onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, senha: text } })}
+                    secureTextEntry={true}
+                    value={this.state.novaConta.senha}
+                    style={{ width: '90%', marginBottom: '1%' }} />
+                  <Input placeholder='Repita a senha' style={{ marginBottom: 5 }}
+                    onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, rptSenha: text } })}
+                    secureTextEntry={true}
+                    value={this.state.novaConta.rptSenha}
+                    style={{ width: '90%', marginBottom: '1%' }} />
+                  <Input placeholder='Nome'
+                    onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, nome: text } })}
+                    value={this.state.novaConta.nome}
+                    style={{ width: '90%', marginBottom: '1%' }} />
+                  <Input placeholder='Data de Nascimento' size='large' icon={CalendarIcon} style={styles.component}
+                    onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, dataNascimento: text } })}
+                    value={this.state.novaConta.dataNascimento}
+                    style={{ width: '90%', marginBottom: '1%' }} />
+                  <Tooltip
+                    visible={this.state.popVisible}
+                    text={'Se você não possuir nenhum vínculo, digite apenas "Sem vínculo".'}
+                    onBackdropPress={() => this.setState({popVisible: !this.state.popVisible})}>
+                    <Input placeholder='Instituição'
+                      onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, instituicao: text } })}
+                      value={this.state.novaConta.instituicao}
+                      onPress={() => this.setState({popVisible: !this.state.popVisible})}
+                      on
+                      style={{ width: '90%', marginBottom: '1%' }} />
+                  </Tooltip>
+                  <Input placeholder='Título Ex.: Aluno'
+                    selectedOption={this.state.novaConta.titulo}
+                    onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, titulo: text } })}
+                    value={this.state.novaConta.titulo}
+                    style={{ width: '90%', marginBottom: '1%' }} />
+                  <Input placeholder='Telefone'
+                    onChangeText={(text) => this.setState({ novaConta: { ...this.state.novaConta, telefone: text } })}
+                    value={this.state.novaConta.telefone}
+                    style={{ width: '90%', marginBottom: '1%' }} />
+                  <Button size='large' status='success' style={{ width: '90%', marginBottom: '100%' }} onPress={() => { this.registrar() }}>Criar Conta</Button>
 
-            </Layout>
+                </Layout>
+              </ScrollView>
+            </View>
           </View>
         )
       }
@@ -305,13 +319,14 @@ class HomeScreen extends React.Component {
 
             <Layout style={{ alignContent: 'center', justifyContent: 'center', alignItems: 'center' }}>
               <Text style={styles.text} category='h4'>Relembrar minha senha</Text>
+              <Text style={{ textAlign: 'center', width: '90%', marginBottom: '5%' }}>Caso o endereço seja válido, será enviado um e-mail com instruções para redefinição de senha.</Text>
               <Input
                 placeholder='Email'
                 value={this.state.emailRelembrar}
-                style={{width: '80%'}}
+                style={{ width: '90%' }}
                 onChangeText={(text) => this.setState({ emailRelembrar: text })} />
 
-              <Button size='large' status='success' onPress={() => this.relembraSenha()} style={{ marginTop: '5%', width: '90%', }}>Enviar</Button>
+              <Button size='large' status='success' onPress={() => this.relembraSenha()} style={{ /*marginTop: '5%',*/ width: '90%', }}>Enviar</Button>
 
             </Layout>
           </View>
@@ -379,7 +394,7 @@ const styles = StyleSheet.create({
   },
   text: {
     marginTop: 10,
-    marginBottom: 10,
+    marginBottom: 30,
     textAlign: 'center',
     fontWeight: 'bold',
   },
