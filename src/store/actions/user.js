@@ -127,9 +127,10 @@ export const registrar = (novoUsuario) => {
                 let novoUsuarioDados = {
                     nome: novoUsuario.nome,
                     email: novoUsuario.email,
-                    cidade: novoUsuario.cidade,
-                    uf: novoUsuario.uf,
-                    dataNascimento: novoUsuario.dataNascimento,
+                    instituicao: novoUsuario.instituicao,
+                    titulo: novoUsuario.titulo,
+                    telefone: novoUsaruio.telefone,
+                    dataNascimento: novoUsuario.dataNascimento
                 }
                 firebase.firestore().collection('usuarios').doc(`${res.user.uid}`).set(novoUsuarioDados)
                 .then(() => {

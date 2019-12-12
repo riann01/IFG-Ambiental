@@ -16,12 +16,13 @@ import {
 const initialState = {
     //DADOS USUÁRIO
     ///////////////
-    email: '',
-    key: '',
     nome: '',
-    cidade: '',
-    uf: '',
-    dataNascimento: '',   
+    email: '',
+    instituicao: '',
+    titulo: '',
+    telefone: '',
+    dataNascimento: '',
+    key: null,   
     // LOGIN E ALTERAÇÃO DE DADOS
     ////////////
     isAuthenticating: false,
