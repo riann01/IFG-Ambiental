@@ -11,6 +11,9 @@ import Texts from './screens/Texts'
 import Profile from './screens/Profile'
 import Threads from './screens/Threads'
 import TextIndividual from './screens/TextIndividual'
+import Posts from './screens/Posts'
+import Post from './screens/Post'
+import CriarPost from './screens/CriarPost'
 
 
 // Class Hidden
@@ -31,6 +34,17 @@ const textStack = createStackNavigator({
     headerMode: 'none'
 })
 
+const forumStack = createStackNavigator({
+    Threads: Threads,
+    Posts: Posts,
+    Post: Post,
+    CriarPost: CriarPost
+}, 
+{
+    initialRouteName: 'Threads',
+    headerMode: 'none'
+})
+
 //Config Menu
 
 const MenuRoutes = {
@@ -46,7 +60,7 @@ const MenuRoutes = {
     },
     Forum:{
         name:'Forum',
-        screen: Threads,
+        screen: forumStack,
         navigationOptions: {
             title: 'Fórum',
             drawerIcon: () => (
