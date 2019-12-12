@@ -9,6 +9,7 @@ import Menu from './components/Menu';
 import ContatosUteis from './screens/ContatosUteis'
 import Texts from './screens/Texts'
 import Profile from './screens/Profile'
+import Threads from './screens/Threads'
 
 // Class Hidden
 
@@ -30,7 +31,77 @@ const MenuRoutes = {
                 <Icon name="home" size={20} color={'#003266'} />
             )          
         }
-    }
+    },
+    Forum:{
+        name:'Forum',
+        screen: Threads,
+        navigationOptions: {
+            title: 'Fórum',
+            drawerIcon: () => (
+                <Icon name="home" size={20} color={'#003266'} />
+            )          
+        }
+    },
+    Perfil:{
+        name:'Perfil',
+        screen: Profile,
+        navigationOptions: {
+            title: 'Perfil',
+            drawerIcon: () => (
+                <Icon name="home" size={20} color={'#003266'} />
+            )          
+        }
+    },
+    Textos:{
+        name:'Textos',
+        screen: Texts,
+        navigationOptions: {
+            title: 'Textos',
+            drawerIcon: () => (
+                <Icon name="home" size={20} color={'#003266'} />
+            )          
+        }
+    },
+    Telefones:{
+        name:'Telefones',
+        screen: ContatosUteis,
+        navigationOptions: {
+            title: 'Telefones',
+            drawerIcon: () => (
+                <Icon name="home" size={20} color={'#003266'} />
+            )          
+        }
+    },
+    Informacoes:{
+        name:'Informacoes',
+        screen: MainScreen,
+        navigationOptions: {
+            title: 'Informações',
+            drawerIcon: () => (
+                <Icon name="home" size={20} color={'#003266'} />
+            )          
+        }
+    },
+    Calendario:{
+        name:'Calendario',
+        screen: MainScreen,
+        navigationOptions: {
+            title: 'Calendario',
+            drawerIcon: () => (
+                <Icon name="home" size={20} color={'#003266'} />
+            )          
+        }
+    },
+    Sobre:{
+        name:'Sobre',
+        screen: MainScreen,
+        navigationOptions: {
+            title: 'Sobre',
+            drawerIcon: () => (
+                <Icon name="home" size={20} color={'#003266'} />
+            )          
+        }
+    },
 }
 
 const MenuConfig = {
@@ -47,10 +118,6 @@ const authSwitch = createSwitchNavigator({
 }, {
     initialRouteName: 'Auth'
 })
-
-/*    Profile: Profile,
-    TelUteis: ContatosUteis,
-    Texts: Texts, */
 
 const AppContainer = createAppContainer(authSwitch)
 

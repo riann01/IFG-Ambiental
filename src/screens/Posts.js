@@ -15,6 +15,9 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+
+import { connect } from 'react-redux'
+
 import {
     Container,
     Input,
@@ -163,4 +166,18 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Posts
+const mapStateToProps = ({ user, forum }) => {
+  return {
+    nome: user.nome,
+    key: user.key,
+    topicos: forum.topicos
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddPost: (post, topicoKey, autor, autorKey) => dispatch(addPostTopico(post, topicoKey, autor, autorKey)) 
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Posts)
