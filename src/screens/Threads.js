@@ -68,11 +68,12 @@ class Threads extends React.Component {
             leftControl={this.backAction()}
             title='Retornar' />
           <Layout style={styles.container}>
-            <Text style={styles.text} category='h4' style={styles.title}>Threads</Text>
+            <Text style={styles.text} category='h4'>Tópicos</Text>
             <ListItem
               title='Arrecadações'
               description='Espaço destinado a postagens de arrecadação de material.'
               icon={Gift}
+              onPress={() => {this.props.navigation.navigate('Postagens'), {title: 'title'}}}
             />
             <ListItem
               title='Olha Só!'
@@ -101,7 +102,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   text: {
-    marginTop: 10,
+    marginTop: 5,
+    marginBottom: 5,
     textAlign: 'center',
     fontWeight: 'bold',
   },

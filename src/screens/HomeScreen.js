@@ -162,7 +162,7 @@ class HomeScreen extends React.Component {
                 <Text style={styles.text} category='h4'>Bem-vindo ao IFG Ambiental</Text>
                 <Button
                   style={{
-                    marginTop: '10%',
+                    marginTop: '0%',
                     width: '70%',
                   }}
                   icon={FaceIcon}>
@@ -386,9 +386,9 @@ const styles = StyleSheet.create({
   containerInicial: {
     alignItems: 'center',
     textAlign: 'center',
-    height: '65%',
+    height: '60%',
     width: '80%',
-    top: '18%',
+    top: '20%',
     textAlign: 'center',
     borderRadius: 10
   },
