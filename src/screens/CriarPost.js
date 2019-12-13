@@ -70,7 +70,7 @@ class CriarPost extends React.Component {
             title='Retornar' />
           <Layout style={styles.container}>
             <Text style={styles.text} category='h4'>Postar</Text>
-            <Text style={{marginBottom: '3%'}} category='h6'>Você está postando em "{this.props.topicoNome}"</Text>
+            <Text style={{marginBottom: '3%'}} category='h6'>Você está postando em "{this.props.topicoName}"</Text>
             <Input
               placeholder='Título da Postagem'
               style={styles.inputTitle}
