@@ -56,7 +56,6 @@ class TextIndividual extends React.Component {
     }
 }
 
-
 const styles = StyleSheet.create({
 
     text: {
