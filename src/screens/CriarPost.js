@@ -12,8 +12,10 @@ import {
   TopNavigation,
   TopNavigationAction,
 } from 'react-native-ui-kitten';
+import { connect } from 'react-redux'
 
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import { addPostTopico } from '../store/actions/topico';
 
 const PostIcon = (style) => (
   <Icon {...style} name='checkmark-circle-2'/>
@@ -62,6 +64,26 @@ const ApplicationContent = () => (
 ); 
 
 class CriarPost extends React.Component {
+
+  state = {
+    post: {
+      titulo: '',
+      corpo: ''
+    }
+  }
+
+  changeTextTitulo = (text) => {
+    this.setState({titulo: text})
+  }
+
+  changeTextCorpo = (text) => {
+    this.setState({corpo: text})
+  }
+
+  enviaPost = () => {
+    this.props.onAddPost(this.state.post, this.props.topicoKey, this.props.nome, this.props.key)
+  }
+
   render() {
     return(
       <React.Fragment>
@@ -103,9 +125,18 @@ const styles = StyleSheet.create({
   }
 });
 
-CriarPost.navigationOptions = {
-  header: null,
-  title: 'CriarPost'
+const mapStateToProps = ({ user, topico }) => {
+  return {
+      nome: user.nome,
+      key: user.key,
+      topicoKey: topico.key
+  }
 }
 
-export default CriarPost;
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddPost: (novoPost, topicoKey, autor, autorKey) => dispatch(addPostTopico(novoPost, topicoKey, autor, autorKey))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CriarPost);
