@@ -67,14 +67,18 @@ class MainScreen extends React.Component {
 
   componentDidMount = () => {
     this.requestLocation()
+    let nomeUsr = this.props.nome
+    let arr = nomeUsr.split(" ")
+    let primeiroNome = arr[0]
+    console.log(primeiroNome)
     if ((this.state.hora >= 6 || (this.state.hora <= 11 && this.state.minutos <= 59))) {
-      this.setState({ tratamento: "Bom dia, " + this.props.nome })
+      this.setState({ tratamento: "Bom dia, " + primeiroNome })
     }
     if ((this.state.hora >= 12 || (this.state.hora <= 17 && this.state.minutos <= 59))) {
-      this.setState({ tratamento: "Boa tarde, " + this.props.nome })
+      this.setState({ tratamento: "Boa tarde, " + primeiroNome })
     }
     if ((this.state.hora >= 18 || (this.state.hora <= 5 && this.state.minutos <= 59))) {
-      this.setState({ tratamento: "Boa noite, " + this.props.nome })
+      this.setState({ tratamento: "Boa noite, " + primeiroNome })
     }
   }
 

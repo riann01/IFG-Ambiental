@@ -17,6 +17,7 @@
     "native-base": "^2.13.8",
     "react": "16.9.0",
     "react-native": "0.61.2",
+    "react-native-calendars": "^1.214.0",
     "react-native-dialog": "^5.6.0",
     "react-native-dynamic-vector-icons": "^0.2.1",
     "react-native-fbsdk": "^1.0.4",

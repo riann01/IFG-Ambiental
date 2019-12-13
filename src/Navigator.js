@@ -14,6 +14,7 @@ import TextIndividual from './screens/TextIndividual'
 import Posts from './screens/Posts'
 import Post from './screens/Post'
 import CriarPost from './screens/CriarPost'
+import Calendario from './screens/Calendario'
 
 
 // Class Hidden
@@ -38,7 +39,8 @@ const forumStack = createStackNavigator({
     Threads: Threads,
     Posts: Posts,
     Post: Post,
-    CriarPost: CriarPost
+    CriarPost: CriarPost,
+    Calendario: Calendario,
 }, 
 {
     initialRouteName: 'Threads',
@@ -108,7 +110,7 @@ const MenuRoutes = {
     },
     Calendario:{
         name:'Calendario',
-        screen: MainScreen,
+        screen: Calendario,
         navigationOptions: {
             drawerLabel: <Hidden />           
         }

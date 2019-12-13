@@ -45,7 +45,7 @@ class TextIndividual extends React.Component {
                         <View>
                             <ScrollView>
                                 <Layout style={{ alignContent: 'center', justifyContent: 'center', alignItems: 'center', flex: 1}}>
-                                    <Text style={{paddingTop: 10,flex: 1, width: '90%', minHeight: '200%'}}>{item.corpo}</Text>
+                                    <Text style={{paddingTop: 10,flex: 1, width: '90%', minHeight: '150%'}}>{item.corpo}</Text>
                                 </Layout>
                             </ScrollView>
                         </View>
