@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ImageBackground, Image, ActivityIndicator } from 'react-native';
+import { StyleSheet, ImageBackground, Image, ActivityIndicator, View } from 'react-native';
 import { mapping, light as darkTheme } from '@eva-design/eva';
 import {
   ApplicationProvider,
@@ -53,6 +53,10 @@ class Threads extends React.Component {
     />
   )
 
+  arr = new Array(
+    Gift, Award, Earth, Message
+  )
+
   selecionaTopico = (topicoKey) => {
     this.props.onFetchTopico(topicoKey)
     this.props.navigation.navigate('Postagens')
@@ -100,7 +104,7 @@ class Threads extends React.Component {
           <TopNavigation
             leftControl={this.backAction()}
             title='Retornar' />
-          <Layout style={styles.container}>
+          <Layout >
             {this.renderOuLoading()}
           </Layout>
         </ApplicationProvider>
