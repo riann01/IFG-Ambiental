@@ -66,13 +66,16 @@ class Threads extends React.Component {
         </View>
       )
     }else{
-
-      const data = this.props.topicos
+      let data = this.props.topicos || []
       const renderItem = ({ item, index }) => (
         <ListItem title={item.titulo}
           description={item.description}
           onPress={() => { this.selecionaTopico(item.key) }} />
       )
+      
+      if(data.length<1){
+        alert("nao tem nenhum topico cadastrado")
+      }
 
       return(
         <View>
