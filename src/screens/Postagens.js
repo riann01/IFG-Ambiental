@@ -137,11 +137,5 @@ const mapStateToProps = ({ topico }) => {
         isLoadingTopico: topico.isLoadingTopico
     }
 }
-/*
-const mapDispatchToProps = dispatch => {
-  return {
-    //onFetchTopico: (topicoKey) => dispatch(fetchPosts(topicoKey))
-  }
-}
-*/
+
 export default connect(mapStateToProps)(Postagens)
