@@ -62,6 +62,8 @@ class Calendario extends React.Component {
         };
 
         LocaleConfig.defaultLocale = 'br';
+        let year = new Date().getFullYear()
+        console.log(year)
         return (
             <React.Fragment>
                 <IconRegistry icons={EvaIconsPack} />
@@ -73,27 +75,11 @@ class Calendario extends React.Component {
                         title='Retornar' />
                     <Container>
                         <Text style={styles.text} category='h4'>Calendário Ambiental</Text>
-                        <Agenda
-                            items={this.state.items}
-                            loadItemsForMonth={this.loadItems.bind(this)}
-                            selected={'2017-05-16'}
-                            renderItem={this.renderItem.bind(this)}
-                            renderEmptyDate={this.renderEmptyDate.bind(this)}
-                            rowHasChanged={this.rowHasChanged.bind(this)}
-                        // markingType={'period'}
-                        // markedDates={{
-                        //    '2017-05-08': {textColor: '#666'},
-                        //    '2017-05-09': {textColor: '#666'},
-                        //    '2017-05-14': {startingDay: true, endingDay: true, color: 'blue'},
-                        //    '2017-05-21': {startingDay: true, color: 'blue'},
-                        //    '2017-05-22': {endingDay: true, color: 'gray'},
-                        //    '2017-05-24': {startingDay: true, color: 'gray'},
-                        //    '2017-05-25': {color: 'gray'},
-                        //    '2017-05-26': {endingDay: true, color: 'gray'}}}
-                        // monthFormat={'yyyy'}
-                        // theme={{calendarBackground: 'red', agendaKnobColor: 'green'}}
-                        //renderDay={(day, item) => (<Text>{day ? day.day: 'item'}</Text>)}
-                        />
+                        <Calendar
+                            markedDates={{
+                                '2019-12-13': { dots: [{key:'vacation', color: 'red'}], selected: true, selectedColor: 'red' },
+
+                            }} onDayPress={(day) => {console.log(day)}}/>
                     </Container>
                 </ApplicationProvider>
             </React.Fragment>
