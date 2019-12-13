@@ -126,8 +126,8 @@ class MainScreen extends React.Component {
             />
             <Card
               title="Calendário"
-              iconName="user-circle-o"
-              iconType="FontAwesome"
+              iconName="calendar-blank"
+              iconType="MaterialCommunityIcons"
               onPress={() => { this.props.navigation.navigate('Calendario') }}
               content="Visualize o calendário ambiental."
               iconBackgroundColor="#14CC25"

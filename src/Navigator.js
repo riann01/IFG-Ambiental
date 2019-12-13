@@ -27,7 +27,7 @@ class Hidden extends Component {
 
 const textStack = createStackNavigator({
     Textos: Texts,
-    TextIndividual: TextIndividual
+    TextIn: TextIndividual
 }, 
 {
     initialRouteName: 'Textos',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Spinner, View } from 'react-native';
+import { StyleSheet, Spinner, View, ScrollView } from 'react-native';
 import { mapping, light as darkTheme } from '@eva-design/eva';
 import {
     ApplicationProvider,
@@ -22,7 +22,15 @@ const BackIcon = (style) => (
 )
 
 class TextIndividual extends React.Component {
-    reder() {
+    backAction = () => (
+        <TopNavigationAction
+            icon={BackIcon}
+            onPress={() => this.props.navigation.goBack()}
+        />
+    )
+    render() {
+        const { navigation } = this.props;
+        const item = navigation.getParam('item', 'null');
         return (
             <React.Fragment>
                 <IconRegistry icons={EvaIconsPack} />
@@ -33,11 +41,11 @@ class TextIndividual extends React.Component {
                         leftControl={this.backAction()}
                         title='Retornar' />
                     <Container>
-                        <Text style={styles.text} category='h4'>Título do Texto</Text>
+                        <Text style={styles.text} category='h4'>{item.titulo}</Text>
                         <View>
-                            <ScrollView style={{ height: '100%' }}>
-                                <Layout style={{ alignContent: 'center', justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text>lorem ipsum dolor teste teste teste teste teste teste teste teste teste teste</Text>
+                            <ScrollView>
+                                <Layout style={{ alignContent: 'center', justifyContent: 'center', alignItems: 'center', flex: 1}}>
+                                    <Text style={{paddingTop: 10,flex: 1, width: '90%', minHeight: '200%'}}>{item.corpo}</Text>
                                 </Layout>
                             </ScrollView>
                         </View>
@@ -47,12 +55,7 @@ class TextIndividual extends React.Component {
         )
     }
 }
-backAction = () => (
-    <TopNavigationAction
-        icon={BackIcon}
-        onPress={() => this.props.navigation.navigate('Texts')}
-    />
-)
+
 
 const styles = StyleSheet.create({
 
