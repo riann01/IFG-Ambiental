@@ -15,7 +15,7 @@ import {
 import { connect } from 'react-redux'
 
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
-import { addPostTopico } from '../store/actions/topico';
+import { addPostTopico, respondePost } from '../store/actions/topico';
 
 const PostIcon = (style) => (
   <Icon {...style} name='checkmark-circle-2' />
@@ -34,20 +34,22 @@ class CriarPost extends React.Component {
   state = {
     post: {
       titulo: '',
-      corpo: ''
+      corpo: '',
+      postInicial: true
     }
   }
 
   changeTextTitulo = (text) => {
-    this.setState({ titulo: text })
+    this.setState({ post: {...this.state.post, titulo: text } })
   }
 
   changeTextCorpo = (text) => {
-    this.setState({ corpo: text })
+    this.setState({ post: {...this.state.post, corpo: text } })
   }
 
   enviaPost = () => {
     this.props.onAddPost(this.state.post, this.props.topicoKey, this.props.nome, this.props.key)
+    this.props.navigation.goBack()
   }
 
   backAction = () => (
@@ -75,10 +77,12 @@ class CriarPost extends React.Component {
               placeholder='Título da Postagem'
               style={styles.inputTitle}
               size='small'
+              value={this.state.post.titulo}
               onChangeText={(text) => { this.changeTextTitulo(text) }}
             />
             <Input placeholder='Conteúdo do Post'
               style={styles.inputPostBody}
+              value={this.state.post.corpo}
               multiline={true}
               maxLength={20000}
               height={300}
@@ -137,7 +141,7 @@ const mapStateToProps = ({ user, topico }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddPost: (novoPost, topicoKey, autor, autorKey) => dispatch(addPostTopico(novoPost, topicoKey, autor, autorKey))
+    onAddPost: (novoPost, topicoKey, autor, autorKey) => dispatch(respondePost(novoPost, topicoKey, autor, autorKey))
   }
 }
 

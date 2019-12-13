@@ -15,6 +15,7 @@ import {
 import { connect } from 'react-redux'
 
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import { respondePost } from '../store/actions/topico';
 
 const PostIcon = (style) => (
   <Icon {...style} name='checkmark-circle-2' />
@@ -30,8 +31,21 @@ const ImageIcon = (style) => (
 
 class RespostaPost extends React.Component {
 
+  state = {
+      resposta: {
+        corpo: '',
+        postInicial: false
+      },
+      nomePost: '',
+      postKey: null
+  }
+
   changeTextCorpo = (text) => {
-    this.setState({ corpo: text })
+    this.setState({ resposta: {...this.state.resposta, corpo: text } })
+  }
+
+  enviaResposta = () => {
+    this.props.onRespondePost(this.state.resposta, this.state.postKey, this.props.topicoKey, this.props.nome, this.props.key)
   }
 
   backAction = () => (
@@ -41,6 +55,12 @@ class RespostaPost extends React.Component {
 
     />
   )
+
+  componentDidMount(){
+    let parametroKey
+    let parametroNome
+    this.setState({postKey: parametroKey, nomePost: parametroNome})
+  }
 
   render() {
     return (
@@ -104,4 +124,19 @@ const styles = StyleSheet.create({
   }
 });
 
-export default RespostaPost
+const mapStateToProps = ({ user, topico }) => {
+  return {
+    nome: user.nome,
+    key: user.key,
+    topicoKey: topico.key,
+    topicoName: topico.titulo
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onRespondePost: (respostaPost, postKey, topicoKey, autor, autorKey) => dispatch(respondePost(respostaPost, postKey, topicoKey, autor, autorKey))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RespostaPost)

@@ -16,6 +16,7 @@ import Post from './screens/Post'
 import CriarPost from './screens/CriarPost'
 import Calendario from './screens/Calendario'
 import Postagens from './screens/Postagens'
+import RespostaPost from './screens/RespostaPost'
 
 
 // Class Hidden
@@ -41,7 +42,8 @@ const forumStack = createStackNavigator({
     Postagens: Postagens,
     Posts: Posts,
     Post: Post,
-    CriarPost: CriarPost
+    CriarPost: CriarPost,
+    RespostaPost: RespostaPost
 }, 
 {
     initialRouteName: 'Threads',
