@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ImageBackground, Image } from 'react-native';
+import { StyleSheet, ImageBackground, Image, ActivityIndicator } from 'react-native';
 import { mapping, light as darkTheme } from '@eva-design/eva';
 import {
   ApplicationProvider,
@@ -58,13 +58,36 @@ class Threads extends React.Component {
     this.props.navigation.navigate('Postagens')
   }
 
+  renderOuLoading = () => {
+    if(this.props.isLoadingTopicos){
+      return(
+        <View>
+          <ActivityIndicator />
+        </View>
+      )
+    }else{
+
+      const data = this.props.topicos
+      const renderItem = ({ item, index }) => (
+        <ListItem title={item.titulo}
+          description={item.description}
+          onPress={() => { this.selecionaTopico(item.key) }} />
+      )
+
+      return(
+        <View>
+          <Text style={styles.text} category='h4'>Tópicos</Text>
+            <List
+              data={data}
+              renderItem={renderItem}
+            />
+        </View>
+      )
+    }
+  }
+
   render() {
-    const data = this.props.topicos
-    const renderItem = ({ item, index }) => (
-      <ListItem title={`${item.titulo}`}
-        description={`${item.description}`}
-        onPress={() => { this.selecionaTopico }} />
-    )
+    
     return (
       <React.Fragment>
         <ApplicationProvider
@@ -75,11 +98,7 @@ class Threads extends React.Component {
             leftControl={this.backAction()}
             title='Retornar' />
           <Layout style={styles.container}>
-            <Text style={styles.text} category='h4'>Tópicos</Text>
-            <List
-              data={data}
-              renderItem={renderItem}
-            />
+            {this.renderOuLoading()}
           </Layout>
         </ApplicationProvider>
       </React.Fragment>
@@ -112,7 +131,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = ({ forum }) => {
   return {
-    topicos: forum.topicos
+    topicos: forum.topicos,
+    isLoadingTopicos: forum.isLoadingForum
   }
 }
 
