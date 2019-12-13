@@ -29,11 +29,6 @@ const ImageIcon = (style) => (
   <Icon {...style} name='image-2' />
 );
 
-const BackAction = () => (
-  <TopNavigationAction icon={BackIcon} />
-);
-
-
 class CriarPost extends React.Component {
 
   state = {
@@ -55,6 +50,14 @@ class CriarPost extends React.Component {
     this.props.onAddPost(this.state.post, this.props.topicoKey, this.props.nome, this.props.key)
   }
 
+  backAction = () => (
+    <TopNavigationAction
+      icon={BackIcon}
+      onPress={() => this.props.navigation.goBack()}
+
+    />
+  )
+
   render() {
     return (
       <React.Fragment>
@@ -63,31 +66,31 @@ class CriarPost extends React.Component {
           mapping={mapping}
           theme={lightTheme}>
           <TopNavigation
-            leftControl={BackAction()} />
+            leftControl={this.backAction()}
+            title='Retornar' />
           <Layout style={styles.container}>
             <Text style={styles.text} category='h4'>Postar</Text>
+            <Text style={{marginBottom: '3%'}} category='h6'>Você está postando em "{this.props.topicoNome}"</Text>
             <Input
               placeholder='Título da Postagem'
               style={styles.inputTitle}
               size='small'
-              onChangeText={(text) => {onChangeTextTitulo(text)}}
-              value={this.state.post.titulo}
+              onChangeText={(text) => { this.changeTextTitulo(text) }}
             />
             <Input placeholder='Conteúdo do Post'
               style={styles.inputPostBody}
               multiline={true}
               maxLength={20000}
               height={300}
-              onChangeText={(text) => {onChangeTextCorpo(text)}}
-              value={this.state.post.corpo}
+              onChangeText={(text) => { this.changeTextCorpo(text) }}
             />
             <Layout style={styles.buttonContainer}>
               <Button
                 status='success'
                 icon={PostIcon}
-                size='medium'
+                size='large'
                 style={styles.button}
-                onPress={() => {this.enviaPost}}>
+                onPress={() => { this.enviaPost }}>
                 Postar</Button>
             </Layout>
           </Layout>
@@ -103,19 +106,20 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   text: {
-    marginVertical: 16,
+    marginBottom: '3%',
     fontWeight: 'bold'
   },
   inputTitle: {
-    width: '80%',
+    width: '90%',
     marginBottom: 20,
   },
   inputPostBody: {
-    width: '80%',
+    width: '90%',
     marginBottom: 20,
   },
   button: {
     margin: 10,
+    width: '90%'
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -126,7 +130,8 @@ const mapStateToProps = ({ user, topico }) => {
   return {
     nome: user.nome,
     key: user.key,
-    topicoKey: topico.key
+    topicoKey: topico.key,
+    topicoName: topico.titulo
   }
 }
 

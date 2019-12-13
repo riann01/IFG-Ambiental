@@ -14,6 +14,7 @@
     "@paraboly/react-native-card": "^0.2.11",
     "@react-native-community/google-signin": "^3.0.2",
     "@ui-kitten/eva-icons": "^4.2.0",
+    "fastui-calendar": "0.0.4",
     "native-base": "^2.13.8",
     "react": "16.9.0",
     "react-native": "0.61.2",

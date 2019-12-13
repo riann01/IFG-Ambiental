@@ -44,6 +44,7 @@ timeToString = (time) => {
     return date.toISOString().split('T')[0];
 }
 
+
 class Calendario extends React.Component {
     backAction = () => (
         <TopNavigationAction
@@ -62,8 +63,6 @@ class Calendario extends React.Component {
         };
 
         LocaleConfig.defaultLocale = 'br';
-        let year = new Date().getFullYear()
-        console.log(year)
         return (
             <React.Fragment>
                 <IconRegistry icons={EvaIconsPack} />
@@ -77,9 +76,9 @@ class Calendario extends React.Component {
                         <Text style={styles.text} category='h4'>Calendário Ambiental</Text>
                         <Calendar
                             markedDates={{
-                                '2019-12-13': { dots: [{key:'vacation', color: 'red'}], selected: true, selectedColor: 'red' },
+                                '2019-12-13': { dots: [{ key: 'vacation', color: 'red' }], selected: true, selectedColor: 'red' },
 
-                            }} onDayPress={(day) => {console.log(day)}}/>
+                            }} onDayPress={(day) => { treatDate(day) }} />
                     </Container>
                 </ApplicationProvider>
             </React.Fragment>

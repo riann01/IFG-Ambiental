@@ -11,7 +11,6 @@ import {
     Icon
 } from 'react-native-ui-kitten';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
-import { connect } from 'react-redux'
 import { Container } from 'native-base';
 
 const BackIcon = (style) => (
@@ -89,7 +88,7 @@ const styles = StyleSheet.create({
         width: '90%',
         height: '20%',
         flexDirection: 'column',
-        marginBottom: '5%',
+        marginTop: '5%',
         alignItems: 'center',
         alignContent: 'center',
         justifyContent: 'center',
@@ -104,7 +103,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignContent: 'center',
         justifyContent: 'center',
-        marginBottom: '5%',
+        marginTop: '5%',
         elevation: 7,
         backgroundColor: '#fff'
     }

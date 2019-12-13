@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Spinner, View, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import { mapping, light as darkTheme } from '@eva-design/eva';
 import {
     ApplicationProvider,
@@ -20,12 +20,21 @@ import {
     Content,
     Card,
     CardItem,
-    Body
+    Body,
+    Spinner
 } from 'native-base';
 
 const BackIcon = (style) => (
     <Icon {...style} name='arrow-ios-back-outline' />
 )
+
+const EditIcon = (style) => (
+    <Icon {...style} name='edit'/>
+);
+
+const EditAction = (props) => (
+    <TopNavigationAction {...props} icon={EditIcon}/>
+);
 
 class Postagens extends React.Component {
 
@@ -36,13 +45,14 @@ class Postagens extends React.Component {
             onPress={() => this.props.navigation.goBack()}
         />
     )
+    
 
     loadingOuNao = () => {
         if (this.props.isLoadingPosts || this.props.isLoadingTopico) {
             return (
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <Layout style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                     <Spinner />
-                </View>
+                </Layout>
             )
         } else {
             if (this.props.posts.length > 0) {
@@ -51,7 +61,7 @@ class Postagens extends React.Component {
                         <Content padder>
                             <Card>
                                 <CardItem header bordered>
-                                    <Text>usuario</Text>
+                                    <Text>{item.user.nome}</Text>
                                 </CardItem>
                                 <CardItem bordered>
                                     <Body>
@@ -79,11 +89,21 @@ class Postagens extends React.Component {
                     />
                 )
             }
+            else {
+                return (
+                    <Layout style={{ alignItems: 'center' }}>
+                        <Text style={{ textAlign: 'center', width: '80%' }}>Hmm... Parece meio vazio por aqui, que tal postar algo?</Text>
+                    </Layout>
+                )
+            }
 
         }
     }
 
     render() {
+        const renderRightControls = () => [
+            <EditAction onPress={() => {this.props.navigation.navigate('CriarPost')}}/>,
+          ];
         return (
             <React.Fragment>
                 <IconRegistry icons={EvaIconsPack} />
@@ -92,6 +112,7 @@ class Postagens extends React.Component {
                     theme={darkTheme}>
                     <TopNavigation
                         leftControl={this.backAction()}
+                        rightControls={renderRightControls()}
                         title='Retornar' />
                     <Text style={styles.text} category='h4'>{this.props.titulo}</Text>
                     <Container>
