@@ -41,8 +41,7 @@ const forumStack = createStackNavigator({
     Postagens: Postagens,
     Posts: Posts,
     Post: Post,
-    CriarPost: CriarPost,
-    Calendario: Calendario,
+    CriarPost: CriarPost
 }, 
 {
     initialRouteName: 'Threads',

@@ -50,12 +50,48 @@ const Post = (conteudo, usuario, qtdComentarios) => {
 }
 
 class Postagens extends React.Component {
+
+
     backAction = () => (
         <TopNavigationAction
             icon={BackIcon}
             onPress={() => this.props.navigation.goBack()}
         />
     )
+
+    loadingOuNao = () => {
+        if (this.props.isLoadingPosts || this.props.isLoadingTopico) {
+            return (
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                    <Spinner />
+                </View>
+            )
+        } else {
+            return (
+                <Content padder>
+                    <Card>
+                        <CardItem header bordered>
+                            <Text>Teste - Nome do Bendito</Text>
+                        </CardItem>
+                        <CardItem bordered>
+                            <Body>
+                                <Text>
+                                    Conteúdo do dito cujo
+                                 </Text>
+                            </Body>
+                        </CardItem>
+                        <CardItem footer bordered>
+                            <Text>Número de comentarios</Text>
+                        </CardItem>
+                        <CardItem footer bordered>
+                            <Text>Comentar</Text>
+                        </CardItem>
+                    </Card>
+                </Content>
+            )
+        }
+    }
+
     render() {
         const { navigation } = this.props;
         const title = navigation.getParam('title', 'null');
@@ -68,32 +104,9 @@ class Postagens extends React.Component {
                     <TopNavigation
                         leftControl={this.backAction()}
                         title='Retornar' />
-                    <Text style={styles.text} category='h4'>{title}</Text>
+                    <Text style={styles.text} category='h4'>{this.props.titulo}</Text>
                     <Container>
-                        <View>
-                            <ScrollView>
-                                <Content padder>
-                                    <Card>
-                                        <CardItem header bordered>
-                                            <Text>Teste - Nome do Bendito</Text>
-                                        </CardItem>
-                                        <CardItem bordered>
-                                            <Body>
-                                                <Text>
-                                                    Conteúdo do dito cujo
-                                                </Text>
-                                            </Body>
-                                        </CardItem>
-                                        <CardItem footer bordered>
-                                            <Text>Número de comentarios</Text>
-                                        </CardItem>
-                                        <CardItem footer bordered>
-                                            <Text>Comentar</Text>
-                                        </CardItem>
-                                    </Card>
-                                </Content>
-                            </ScrollView>
-                        </View>
+                        {this.loadingOuNao()}
                     </Container>
                 </ApplicationProvider>
             </React.Fragment>
@@ -114,4 +127,21 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Postagens
+const mapStateToProps = ({ topico }) => {
+    return {
+        titulo: topico.titulo,
+        description: topico.description,
+        topicoKey: topico.key,
+        posts: topico.posts,
+        isLoadingPosts: topico, isLoadingPosts,
+        isLoadingTopico: topico.isLoadingTopico
+    }
+}
+/*
+const mapDispatchToProps = dispatch => {
+  return {
+    //onFetchTopico: (topicoKey) => dispatch(fetchPosts(topicoKey))
+  }
+}
+*/
+export default connect(mapStateToProps)(Postagens)

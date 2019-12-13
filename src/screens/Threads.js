@@ -13,49 +13,48 @@ import {
   TopNavigationAction,
   ListItem
 } from 'react-native-ui-kitten';
+import { connect } from 'react-redux'
 //const Client = require('../etc/ConnectDB');
 
 //client = new Client();
 
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import { fetchPosts } from '../store/actions/topico';
 
 const BackIcon = (style) => (
   <Icon {...style} name='arrow-ios-back-outline' />
-);
-
-const BackAction = () => (
-  <TopNavigationAction icon={BackIcon} />
-);
+)
 
 const Gift = (style) => (
   <Icon {...style} name='gift' />
-);
+)
 
 const Award = (style) => (
   <Icon {...style} name='award' />
-);
+)
 
 const Earth = (style) => (
   <Icon {...style} name='globe-2' />
-);
+)
 
 const Message = (style) => (
   <Icon {...style} name='message-circle' />
-);
-
-const ApplicationContent = ({ navigation }) => (
-  <React.Fragment>
-
-  </React.Fragment>
-);
+)
 
 class Threads extends React.Component {
+  
   backAction = () => (
     <TopNavigationAction
       icon={BackIcon}
       onPress={() => this.props.navigation.navigate('Home')}
     />
   )
+
+  selecionaTopico = (topicoKey) => {
+    this.props.onFetchTopico(topicoKey)
+    this.props.navigation.navigate('Postagens')
+  }
+
   render() {
 
     return (
@@ -116,13 +115,18 @@ const styles = StyleSheet.create({
     width: '90%',
     marginVertical: '3%',
   }
-});
+})
 
-Threads.navigationOptions = ({ /*navigation*/ }) => {
-  return {
-    header: null
+const mapStateToProps = ({ forum }) => {
+  return {    
+    topicos: forum.topicos
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    onFetchTopico: (topicoKey) => dispatch(fetchPosts(topicoKey))
+  }
+}
 
-export default Threads;
+export default connect(mapStateToProps, mapDispatchToProps)(Threads)
