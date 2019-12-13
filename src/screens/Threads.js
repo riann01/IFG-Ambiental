@@ -11,7 +11,8 @@ import {
   Icon,
   TopNavigation,
   TopNavigationAction,
-  ListItem
+  ListItem,
+  List
 } from 'react-native-ui-kitten';
 import { connect } from 'react-redux'
 //const Client = require('../etc/ConnectDB');
@@ -41,8 +42,10 @@ const Message = (style) => (
   <Icon {...style} name='message-circle' />
 )
 
+
+
 class Threads extends React.Component {
-  
+
   backAction = () => (
     <TopNavigationAction
       icon={BackIcon}
@@ -56,7 +59,12 @@ class Threads extends React.Component {
   }
 
   render() {
-
+    const data = this.props.topicos
+    const renderItem = ({ item, index }) => (
+      <ListItem title={`${item.titulo}`}
+        description={`${item.description}`}
+        onPress={() => { this.selecionaTopico }} />
+    )
     return (
       <React.Fragment>
         <ApplicationProvider
@@ -68,26 +76,9 @@ class Threads extends React.Component {
             title='Retornar' />
           <Layout style={styles.container}>
             <Text style={styles.text} category='h4'>Tópicos</Text>
-            <ListItem
-              title='Arrecadações'
-              description='Espaço destinado a postagens de arrecadação de material.'
-              icon={Gift}
-              onPress={() => {this.props.navigation.navigate('Postagens'), {title: 'title'}}}
-            />
-            <ListItem
-              title='Olha Só!'
-              description='Espaço destinado a postagens de boas ações ambientais.'
-              icon={Award}
-            />
-            <ListItem
-              title='Discussões diversas sobre o Meio Ambiente'
-              description='Espaço destinado a postagens sobre assuntos diversos relacionados ao Meio Ambiente.'
-              icon={Earth}
-            />
-            <ListItem
-              title='Off-Topic'
-              description='Espaço destinado a postagens sobre assuntos não listados aqui.'
-              icon={Message}
+            <List
+              data={data}
+              renderItem={renderItem}
             />
           </Layout>
         </ApplicationProvider>
@@ -95,10 +86,12 @@ class Threads extends React.Component {
     );
   }
 }
+
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     textAlign: 'center',
+
   },
   text: {
     marginTop: 5,
@@ -118,7 +111,7 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = ({ forum }) => {
-  return {    
+  return {
     topicos: forum.topicos
   }
 }
