@@ -93,7 +93,7 @@ const MenuRoutes = {
     },
     Sair: {
         Name: 'Sair',
-        screen: HomeScreen
+        screen: Auth
     },
     Textos:{
         name:'Textos',
