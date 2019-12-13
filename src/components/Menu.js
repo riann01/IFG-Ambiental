@@ -10,7 +10,7 @@ import { store } from '../../index'*/
 export default ({ navigation }) => {
     
     const onSelect = (index) => {
-        if(index===5){
+        if(index===4){
             navigation.navigate('Auth')
         }else{
             const { [index]: selectedTabRoute } = navigation.state.routes;
