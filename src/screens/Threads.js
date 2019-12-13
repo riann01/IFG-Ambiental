@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ImageBackground, Image, ActivityIndicator, View } from 'react-native';
+import { StyleSheet, ImageBackground, Image, View } from 'react-native';
 import { mapping, light as darkTheme } from '@eva-design/eva';
 import {
   ApplicationProvider,
@@ -12,7 +12,8 @@ import {
   TopNavigation,
   TopNavigationAction,
   ListItem,
-  List
+  List,
+  Spinner
 } from 'react-native-ui-kitten';
 import { connect } from 'react-redux'
 //const Client = require('../etc/ConnectDB');
@@ -53,10 +54,6 @@ class Threads extends React.Component {
     />
   )
 
-  arr = new Array(
-    Gift, Award, Earth, Message
-  )
-
   selecionaTopico = (topicoKey) => {
     this.props.onFetchTopico(topicoKey)
     this.props.navigation.navigate('Postagens')
@@ -66,7 +63,7 @@ class Threads extends React.Component {
     if(this.props.isLoadingTopicos){
       return(
         <View>
-          <ActivityIndicator />
+          <Spinner />
         </View>
       )
     }else{
@@ -104,7 +101,7 @@ class Threads extends React.Component {
           <TopNavigation
             leftControl={this.backAction()}
             title='Retornar' />
-          <Layout >
+          <Layout>
             {this.renderOuLoading()}
           </Layout>
         </ApplicationProvider>

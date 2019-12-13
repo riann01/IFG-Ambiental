@@ -70,8 +70,8 @@ class MainScreen extends React.Component {
     let nomeUsr = this.props.nome
     let arr = nomeUsr.split(" ")
     let primeiroNome = arr[0]
-    console.log(primeiroNome)
-    if ((this.state.hora >= 6 || (this.state.hora <= 11 && this.state.minutos <= 59))) {
+    this.setState({ tratamento: "Olá, " + primeiroNome })
+    /*if ((this.state.hora >= 6 || (this.state.hora <= 11 && this.state.minutos <= 59))) {
       this.setState({ tratamento: "Bom dia, " + primeiroNome })
     }
     if ((this.state.hora >= 12 || (this.state.hora <= 17 && this.state.minutos <= 59))) {
@@ -79,21 +79,10 @@ class MainScreen extends React.Component {
     }
     if ((this.state.hora >= 18 || (this.state.hora <= 5 && this.state.minutos <= 59))) {
       this.setState({ tratamento: "Boa noite, " + primeiroNome })
-    }
+    }*/
   }
 
   render() {
-    /*this.requestLocation()
-    if ((this.state.hora >= 6 || (this.hora <= 11 && this.minutos <= 59))) {
-      this.setState({ tratamento: "Bom dia, " + this.props.nome })
-    }
-    if ((this.hora >= 12 || (this.hora <= 17 && this.minutos <= 59))) {
-      this.setState({ tratamento: "Boa tarde, " + this.props.nome })
-    }
-    if ((this.hora >= 18 || (this.hora <= 5 && this.minutos <= 59))) {
-      this.setState({ tratamento: "Boa noite, " + this.props.nome })
-    }*/
-
     return (
       <React.Fragment>
         <ApplicationProvider

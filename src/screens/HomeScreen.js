@@ -165,7 +165,8 @@ class HomeScreen extends React.Component {
                     marginTop: '0%',
                     width: '70%',
                   }}
-                  icon={FaceIcon}>
+                  icon={FaceIcon}
+                  disabled={true}>
                   Entrar com Facebook
               </Button>
                 <Button
@@ -175,7 +176,8 @@ class HomeScreen extends React.Component {
                   }}
                   icon={GoogleIcon}
                   onPress={() => { }}
-                  status='danger'>
+                  status='danger'
+                  disabled={true}>
                   Entrar com Google
               </Button>
                 <Button

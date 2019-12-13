@@ -41,11 +41,7 @@ class ContatosUteis extends React.Component {
                             <ScrollView >
                                 <View style={{ alignItems: 'center', alignContent: 'center', height: '100%', marginBottom: '150%' }}>
                                     <Container>
-                                        <View style={styles.containerMenor}>
-                                            <Text style={{ textAlign: 'center' }}>Em casos de incêndios ou queimadas florestais:</Text>
-                                            <Text style={{ textAlign: 'center' }}>Corpo de Bombeiros Militar</Text>
-                                            <Text style={{ textAlign: 'center' }}>Contato: 193</Text>
-                                        </View>
+                                        
                                         <View style={styles.containerGrande}>
                                             <Text style={{ textAlign: 'center' }}>Contato IBAMA – Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis</Text>
                                             <Text style={{ textAlign: 'center' }}>Contato: (61) 3316-1611 ou então acesse pelo link:</Text>
@@ -64,6 +60,11 @@ class ContatosUteis extends React.Component {
                                             <Text style={{ textAlign: 'center' }}>Contato: (62) 3201-5261</Text>
                                             <Text style={{ textAlign: 'center' }}>http://www.meioambiente.go.gov.br/fale-conosco.html</Text>
                                             <Text style={{ textAlign: 'center' }}>E-mail: ouvidoria.meioambiente@goias.gov.br</Text>
+                                        </View>
+                                        <View style={styles.containerMenor}>
+                                            <Text style={{ textAlign: 'center' }}>    Em casos de incêndios ou queimadas florestais:    </Text>
+                                            <Text style={{ textAlign: 'center' }}>Corpo de Bombeiros Militar</Text>
+                                            <Text style={{ textAlign: 'center' }}>Contato: 193</Text>
                                         </View>
                                     </Container>
                                 </View>
@@ -85,7 +86,6 @@ const styles = StyleSheet.create({
     },
     containerMenor: {
         borderRadius: 7,
-        borderWidth: 1,
         width: '90%',
         height: '20%',
         flexDirection: 'column',
@@ -93,10 +93,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignContent: 'center',
         justifyContent: 'center',
+        elevation: 7,
+        backgroundColor: '#fff'
     },
     containerGrande: {
         borderRadius: 7,
-        borderWidth: 1,
         width: '90%',
         height: '30%',
         flexDirection: 'column',
@@ -104,6 +105,8 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         justifyContent: 'center',
         marginBottom: '5%',
+        elevation: 7,
+        backgroundColor: '#fff'
     }
 })
 

@@ -40,16 +40,16 @@ class TextIndividual extends React.Component {
                     <TopNavigation
                         leftControl={this.backAction()}
                         title='Retornar' />
-                    <Container>
+                        
+
                         <Text style={styles.text} category='h4'>{item.titulo}</Text>
-                        <View>
-                            <ScrollView>
+
+                            <ScrollView style={{height: 1000}}>
                                 <Layout style={{ alignContent: 'center', justifyContent: 'center', alignItems: 'center', flex: 1}}>
-                                    <Text style={{paddingTop: 10,flex: 1, width: '90%', minHeight: '150%'}}>{item.corpo}</Text>
+                                    <Text style={{paddingTop: 10,flex: 1, width: '90%', minHeight: '100%'}}>{item.corpo}</Text>
                                 </Layout>
                             </ScrollView>
-                        </View>
-                    </Container>
+
                 </ApplicationProvider>
             </React.Fragment>
         )

@@ -18,7 +18,7 @@ import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { addPostTopico } from '../store/actions/topico';
 
 const PostIcon = (style) => (
-  <Icon {...style} name='checkmark-circle-2'/>
+  <Icon {...style} name='checkmark-circle-2' />
 );
 
 const BackIcon = (style) => (
@@ -26,42 +26,13 @@ const BackIcon = (style) => (
 );
 
 const ImageIcon = (style) => (
-  <Icon {...style} name='image-2'/>
+  <Icon {...style} name='image-2' />
 );
 
 const BackAction = () => (
-  <TopNavigationAction icon={BackIcon}/>
+  <TopNavigationAction icon={BackIcon} />
 );
 
-const ApplicationContent = () => (
-  <Layout style={styles.container}>
-    <Text style={styles.text} category='h4'>Postar</Text>
-    <Input
-    placeholder='Título da Postagem'
-    style={styles.inputTitle}
-    size='small'
-    />
-    <Input placeholder='Conteúdo do Post'
-    style={styles.inputPostBody}
-    multiline={true}
-    maxLength={20000}
-    height={300}
-    />
-    <Layout style={styles.buttonContainer}>
-      <Button
-      icon={ImageIcon}
-      size='medium'
-      style={styles.button}>
-      Carregar Foto</Button>
-      <Button
-      status='success'
-      icon={PostIcon}
-      size='medium'
-      style={styles.button}>
-      Postar</Button>
-    </Layout>
-  </Layout>
-); 
 
 class CriarPost extends React.Component {
 
@@ -73,11 +44,11 @@ class CriarPost extends React.Component {
   }
 
   changeTextTitulo = (text) => {
-    this.setState({titulo: text})
+    this.setState({ titulo: text })
   }
 
   changeTextCorpo = (text) => {
-    this.setState({corpo: text})
+    this.setState({ corpo: text })
   }
 
   enviaPost = () => {
@@ -85,15 +56,41 @@ class CriarPost extends React.Component {
   }
 
   render() {
-    return(
+    return (
       <React.Fragment>
-        <IconRegistry icons={EvaIconsPack}/>
+        <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider
-        mapping={mapping}
-        theme={lightTheme}>
+          mapping={mapping}
+          theme={lightTheme}>
           <TopNavigation
-        leftControl={BackAction()}/>
-          <ApplicationContent/>
+            leftControl={BackAction()} />
+          <Layout style={styles.container}>
+            <Text style={styles.text} category='h4'>Postar</Text>
+            <Input
+              placeholder='Título da Postagem'
+              style={styles.inputTitle}
+              size='small'
+              onChangeText={(text) => {onChangeTextTitulo(text)}}
+              value={this.state.post.titulo}
+            />
+            <Input placeholder='Conteúdo do Post'
+              style={styles.inputPostBody}
+              multiline={true}
+              maxLength={20000}
+              height={300}
+              onChangeText={(text) => {onChangeTextCorpo(text)}}
+              value={this.state.post.corpo}
+            />
+            <Layout style={styles.buttonContainer}>
+              <Button
+                status='success'
+                icon={PostIcon}
+                size='medium'
+                style={styles.button}
+                onPress={() => {this.enviaPost}}>
+                Postar</Button>
+            </Layout>
+          </Layout>
         </ApplicationProvider>
       </React.Fragment>
     );
@@ -127,9 +124,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = ({ user, topico }) => {
   return {
-      nome: user.nome,
-      key: user.key,
-      topicoKey: topico.key
+    nome: user.nome,
+    key: user.key,
+    topicoKey: topico.key
   }
 }
 

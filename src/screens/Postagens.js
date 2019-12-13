@@ -27,28 +27,6 @@ const BackIcon = (style) => (
     <Icon {...style} name='arrow-ios-back-outline' />
 )
 
-const Post = (conteudo, usuario, qtdComentarios) => {
-    return (
-        <Content padder>
-            <Card>
-                <CardItem header bordered>
-                    <Text>{usuario}</Text>
-                </CardItem>
-                <CardItem bordered>
-                    <Body>
-                        <Text>
-                            {conteudo}
-                        </Text>
-                    </Body>
-                </CardItem>
-                <CardItem footer bordered>
-                    <Text>{qtdComentarios}</Text>
-                </CardItem>
-            </Card>
-        </Content>
-    )
-}
-
 class Postagens extends React.Component {
 
 
@@ -67,34 +45,45 @@ class Postagens extends React.Component {
                 </View>
             )
         } else {
-            return (
-                <Content padder>
-                    <Card>
-                        <CardItem header bordered>
-                            <Text>Teste - Nome do Bendito</Text>
-                        </CardItem>
-                        <CardItem bordered>
-                            <Body>
-                                <Text>
-                                    Conteúdo do dito cujo
-                                 </Text>
-                            </Body>
-                        </CardItem>
-                        <CardItem footer bordered>
-                            <Text>Número de comentarios</Text>
-                        </CardItem>
-                        <CardItem footer bordered>
-                            <Text>Comentar</Text>
-                        </CardItem>
-                    </Card>
-                </Content>
-            )
+            if (this.props.posts.length > 0) {
+                const renderItem = ({ item, index }) => (
+                    <ListItem>
+                        <Content padder>
+                            <Card>
+                                <CardItem header bordered>
+                                    <Text>usuario</Text>
+                                </CardItem>
+                                <CardItem bordered>
+                                    <Body>
+                                        <Text>
+                                            {item.corpo}
+                                        </Text>
+                                    </Body>
+                                </CardItem>
+                                <CardItem footer bordered>
+                                    <Text>Número de comentarios</Text>
+                                </CardItem>
+                                <CardItem footer bordered>
+                                    <Text>Comentar</Text>
+                                </CardItem>
+                            </Card>
+                        </Content>
+                    </ListItem>
+                )
+                const data = this.props.posts
+                console.log(data)
+                return (
+                    <List
+                        data={data}
+                        renderItem={renderItem}
+                    />
+                )
+            }
+
         }
     }
 
     render() {
-        const { navigation } = this.props;
-        const title = navigation.getParam('title', 'null');
         return (
             <React.Fragment>
                 <IconRegistry icons={EvaIconsPack} />
@@ -133,7 +122,7 @@ const mapStateToProps = ({ topico }) => {
         description: topico.description,
         topicoKey: topico.key,
         posts: topico.posts,
-        isLoadingPosts: topico, isLoadingPosts,
+        isLoadingPosts: topico.isLoadingPosts,
         isLoadingTopico: topico.isLoadingTopico
     }
 }
