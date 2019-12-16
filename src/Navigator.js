@@ -1,7 +1,8 @@
 //Padrão
 import React, { Component } from 'react'
 import { createDrawerNavigator, createSwitchNavigator, createAppContainer, createStackNavigator } from 'react-navigation'
-import Icon from 'react-native-vector-icons/FontAwesome5'
+//import Icon from 'react-native-vector-icons/FontAwesome5'
+import { Icon } from 'react-native-ui-kitten'
 //Screens
 import HomeScreen from './screens/HomeScreen'
 import MainScreen from './screens/MainScreen'
@@ -18,7 +19,6 @@ import Calendario from './screens/Calendario'
 import Postagens from './screens/Postagens'
 import RespostaPost from './screens/RespostaPost'
 
-
 // Class Hidden
 
 class Hidden extends Component {
@@ -26,7 +26,6 @@ class Hidden extends Component {
         return null;
     }
 }
-
 
 const textStack = createStackNavigator({
     Textos: Texts,
@@ -59,7 +58,7 @@ const MenuRoutes = {
         navigationOptions: {
             title: 'Início',
             drawerIcon: () => (
-                <Icon name="home" size={20} color={'#003266'} />
+                <Icon name="home" width={20} height={20} fill='#003266' />
             )          
         }
     },
@@ -69,7 +68,7 @@ const MenuRoutes = {
         navigationOptions: {
             title: 'Fórum',
             drawerIcon: () => (
-                <Icon name="home" size={20} color={'#003266'} />
+                <Icon name="home" width={20} height={20} fill='#003266' />
             )          
         }
     },
@@ -79,7 +78,7 @@ const MenuRoutes = {
         navigationOptions: {
             title: 'Perfil',
             drawerIcon: () => (
-                <Icon name="home" size={20} color={'#003266'} />
+                <Icon name="home" width={20} height={20} fill='#003266' />
             )          
         }
     },
@@ -89,7 +88,7 @@ const MenuRoutes = {
         navigationOptions: {
             title: 'Sobre',
             drawerIcon: () => (
-                <Icon name="home" size={20} color={'#003266'} />
+                <Icon name="home" width={20} height={20} fill='#003266' />
             )          
         }
     },

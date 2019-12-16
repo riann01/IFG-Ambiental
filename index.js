@@ -5,6 +5,7 @@ import {name as appName} from './app.json';
 
 import Navigator from './src/Navigator'
 import storeConfig from './src/store/storeConfig'
+import 'react-native-gesture-handler'
 
 const store = storeConfig()
 

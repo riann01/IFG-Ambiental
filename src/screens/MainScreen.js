@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, FlatList, Picker, PermissionsAndroid } from 'react-native';
+import { StyleSheet, FlatList, Picker, PermissionsAndroid, Alert, StatusBar } from 'react-native';
 import { mapping, light as darkTheme } from '@eva-design/eva';
+import Ripple from 'react-native-material-ripple'
 import {
   ApplicationProvider,
   Layout,
@@ -16,6 +17,7 @@ import { connect } from 'react-redux'
 import { Container } from 'native-base';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { addPostTopico } from '../store/actions/topico';
+import CardCustom from './CardCustom'
 
 
 class MainScreen extends React.Component {
@@ -55,6 +57,8 @@ class MainScreen extends React.Component {
         setTimeout(function () {
           let data = new getData()
           this.setState({ cityName: data.city, temperature: data.tempC, windSpeed: data.windKph })
+          console.log('CIDADE:')
+          Alert.alert(data.city)
 
         }, 2000);
       } else {
@@ -70,7 +74,7 @@ class MainScreen extends React.Component {
     let nomeUsr = this.props.nome
     let arr = nomeUsr.split(" ")
     let primeiroNome = arr[0]
-    this.setState({ tratamento: "Olá, " + primeiroNome })
+    this.setState({ tratamento: primeiroNome })
     /*if ((this.state.hora >= 6 || (this.state.hora <= 11 && this.state.minutos <= 59))) {
       this.setState({ tratamento: "Bom dia, " + primeiroNome })
     }
@@ -89,43 +93,103 @@ class MainScreen extends React.Component {
           mapping={mapping}
           theme={darkTheme}>
           <IconRegistry icons={EvaIconsPack} />
-          <Container style={{ flex: 1 }}>
-            <Text style={styles.text} category='h4' style={styles.title}>{this.state.tratamento}!</Text>
-            <Card
-              title="Clima"
-              iconName="ios-sunny"
-              iconType="Ionicons"
-              onPress={() => { }}
-              topRightText={this.state.temperature}
-              bottomRightText={this.state.windSpeed}
-              content={this.state.cityName}
-              iconBackgroundColor="#F2B441"
-            />
-            <Card
-              title="Educação Ambiental"
-              iconName="book-open-page-variant"
-              iconType="MaterialCommunityIcons"
-              onPress={() => { this.props.navigation.navigate('Textos') }}
-              content="Veja conteúdo informativo sobre educação ambiental :)"
-              iconBackgroundColor="#1FAFBF"
-            />
-            <Card
-              title="Contatos Úteis"
-              iconName="perm-contact-calendar"
-              iconType="MaterialIcons"
-              onPress={() => { this.props.navigation.navigate('Telefones') }}
-              content="Veja nesta seção contatos úteis"
-              iconBackgroundColor="#05D580"
-            />
-            <Card
-              title="Calendário"
-              iconName="calendar-blank"
-              iconType="MaterialCommunityIcons"
-              onPress={() => { this.props.navigation.navigate('Calendario') }}
-              content="Visualize o calendário ambiental."
-              iconBackgroundColor="#14CC25"
-            />
+          <StatusBar
+            translucent
+            backgroundColor="#97BF04"
+            barStyle="light-content"
+          />
+          <Container style={{ flex: 1, backgroundColor: '#97BF04' }}>
+            <Layout style={{
+              backgroundColor: '#97BF04',
+              height: 150,
+            }}>
+              <Text category='h6' style={styles.title}>Bem-vindo,</Text>
+              <Text category='h4' style={{
+                fontWeight: 'bold',
+                textAlign: 'left',
+                color: 'white',
+                marginLeft: 30,
+                fontSize: 35,
+                marginTop: 15
+              }}>{this.state.tratamento}!</Text>
+            </Layout>
+            <Layout style={{
+              backgroundColor: '#fff',
+              height: '100%',
+              borderRadius: 20
+            }}>
+              <Layout style={{
+                alignContent: 'center',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: 3,
+                elevation: 5,
+                borderRadius: 16,
+                width: '92%',
+                alignSelf: 'center',
+                marginTop: 30
+              }}>
+                <Ripple
+                  onPress={() => { }}
+                  rippleColor={'#505E80'}
+                  rippleContainerBorderRadius={16}
+                  style={{
+                    width: '100%',
+                    height: 94,
+                  }}>
+                  <Layout style={{
+                    borderRadius: 16,
+                    backgroundColor: '#FF455C',
+                    width: '100%',
+                    height: '100%',
+                    alignContent: 'center',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}>
+                    <Icon name='file-add' width={32} height={32} fill='#fff' />
+                    <Text style={{
+                      color: 'white',
+                      fontSize: 18
+                    }}>Fazer Publicação Rápida</Text>
+                  </Layout>
+                </Ripple>
+              </Layout>
+              <Card
+                title="Clima"
+                iconName="ios-sunny"
+                iconType="Ionicons"
+                topRightText={this.state.temperature}
+                bottomRightText={this.state.windSpeed}
+                content={this.state.cityName}
+                iconBackgroundColor="#F2B441"
+              />
+              <Card
+                title="Educação Ambiental"
+                iconName="book-open-page-variant"
+                iconType="MaterialCommunityIcons"
+                onPress={() => { this.props.navigation.navigate('Textos') }}
+                content="Veja conteúdo informativo sobre educação ambiental :)"
+                iconBackgroundColor="#1FAFBF"
+              />
+              <Card
+                title="Contatos Úteis"
+                iconName="perm-contact-calendar"
+                iconType="MaterialIcons"
+                onPress={() => { this.props.navigation.navigate('Telefones') }}
+                content="Veja nesta seção contatos úteis"
+                iconBackgroundColor="#05D580"
+              />
+              <Card
+                title="Calendário"
+                iconName="calendar-blank"
+                iconType="MaterialCommunityIcons"
+                onPress={() => { this.props.navigation.navigate('Calendario') }}
+                content="Visualize o calendário ambiental."
+                iconBackgroundColor="#14CC25"
+              />
+            </Layout>
           </Container>
+
         </ApplicationProvider>
       </React.Fragment >
     );
@@ -147,13 +211,16 @@ const styles = StyleSheet.create({
   },
   text: {
     marginTop: 5,
-    textAlign: 'center',
+    textAlign: 'left',
     fontWeight: 'bold',
   },
   title: {
-    marginVertical: '5%',
+    marginTop: 55,
+    marginLeft: 30,
     fontWeight: 'bold',
-    textAlign: 'center',
+    textAlign: 'left',
+    color: 'white',
+    fontSize: 25
   },
   icon: {
     width: 40,
