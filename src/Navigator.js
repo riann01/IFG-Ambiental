@@ -30,7 +30,8 @@ class Hidden extends Component {
 const textStack = createStackNavigator({
     Textos: Texts,
     TextIn: TextIndividual
-}, 
+},
+
 {
     initialRouteName: 'Textos',
     headerMode: 'none'
@@ -43,7 +44,8 @@ const forumStack = createStackNavigator({
     Post: Post,
     CriarPost: CriarPost,
     RespostaPost: RespostaPost
-}, 
+},
+
 {
     initialRouteName: 'Threads',
     headerMode: 'none'
