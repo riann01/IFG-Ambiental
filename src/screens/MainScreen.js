@@ -26,7 +26,10 @@ class MainScreen extends React.Component {
   state = {
     hora: new Date().getHours(),
     minutos: new Date().getMinutes(),
+    dia: new Date().getDay(),
+    mes: new Date().getMonth(),
     tratamento: '',
+    tratamentoHora: '',
     windSpeed: '',
     temperature: '',
     cityName: '',
@@ -75,15 +78,15 @@ class MainScreen extends React.Component {
     let arr = nomeUsr.split(" ")
     let primeiroNome = arr[0]
     this.setState({ tratamento: primeiroNome })
-    /*if ((this.state.hora >= 6 || (this.state.hora <= 11 && this.state.minutos <= 59))) {
-      this.setState({ tratamento: "Bom dia, " + primeiroNome })
+    if ((this.state.hora >= 6 || (this.state.hora <= 11 && this.state.minutos <= 59))) {
+      this.setState({ tratamentoHora: "Bom dia," })
     }
     if ((this.state.hora >= 12 || (this.state.hora <= 17 && this.state.minutos <= 59))) {
-      this.setState({ tratamento: "Boa tarde, " + primeiroNome })
+      this.setState({ tratamentoHora: "Boa tarde," })
     }
     if ((this.state.hora >= 18 || (this.state.hora <= 5 && this.state.minutos <= 59))) {
-      this.setState({ tratamento: "Boa noite, " + primeiroNome })
-    }*/
+      this.setState({ tratamentoHora: "Boa noite," })
+    }
   }
 
   render() {
@@ -94,7 +97,7 @@ class MainScreen extends React.Component {
           theme={darkTheme}>
           <IconRegistry icons={EvaIconsPack} />
           <StatusBar
-            translucent
+            translucent={false}
             backgroundColor="#97BF04"
             barStyle="light-content"
           />
@@ -103,14 +106,15 @@ class MainScreen extends React.Component {
               backgroundColor: '#97BF04',
               height: 150,
             }}>
-              <Text category='h6' style={styles.title}>Bem-vindo,</Text>
+              <Text category='h6' style={styles.title}>{this.state.tratamentoHora}</Text>
               <Text category='h4' style={{
                 fontWeight: 'bold',
                 textAlign: 'left',
                 color: 'white',
                 marginLeft: 30,
                 fontSize: 35,
-                marginTop: 15
+                marginTop: 5,
+                lineHeight: 35
               }}>{this.state.tratamento}!</Text>
             </Layout>
             <Layout style={{
@@ -215,7 +219,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   title: {
-    marginTop: 55,
+    marginTop: 40,
     marginLeft: 30,
     fontWeight: 'bold',
     textAlign: 'left',
