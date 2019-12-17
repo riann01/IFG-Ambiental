@@ -21,7 +21,7 @@ import { addPostTopico } from '../store/actions/topico';
 import CardCustom from './CardCustom'
 import { ThemeColors } from 'react-navigation';
 
-
+let dataCityName
 class MainScreen extends React.Component {
 
 
@@ -62,16 +62,15 @@ class MainScreen extends React.Component {
         setTimeout(function () {
           let data = new getData()
           this.setState({ cityName: data.city, temperature: data.tempC, windSpeed: data.windKph })
-          console.log('CIDADE:')
-          Alert.alert(data.city)
-
         }, 2000);
+        console.log('cheguei aqui.')
       } else {
         this.setState({ cityName: 'Serviço indisponível no momento.' })
       }
     } catch (err) {
       console.warn(err);
     }
+
   }
 
   componentDidMount = () => {
@@ -113,12 +112,12 @@ class MainScreen extends React.Component {
                 flexDirection: 'column',
                 backgroundColor: '#97BF04'
               }}>
-                <TouchableOpacity onPress={() => {this.props.navigation.openDrawer()}}
-                style={{
-                  marginTop: 10,
-                  marginLeft: 20
-                }}>
-                  <Icon name='menu-outline' width={32} height={32} fill='#fff'/>
+                <TouchableOpacity onPress={() => { this.props.navigation.openDrawer() }}
+                  style={{
+                    marginTop: 10,
+                    marginLeft: 20
+                  }}>
+                  <Icon name='menu-outline' width={32} height={32} fill='#fff' />
                 </TouchableOpacity>
                 <Text category='h6' style={styles.title}>{this.state.tratamentoHora}</Text>
                 <Text category='h4' style={{
@@ -137,11 +136,11 @@ class MainScreen extends React.Component {
                 backgroundColor: '#97BF04',
               }}>
                 <Avatar size='large'
-                source={require('../assets/brand-logo.png')}
-                onPress={() => {this.props.navigation.navigate('Profile')}}
-                style={{
-                  marginTop: 6
-                }}/>
+                  source={require('../assets/brand-logo.png')}
+                  onPress={() => { this.props.navigation.navigate('Profile') }}
+                  style={{
+                    marginTop: 6
+                  }} />
                 <Text style={{
                   textAlign: 'center',
                   color: '#fff',
@@ -151,142 +150,142 @@ class MainScreen extends React.Component {
               </Layout>
             </Layout>
             <Layout style={{
-                backgroundColor: '#fff',
-                height: '100%',
-                borderRadius: 20
+              backgroundColor: '#fff',
+              height: '100%',
+              borderRadius: 20
+            }}>
+              <Layout style={{
+                alignContent: 'center',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: 3,
+                elevation: 5,
+                borderRadius: 16,
+                width: '92%',
+                alignSelf: 'center',
+                marginTop: 20
               }}>
-                <Layout style={{
-                  alignContent: 'center',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginBottom: 3,
-                  elevation: 5,
-                  borderRadius: 16,
-                  width: '92%',
-                  alignSelf: 'center',
-                  marginTop: 20
-                }}>
-                  <Ripple
-                    onPress={() => { }}
-                    rippleColor={'#505E80'}
-                    rippleContainerBorderRadius={16}
-                    style={{
-                      width: '100%',
-                      height: 94,
-                    }}>
-                    <Layout style={{
-                      borderRadius: 16,
-                      backgroundColor: '#FF455C',
-                      width: '100%',
-                      height: '100%',
-                      alignContent: 'center',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}>
-                      <Icon name='plus-circle' width={32} height={32} fill='#fff' />
-                      <Text style={{
-                        color: 'white',
-                        fontSize: 18
-                      }}>Fazer Publicação Rápida</Text>
-                    </Layout>
-                  </Ripple>
-                </Layout>
-                <Card
-                  title="Clima"
-                  iconName="ios-sunny"
-                  iconType="Ionicons"
-                  topRightText={this.state.temperature}
-                  bottomRightText={this.state.windSpeed}
-                  content={this.state.cityName}
-                  iconBackgroundColor="#F2B441"
-                />
-                <Card
-                  title="Educação Ambiental"
-                  iconName="book-open-page-variant"
-                  iconType="MaterialCommunityIcons"
-                  onPress={() => { this.props.navigation.navigate('Textos') }}
-                  content="Veja conteúdo informativo sobre educação ambiental :)"
-                  iconBackgroundColor="#1FAFBF"
-                />
-                <Card
-                  title="Contatos Úteis"
-                  iconName="perm-contact-calendar"
-                  iconType="MaterialIcons"
-                  onPress={() => { this.props.navigation.navigate('Telefones') }}
-                  content="Veja nesta seção contatos úteis"
-                  iconBackgroundColor="#05D580"
-                />
-                <Card
-                  title="Calendário"
-                  iconName="calendar-blank"
-                  iconType="MaterialCommunityIcons"
-                  onPress={() => { this.props.navigation.navigate('Calendario') }}
-                  content="Visualize o calendário ambiental."
-                  iconBackgroundColor="#14CC25"
-                />
+                <Ripple
+                  onPress={() => { this.props.navigation.navigate('CriarPostHome') }}
+                  rippleColor={'#505E80'}
+                  rippleContainerBorderRadius={16}
+                  style={{
+                    width: '100%',
+                    height: 94,
+                  }}>
+                  <Layout style={{
+                    borderRadius: 16,
+                    backgroundColor: '#FF455C',
+                    width: '100%',
+                    height: '100%',
+                    alignContent: 'center',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}>
+                    <Icon name='plus-circle' width={32} height={32} fill='#fff' />
+                    <Text style={{
+                      color: 'white',
+                      fontSize: 18
+                    }}>Fazer Publicação Rápida</Text>
+                  </Layout>
+                </Ripple>
               </Layout>
+              <Card
+                title="Clima"
+                iconName="ios-sunny"
+                iconType="Ionicons"
+                topRightText={this.state.temperature}
+                bottomRightText={this.state.windSpeed}
+                content={dataCityName}
+                iconBackgroundColor="#F2B441"
+              />
+              <Card
+                title="Educação Ambiental"
+                iconName="book-open-page-variant"
+                iconType="MaterialCommunityIcons"
+                onPress={() => { this.props.navigation.navigate('Textos') }}
+                content="Veja conteúdo informativo sobre educação ambiental :)"
+                iconBackgroundColor="#1FAFBF"
+              />
+              <Card
+                title="Contatos Úteis"
+                iconName="perm-contact-calendar"
+                iconType="MaterialIcons"
+                onPress={() => { this.props.navigation.navigate('Telefones') }}
+                content="Veja nesta seção contatos úteis"
+                iconBackgroundColor="#05D580"
+              />
+              <Card
+                title="Calendário"
+                iconName="calendar-blank"
+                iconType="MaterialCommunityIcons"
+                onPress={() => { this.props.navigation.navigate('Calendario') }}
+                content="Visualize o calendário ambiental."
+                iconBackgroundColor="#14CC25"
+              />
+            </Layout>
           </Container>
 
         </ApplicationProvider>
       </React.Fragment >
-        );
-      }
-    }
-    
+    );
+  }
+}
+
 const styles = StyleSheet.create({
-          container: {
-          alignItems: 'center',
-        textAlign: 'center',
-      },
+  container: {
+    alignItems: 'center',
+    textAlign: 'center',
+  },
   component: {
-          width: '90%',
-        marginVertical: '3%',
-      },
+    width: '90%',
+    marginVertical: '3%',
+  },
   card: {
-          marginTop: '5%',
-        height: '35%'
-      },
+    marginTop: '5%',
+    height: '35%'
+  },
   text: {
-          marginTop: 5,
-        textAlign: 'left',
-        fontWeight: 'bold',
-      },
+    marginTop: 5,
+    textAlign: 'left',
+    fontWeight: 'bold',
+  },
   title: {
-        marginTop: 10,
-        marginLeft: 23,
-        fontWeight: 'bold',
-        textAlign: 'left',
-        color: 'white',
-        fontSize: 25
-      },
+    marginTop: 10,
+    marginLeft: 23,
+    fontWeight: 'bold',
+    textAlign: 'left',
+    color: 'white',
+    fontSize: 25
+  },
   icon: {
-          width: 40,
-        height: 40,
-        borderRadius: 20,
-        backgroundColor: 'rgba(0,0,0,0.3)',
-        justifyContent: 'center',
-        alignContent: 'center',
-        alignItems: 'center'
-      },
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center'
+  },
   inputPostBody: {
-          width: '80%',
-        marginTop: '10%'
-      }
-    });
-    
-    
-const mapStateToProps = ({user, forum}) => {
+    width: '80%',
+    marginTop: '10%'
+  }
+});
+
+
+const mapStateToProps = ({ user, forum }) => {
   return {
-          nome: user.nome,
-        key: user.key,
-        topicos: forum.topicos
-      }
-    }
-    
+    nome: user.nome,
+    key: user.key,
+    topicos: forum.topicos
+  }
+}
+
 const mapDispatchToProps = dispatch => {
   return {
-          onAddPost: (post, topicoKey, autor, autorKey) => dispatch(addPostTopico(post, topicoKey, autor, autorKey))
-      }
-    }
-    
-    export default connect(mapStateToProps, mapDispatchToProps)(MainScreen)
+    onAddPost: (post, topicoKey, autor, autorKey) => dispatch(addPostTopico(post, topicoKey, autor, autorKey))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainScreen)

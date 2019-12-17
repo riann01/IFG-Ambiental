@@ -18,6 +18,7 @@ import CriarPost from './screens/CriarPost'
 import Calendario from './screens/Calendario'
 import Postagens from './screens/Postagens'
 import RespostaPost from './screens/RespostaPost'
+import CriarPostHome from './screens/CriarPostHome'
 
 // Class Hidden
 
@@ -50,6 +51,11 @@ const forumStack = createStackNavigator({
     initialRouteName: 'Threads',
     headerMode: 'none'
 })
+
+const homeStack = createStackNavigator({
+    CriarPostHome: CriarPostHome
+})
+
 
 //Config Menu
 
