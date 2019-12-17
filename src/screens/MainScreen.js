@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, FlatList, Picker, PermissionsAndroid, Alert, StatusBar } from 'react-native';
+import { StyleSheet, FlatList, Picker, PermissionsAndroid, Alert, StatusBar, TouchableOpacity } from 'react-native';
 import { mapping, light as darkTheme } from '@eva-design/eva';
 import Ripple from 'react-native-material-ripple'
 import {
@@ -19,6 +19,7 @@ import { Container } from 'native-base';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { addPostTopico } from '../store/actions/topico';
 import CardCustom from './CardCustom'
+import { ThemeColors } from 'react-navigation';
 
 
 class MainScreen extends React.Component {
@@ -112,12 +113,19 @@ class MainScreen extends React.Component {
                 flexDirection: 'column',
                 backgroundColor: '#97BF04'
               }}>
+                <TouchableOpacity onPress={() => {this.props.navigation.openDrawer()}}
+                style={{
+                  marginTop: 10,
+                  marginLeft: 20
+                }}>
+                  <Icon name='menu-outline' width={32} height={32} fill='#fff'/>
+                </TouchableOpacity>
                 <Text category='h6' style={styles.title}>{this.state.tratamentoHora}</Text>
                 <Text category='h4' style={{
                   fontWeight: 'bold',
                   textAlign: 'left',
                   color: 'white',
-                  marginLeft: 30,
+                  marginLeft: 23,
                   fontSize: 35,
                   marginTop: 5,
                   lineHeight: 35
@@ -130,12 +138,15 @@ class MainScreen extends React.Component {
               }}>
                 <Avatar size='large'
                 source={require('../assets/brand-logo.png')}
-                onPress={() => {this.props.navigation.navigate('Profile')}}/>
+                onPress={() => {this.props.navigation.navigate('Profile')}}
+                style={{
+                  marginTop: 6
+                }}/>
                 <Text style={{
                   textAlign: 'center',
                   color: '#fff',
                   fontWeight: 'bold',
-                  marginTop: 5
+                  marginTop: 6
                 }}>Nível x</Text>
               </Layout>
             </Layout>
@@ -241,8 +252,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
       },
   title: {
-          marginTop: 40,
-        marginLeft: 30,
+        marginTop: 10,
+        marginLeft: 23,
         fontWeight: 'bold',
         textAlign: 'left',
         color: 'white',
